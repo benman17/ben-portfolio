@@ -136,60 +136,62 @@ predictions = model.transform(scaled_data)`,
     ]
   },
   {
-    slug: 'sales-intelligence-dashboard',
-    title: 'Sales Intelligence & Revenue Analytics',
-    subtitle: 'End-to-End SQL Data Pipeline & Executive Power BI Dashboard',
+    slug: 'tft-snowflake',
+    title: 'TFT Analytics & Snowflake Data Warehouse',
+    subtitle: 'SQL Dimensional Data Modeling & Snowflake Cloud Warehousing',
     category: 'analytics',
     categoryLabel: 'Data & Analytics',
     featured: true,
-    role: 'Lead Data Analyst',
-    timeline: '3 Months',
-    summary: 'Transformed 250k+ raw transactional records into an automated SQL & Python ETL pipeline, powering an executive dashboard that identified $340k in untapped regional sales opportunities.',
-    technologies: ['SQL', 'Python', 'Pandas', 'Power BI', 'ETL Pipelines', 'Data Modeling'],
-    githubUrl: 'https://github.com/benman17/sales-intelligence-analytics',
+    role: 'Data Engineer & Analytics Specialist',
+    timeline: '2 Months',
+    summary: 'Engineered a Snowflake cloud data warehouse and analytical SQL pipeline analyzing Teamfight Tactics (TFT) player performance, team composition synergies, and win-rate trends.',
+    technologies: ['Snowflake', 'SQL', 'Python', 'Data Warehousing', 'Dimensional Modeling', 'ETL Pipelines'],
+    githubUrl: 'https://github.com/benman17/tft-snowflake',
     metrics: [
-      { label: 'Revenue Growth Identified', value: '+14.2%', trend: 'up' },
-      { label: 'Records Processed', value: '250,000+' },
-      { label: 'ETL Processing Time', value: '-65%' }
+      { label: 'Data Warehouse', value: 'Snowflake Cloud' },
+      { label: 'Schema Model', value: 'Star Schema (Fact/Dim)' },
+      { label: 'Query Optimization', value: 'Custom CTEs' }
     ],
-    problem: 'Executive leadership lacked unified visibility into cross-channel sales trends, regional product performance, and customer churn drivers. Legacy spreadsheet reporting took 12+ hours weekly and had frequent data mismatches.',
+    problem: 'Competitive gaming data contains unstructured JSON payload streams across thousands of matches, making trend analysis and meta-composition evaluation difficult without relational modeling.',
     dataApproach: [
-      'Extracted raw multi-source transactional data from relational databases using complex SQL JOINs, CTEs, and Window functions.',
-      'Developed automated Python (Pandas/NumPy) data cleaning scripts to resolve duplicate orders, missing customer segments, and currency conversions.',
-      'Designed a Star Schema data model with Fact and Dimension tables in PostgreSQL optimized for analytical queries.',
-      'Built interactive DAX measures in Power BI for rolling 30-day revenue metrics, customer acquisition costs (CAC), and customer lifetime value (LTV).'
+      'Ingested match history and player trajectory data into staging tables within Snowflake.',
+      'Designed a Star Schema data model with Fact tables (Match Performance) and Dimension tables (Champions, Traits, Items).',
+      'Engineered complex SQL analytical queries using Window functions and aggregations to evaluate trait synergy win rates.',
+      'Optimized query performance using clustering keys and materialized views in Snowflake.'
     ],
-    solution: 'Engineered an automated end-to-end data pipeline and interactive BI dashboard featuring dynamic drill-downs by region, product category, and customer tier.',
+    solution: 'Designed an automated Snowflake analytical data warehouse translating raw match telemetry into relational insights on meta composition trends.',
     results: [
-      'Reduced weekly executive report generation time from 12 hours to instant automated refreshes.',
-      'Identified high-churn product categories, allowing marketing to optimize retargeting campaigns (+18% retention).',
-      'Uncovered $340,000 in under-serviced mid-market accounts.'
+      'Built production-ready Snowflake database architecture with automated staging-to-fact transformation.',
+      'Identified top-performing item and champion trait combinations across meta shifts.',
+      'Published open-source repository on GitHub at benman17/tft-snowflake.'
     ],
-    sqlSnippet: `WITH RegionalMetrics AS (
+    sqlSnippet: `-- Snowflake Analytical Query: Synergy Win Rates
+WITH TraitSynergies AS (
   SELECT 
-    r.region_name,
-    p.category,
-    SUM(f.sales_amount) AS total_revenue,
-    COUNT(DISTINCT f.customer_id) AS active_customers,
-    AVG(f.sales_amount) AS avg_order_value,
-    DENSE_RANK() OVER (PARTITION BY r.region_name ORDER BY SUM(f.sales_amount) DESC) as category_rank
-  FROM fact_sales f
-  JOIN dim_region r ON f.region_id = r.region_id
-  JOIN dim_product p ON f.product_id = p.product_id
-  WHERE f.order_date >= DATEADD(month, -6, CURRENT_DATE())
-  GROUP BY r.region_name, p.category
+    f.match_id,
+    d.trait_name,
+    d.tier_level,
+    f.placement,
+    CASE WHEN f.placement <= 4 THEN 1 ELSE 0 END AS top_4_finish
+  FROM fact_tft_match f
+  JOIN dim_tft_traits d ON f.trait_id = d.trait_id
+  WHERE f.game_version >= '14.1'
 )
-SELECT * FROM RegionalMetrics 
-WHERE category_rank <= 3
-ORDER BY total_revenue DESC;`,
+SELECT 
+  trait_name,
+  tier_level,
+  COUNT(match_id) AS total_games,
+  AVG(placement) AS avg_placement,
+  ROUND(SUM(top_4_finish) * 100.0 / COUNT(match_id), 2) AS top_4_rate_pct
+FROM TraitSynergies
+GROUP BY trait_name, tier_level
+HAVING COUNT(match_id) >= 50
+ORDER BY top_4_rate_pct DESC;`,
     chartData: [
-      { name: 'Jan', value1: 42000, value2: 38000 },
-      { name: 'Feb', value1: 51000, value2: 43000 },
-      { name: 'Mar', value1: 58000, value2: 47000 },
-      { name: 'Apr', value1: 63000, value2: 52000 },
-      { name: 'May', value1: 72000, value2: 58000 },
-      { name: 'Jun', value1: 89000, value2: 64000 },
-      { name: 'Jul', value1: 94000, value2: 71000 }
+      { name: 'Patch 14.1', value1: 72, value2: 65 },
+      { name: 'Patch 14.2', value1: 78, value2: 70 },
+      { name: 'Patch 14.3', value1: 85, value2: 76 },
+      { name: 'Patch 14.4', value1: 89, value2: 82 }
     ]
   },
   {
@@ -234,97 +236,6 @@ ORDER BY total_revenue DESC;`,
       { name: 'Sprint 3', value1: 35, value2: 35 },
       { name: 'Sprint 4', value1: 30, value2: 28 },
       { name: 'Delivery', value1: 0, value2: 0 }
-    ]
-  },
-  {
-    slug: 'supply-chain-inventory-analytics',
-    title: 'Supply Chain & Inventory Data Optimization Engine',
-    subtitle: 'Python ETL Pipeline & Stockout Forecasting Model',
-    category: 'analytics',
-    categoryLabel: 'Data & Analytics',
-    featured: true,
-    role: 'Data & Systems Analyst',
-    timeline: '2 Months',
-    summary: 'Analyzed inventory turnover rate across 14 distribution centers using Python and SQL to optimize safety stock thresholds, reducing inventory carrying costs by 15%.',
-    technologies: ['Python', 'SQL', 'Tableau', 'Demand Forecasting', 'Statistical Analysis', 'ETL'],
-    githubUrl: 'https://github.com/benman17/supply-chain-analytics',
-    metrics: [
-      { label: 'Stockout Rate Reduction', value: '-22%', trend: 'up' },
-      { label: 'Carrying Cost Savings', value: '15%' },
-      { label: 'Forecast Accuracy', value: '91.4%' }
-    ],
-    problem: 'Inaccurate manual forecasting caused frequent stockouts of high-demand items while over-stocking slow-moving SKUs, tying up critical capital.',
-    dataApproach: [
-      'Aggregated 3 years of historical SKU-level warehouse movements and lead time variances using Python (Pandas/SciPy).',
-      'Calculated dynamic Safety Stock levels based on standard deviation of daily demand and lead time uncertainty.',
-      'Created an interactive Tableau dashboard alerting inventory managers when stock dipped below calculated reorder points.'
-    ],
-    solution: 'Designed an automated inventory optimization engine combining statistical safety stock calculations with automated replenishment alerts.',
-    results: [
-      'Reduced stockouts on critical SKUs by 22% within 60 days of deployment.',
-      'Freed up $185,000 in working capital by liquidating excess safety stock of slow-moving inventory.'
-    ],
-    chartData: [
-      { name: 'Week 1', value1: 18, value2: 18 },
-      { name: 'Week 2', value1: 15, value2: 14 },
-      { name: 'Week 3', value1: 12, value2: 10 },
-      { name: 'Week 4', value1: 9, value2: 7 },
-      { name: 'Week 5', value1: 6, value2: 4 },
-      { name: 'Week 6', value1: 4, value2: 2 }
-    ]
-  },
-  {
-    slug: 'healthcare-patient-flow-analytics',
-    title: 'Healthcare Patient Flow & Capacity Analytics',
-    subtitle: 'Queueing Simulation & Operational Efficiency Analysis',
-    category: 'systems',
-    categoryLabel: 'Business Systems & Analytics',
-    featured: false,
-    role: 'Operations Data Analyst',
-    timeline: '6 Weeks',
-    summary: 'Analyzed emergency department queueing bottlenecks using Python discrete event simulation, proposing bed allocation schedules that cut patient wait times by 18 minutes.',
-    technologies: ['Python', 'SimPy', 'Data Visualization', 'Process Optimization', 'Tableau'],
-    githubUrl: 'https://github.com/benman17/patient-flow-analytics',
-    metrics: [
-      { label: 'Wait Time Reduction', value: '-18 min' },
-      { label: 'Bed Utilization Rate', value: '88%' }
-    ],
-    problem: 'Hospital emergency room peak-hour congestion resulted in elevated patient wait times and clinician fatigue.',
-    dataApproach: [
-      'Extracted arrival timestamp data and triage severity scores across 40,000 patient visits.',
-      'Built a discrete-event simulation model in Python to test bottleneck hypotheses under varying staffing levels.'
-    ],
-    solution: 'Recommended dynamic staffing shift adjustments and a fast-track triage queue for low-acuity patients.',
-    results: [
-      'Shortened average intake-to-physician wait times by 18 minutes.',
-      'Improved patient satisfaction metrics by 24% without increasing total headcount.'
-    ]
-  },
-  {
-    slug: 'enterprise-process-automation',
-    title: 'Enterprise Business Process Automation & Systems Mapping',
-    subtitle: 'BPMN Workflow Redesign & Requirements Specification',
-    category: 'project-management',
-    categoryLabel: 'Project Management & Systems',
-    featured: false,
-    role: 'Systems Analyst & Product Owner Delegate',
-    timeline: '2 Months',
-    summary: 'Documented AS-IS and TO-BE business processes for vendor procurement, translating business needs into detailed System Requirements Specifications (SRS) and Agile epics.',
-    technologies: ['BPMN 2.0', 'Business Analysis', 'Jira Epics', 'Requirements Engineering', 'Lucidchart'],
-    githubUrl: 'https://github.com/benman17/procurement-process-automation',
-    metrics: [
-      { label: 'Cycle Time Reduction', value: '-50%' },
-      { label: 'Process Bottlenecks Resolved', value: '4 Major' }
-    ],
-    problem: 'Manual procurement approval workflows across 5 departments delayed software vendor onboarding by an average of 21 business days.',
-    dataApproach: [
-      'Conducted interviews with 12 department heads to map AS-IS workflow bottlenecks in BPMN 2.0.',
-      'Designed TO-BE automated workflow specifications integrated with API-driven email approvals.'
-    ],
-    solution: 'Created comprehensive Functional Requirements Documents (FRD) and 18 prioritized Jira Epics for dev implementation.',
-    results: [
-      'Cut vendor onboarding cycle time from 21 days to 10 days.',
-      'Eliminated 100% of manual paper form handoffs across departments.'
     ]
   }
 ];
