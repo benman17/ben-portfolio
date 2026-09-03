@@ -18,6 +18,7 @@ import AnalyticsSandbox from '@/components/AnalyticsSandbox';
 import ScrumBoardWidget from '@/components/ScrumBoardWidget';
 import NflClusterWidget from '@/components/NflClusterWidget';
 import NorthstarDashboardWidget from '@/components/NorthstarDashboardWidget';
+import TftSnowflakeWidget from '@/components/TftSnowflakeWidget';
 
 export async function generateStaticParams() {
   return PROJECTS.map((project) => ({
@@ -112,11 +113,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <NorthstarDashboardWidget />
       ) : project.slug === 'nfl-clustering' ? (
         <NflClusterWidget />
-      ) : project.category === 'analytics' ? (
-        <AnalyticsSandbox />
+      ) : project.slug === 'tft-snowflake' ? (
+        <TftSnowflakeWidget />
       ) : project.category === 'project-management' ? (
         <ScrumBoardWidget />
-      ) : null}
+      ) : (
+        <AnalyticsSandbox />
+      )}
 
       {/* Deep-Dive Problem & Approach Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-6">

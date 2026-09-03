@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Project } from '@/data/projects';
 import { 
   ArrowUpRight, 
@@ -10,10 +11,16 @@ import {
   Workflow, 
   TrendingUp, 
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  Database,
+  Cpu,
+  Layers,
+  CheckCircle2,
+  GitBranch,
+  ShieldCheck,
+  Zap
 } from 'lucide-react';
 import { GithubIcon } from './icons/SocialIcons';
-import { ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 interface ProjectCardProps {
   project: Project;
@@ -30,8 +37,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <div className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 flex flex-col justify-between group relative overflow-hidden border border-slate-800/80">
-      {/* Top Category Badge & GitHub Link */}
       <div>
+        {/* Top Category Badge & GitHub/Live Link */}
         <div className="flex items-center justify-between gap-2 mb-4">
           <div className="flex items-center gap-2">
             <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold ${
@@ -77,36 +84,184 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <p className="text-xs font-mono text-slate-400 mb-4">{project.subtitle}</p>
 
         {/* Summary */}
-        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
           {project.summary}
         </p>
 
-        {/* Mini Chart Preview Widget if available */}
-        {project.chartData && (
-          <div className="h-24 w-full bg-slate-950/60 rounded-xl p-2 border border-slate-800/60 mb-6 relative overflow-hidden">
-            <div className="absolute top-2 left-3 text-[10px] font-mono text-slate-400 z-10 flex items-center gap-1">
-              <TrendingUp className="w-3 h-3 text-cyan-400" />
-              <span>LIVE METRICS PREVIEW</span>
+        {/* Tailored Bespoke Project Visualization Block */}
+        <div className="mb-6 rounded-xl bg-slate-950/80 p-3.5 border border-slate-800 space-y-2.5 overflow-hidden">
+          
+          {/* 1. Northstar Commerce Power BI Preview */}
+          {project.slug === 'northstar-commerce' && (
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between text-[10px] font-mono font-bold text-cyan-400">
+                <div className="flex items-center gap-1.5">
+                  <BarChart3 className="w-3.5 h-3.5" />
+                  <span>POWER BI EXECUTIVE MARGIN BREAKDOWN</span>
+                </div>
+                <span className="text-slate-500">PostgreSQL Audit Data</span>
+              </div>
+              
+              <div className="space-y-1.5 text-[11px]">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-300 font-medium">Accessories</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-emerald-400 h-full rounded-full" style={{ width: '88%' }}></div>
+                    </div>
+                    <span className="font-mono text-emerald-400 font-bold w-10 text-right">44.2%</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-300 font-medium">Apparel</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-cyan-400 h-full rounded-full" style={{ width: '83%' }}></div>
+                    </div>
+                    <span className="font-mono text-cyan-400 font-bold w-10 text-right">41.5%</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-300 font-medium">Electronics</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-amber-400 h-full rounded-full" style={{ width: '74%' }}></div>
+                    </div>
+                    <span className="font-mono text-amber-400 font-bold w-10 text-right">37.4%</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-400 font-medium">Unassigned Drag</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-rose-400 h-full rounded-full" style={{ width: '44%' }}></div>
+                    </div>
+                    <span className="font-mono text-rose-400 font-bold w-10 text-right">22.3%</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={project.chartData}>
-                <defs>
-                  <linearGradient id={`grad-${project.slug}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={project.category === 'analytics' ? '#38bdf8' : '#34d399'} stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor={project.category === 'analytics' ? '#38bdf8' : '#34d399'} stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <Area 
-                  type="monotone" 
-                  dataKey="value1" 
-                  stroke={project.category === 'analytics' ? '#38bdf8' : '#34d399'} 
-                  strokeWidth={2}
-                  fill={`url(#grad-${project.slug})`} 
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        )}
+          )}
+
+          {/* 2. NFL Clustering PySpark K-Means Tiers */}
+          {project.slug === 'nfl-clustering' && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-[10px] font-mono font-bold text-cyan-400">
+                <div className="flex items-center gap-1.5">
+                  <Cpu className="w-3.5 h-3.5" />
+                  <span>PYSPARK MLlib K-MEANS TIERS (k=4)</span>
+                </div>
+                <span className="text-slate-500">Colab Spark Model</span>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
+                <div className="p-2 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
+                  <span className="font-bold block">TIER 1: ELITE STUDS</span>
+                  <span className="text-slate-400 text-[9px]">Target Share &gt;25% • 18.5 PPG</span>
+                </div>
+                <div className="p-2 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+                  <span className="font-bold block">TIER 2: STARTERS</span>
+                  <span className="text-slate-400 text-[9px]">High Touch Volume • 13.2 PPG</span>
+                </div>
+                <div className="p-2 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-300">
+                  <span className="font-bold block">TIER 3: FLEX PLAYS</span>
+                  <span className="text-slate-400 text-[9px]">High Efficiency • 9.8 PPG</span>
+                </div>
+                <div className="p-2 rounded bg-slate-900 border border-slate-800 text-slate-400">
+                  <span className="font-bold block">TIER 4: DEPTH</span>
+                  <span className="text-slate-400 text-[9px]">Situational Usage • 5.4 PPG</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 3. TFT Snowflake Cloud Data Warehouse */}
+          {project.slug === 'tft-snowflake' && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-[10px] font-mono font-bold text-cyan-400">
+                <div className="flex items-center gap-1.5">
+                  <Database className="w-3.5 h-3.5" />
+                  <span>SNOWFLAKE DATA WAREHOUSE PIPELINE</span>
+                </div>
+                <span className="text-slate-500">Star Schema ETL</span>
+              </div>
+              
+              <div className="flex items-center justify-between text-[10px] font-mono gap-1 text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">Riot JSON API</span>
+                <span>➔</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">Snowflake Staging</span>
+                <span>➔</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">Star Schema</span>
+                <span>➔</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-emerald-400">Synergy CTEs</span>
+              </div>
+              <p className="text-[10px] text-slate-400 italic">
+                Evaluates champion trait synergies and placement rates across patch shifts.
+              </p>
+            </div>
+          )}
+
+          {/* 4. Woodland Manor Agile Scrum Framework */}
+          {project.slug === 'woodland-agile-redesign' && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-[10px] font-mono font-bold text-emerald-400">
+                <div className="flex items-center gap-1.5">
+                  <Kanban className="w-3.5 h-3.5" />
+                  <span>AGILE SCRUM SPRINT DELIVERY</span>
+                </div>
+                <span className="text-slate-500">4 Sprints • 8 Weeks</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
+                <div className="p-1.5 rounded bg-slate-900 border border-slate-800">
+                  <span className="text-slate-400 block">Avg Velocity:</span>
+                  <span className="font-bold text-emerald-400">42 Story Pts / Sprint</span>
+                </div>
+                <div className="p-1.5 rounded bg-slate-900 border border-slate-800">
+                  <span className="text-slate-400 block">P0/P1 Scope Delivered:</span>
+                  <span className="font-bold text-emerald-400">100% On-Time</span>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-1 text-[9px] font-mono">
+                <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Product Backlog</span>
+                <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Sprint Burndown</span>
+                <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">User Story Matrix</span>
+                <span className="px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">DoD</span>
+              </div>
+            </div>
+          )}
+
+          {/* 5. Interactive Portfolio & Systems Architecture */}
+          {project.slug === 'ben-portfolio-app' && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-[10px] font-mono font-bold text-indigo-400">
+                <div className="flex items-center gap-1.5">
+                  <Workflow className="w-3.5 h-3.5" />
+                  <span>NEXT.JS 16 APP ROUTER ARCHITECTURE</span>
+                </div>
+                <span className="text-slate-500">100% SSG</span>
+              </div>
+
+              <div className="flex items-center justify-between text-[10px] font-mono gap-1 text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-indigo-300">Next.js 16</span>
+                <span>➔</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-indigo-300">Tailwind v4</span>
+                <span>➔</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-indigo-300">Recharts</span>
+                <span>➔</span>
+                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">GitHub API</span>
+              </div>
+              <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                <span>⚡ Prerendered Load: &lt; 1.0s</span>
+                <span>🛡️ Type-Safe TypeScript</span>
+              </div>
+            </div>
+          )}
+
+        </div>
 
         {/* Key Metrics Counters Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">

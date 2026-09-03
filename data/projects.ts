@@ -23,7 +23,6 @@ export interface Project {
     velocity: string;
     keyArtifacts: string[];
   };
-  chartData?: { name: string; value1: number; value2: number }[];
 }
 
 export const PROJECTS: Project[] = [
@@ -79,14 +78,7 @@ SELECT
 FROM analytics.fact_order_items oi
 JOIN analytics.dim_orders o ON oi.order_id = o.order_id
 JOIN analytics.dim_customers c ON o.customer_id = c.customer_id
-JOIN analytics.dim_products p ON oi.product_id = p.product_id;`,
-    chartData: [
-      { name: 'Accessories', value1: 44.2, value2: 5.5 },
-      { name: 'Apparel', value1: 41.5, value2: 6.1 },
-      { name: 'Home Goods', value1: 39.8, value2: 4.8 },
-      { name: 'Electronics', value1: 37.4, value2: 7.3 },
-      { name: 'Unassigned', value1: 22.3, value2: 8.9 }
-    ]
+JOIN analytics.dim_products p ON oi.product_id = p.product_id;`
   },
   {
     slug: 'ben-portfolio-app',
@@ -130,13 +122,7 @@ export async function fetchGitHubRepos(username: string = 'benman17') {
     next: { revalidate: 3600 }
   });
   return res.json();
-}`,
-    chartData: [
-      { name: 'Core Engine', value1: 95, value2: 90 },
-      { name: 'Interactive Widgets', value1: 92, value2: 88 },
-      { name: 'API Services', value1: 89, value2: 85 },
-      { name: 'Responsive Styling', value1: 98, value2: 95 }
-    ]
+}`
   },
   {
     slug: 'nfl-clustering',
@@ -188,13 +174,7 @@ scaled_data = scaler.fit(df_features).transform(df_features)
 
 kmeans = KMeans(k=4, seed=42)
 model = kmeans.fit(scaled_data)
-predictions = model.transform(scaled_data)`,
-    chartData: [
-      { name: 'Tier 1 (Elite)', value1: 96, value2: 88 },
-      { name: 'Tier 2 (Core Starters)', value1: 82, value2: 74 },
-      { name: 'Tier 3 (Flex / Sleepers)', value1: 68, value2: 60 },
-      { name: 'Tier 4 (Depth)', value1: 52, value2: 45 }
-    ]
+predictions = model.transform(scaled_data)`
   },
   {
     slug: 'tft-snowflake',
@@ -247,13 +227,7 @@ SELECT
 FROM TraitSynergies
 GROUP BY trait_name, tier_level
 HAVING COUNT(match_id) >= 50
-ORDER BY top_4_rate_pct DESC;`,
-    chartData: [
-      { name: 'Patch 14.1', value1: 72, value2: 65 },
-      { name: 'Patch 14.2', value1: 78, value2: 70 },
-      { name: 'Patch 14.3', value1: 85, value2: 76 },
-      { name: 'Patch 14.4', value1: 89, value2: 82 }
-    ]
+ORDER BY top_4_rate_pct DESC;`
   },
   {
     slug: 'woodland-agile-redesign',
@@ -290,14 +264,7 @@ ORDER BY top_4_rate_pct DESC;`,
       teamSize: '6 Members (Devs, Designers, BA)',
       velocity: '42 Story Points / Sprint Avg',
       keyArtifacts: ['Product Backlog', 'Sprint Burndown', 'User Story Mapping Matrix', 'Definition of Done (DoD)']
-    },
-    chartData: [
-      { name: 'Sprint 1', value1: 45, value2: 42 },
-      { name: 'Sprint 2', value1: 40, value2: 38 },
-      { name: 'Sprint 3', value1: 35, value2: 35 },
-      { name: 'Sprint 4', value1: 30, value2: 28 },
-      { name: 'Delivery', value1: 0, value2: 0 }
-    ]
+    }
   }
 ];
 
