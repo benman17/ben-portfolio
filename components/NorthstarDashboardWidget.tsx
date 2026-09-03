@@ -119,13 +119,13 @@ export default function NorthstarDashboardWidget() {
           </div>
 
           {isFullscreen && (
-            <div className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md p-4 sm:p-10 flex flex-col items-center justify-center overflow-auto">
+            <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md p-4 sm:p-10 flex flex-col items-center justify-center overflow-auto animate-scaleUpPan">
               <div className="max-w-6xl w-full space-y-4">
                 <div className="flex items-center justify-between">
                   <h4 className="text-lg font-bold text-white font-mono">Executive Command Center (Full View)</h4>
                   <button
                     onClick={() => setIsFullscreen(false)}
-                    className="px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-mono font-bold text-xs hover:bg-cyan-400 transition-all"
+                    className="px-4 py-2 rounded-xl bg-white text-black font-mono font-bold text-xs hover:bg-neutral-200 transition-all shadow-md"
                   >
                     CLOSE PREVIEW ✕
                   </button>
@@ -135,7 +135,7 @@ export default function NorthstarDashboardWidget() {
                   alt="Northstar Commerce Power BI Executive Command Center Full View"
                   width={1920}
                   height={1080}
-                  className="w-full h-auto rounded-2xl border border-slate-800 shadow-2xl"
+                  className="w-full h-auto rounded-2xl border border-white/20 shadow-2xl"
                 />
               </div>
             </div>

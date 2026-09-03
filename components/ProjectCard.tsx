@@ -9,16 +9,10 @@ import {
   BarChart3, 
   Kanban, 
   Workflow, 
-  TrendingUp, 
   ExternalLink,
   ChevronRight,
   Database,
-  Cpu,
-  Layers,
-  CheckCircle2,
-  GitBranch,
-  ShieldCheck,
-  Zap
+  Cpu
 } from 'lucide-react';
 import { GithubIcon } from './icons/SocialIcons';
 
@@ -36,7 +30,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const CategoryIcon = categoryIcon || BarChart3;
 
   return (
-    <div className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 flex flex-col justify-between group relative overflow-hidden border border-slate-800/80">
+    <div className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 flex flex-col justify-between group relative overflow-hidden border border-white/15 shadow-xl transition-all duration-300">
+      
+      {/* Corner Geometric Reticle Accent */}
+      <div className="absolute top-2 left-2 text-white/20 text-[9px] font-mono pointer-events-none">+</div>
+      <div className="absolute top-2 right-2 text-white/20 text-[9px] font-mono pointer-events-none">+</div>
+      <div className="absolute bottom-2 left-2 text-white/20 text-[9px] font-mono pointer-events-none">+</div>
+      <div className="absolute bottom-2 right-2 text-white/20 text-[9px] font-mono pointer-events-none">+</div>
+
       <div>
         {/* Top Category Badge & GitHub/Live Link */}
         <div className="flex items-center justify-between gap-2 mb-4">
@@ -58,7 +59,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 hover:border-emerald-500/50 transition-colors flex items-center gap-1.5 text-xs font-semibold"
+              className="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:text-emerald-300 hover:border-emerald-500/50 transition-colors flex items-center gap-1.5 text-xs font-semibold font-mono"
               title="Visit Live Site"
             >
               <span>Live Site</span>
@@ -69,7 +70,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-colors"
+              className="p-2 rounded-lg bg-black border border-white/15 text-neutral-400 hover:text-white hover:border-white/30 transition-colors"
               title="View Source on GitHub"
             >
               <GithubIcon className="w-4 h-4 text-cyan-400" />
@@ -81,15 +82,15 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <h3 className="text-xl font-extrabold text-white group-hover:text-cyan-300 transition-colors tracking-tight mb-1">
           {project.title}
         </h3>
-        <p className="text-xs font-mono text-slate-400 mb-4">{project.subtitle}</p>
+        <p className="text-xs font-mono text-neutral-400 mb-4">{project.subtitle}</p>
 
         {/* Summary */}
-        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+        <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed mb-5">
           {project.summary}
         </p>
 
         {/* Tailored Bespoke Project Visualization Block */}
-        <div className="mb-6 rounded-xl bg-slate-950/80 p-3.5 border border-slate-800 space-y-2.5 overflow-hidden">
+        <div className="mb-6 rounded-xl bg-black p-3.5 border border-white/10 space-y-2.5 overflow-hidden">
           
           {/* 1. Northstar Commerce Power BI Preview */}
           {project.slug === 'northstar-commerce' && (
@@ -99,14 +100,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   <BarChart3 className="w-3.5 h-3.5" />
                   <span>POWER BI EXECUTIVE MARGIN BREAKDOWN</span>
                 </div>
-                <span className="text-slate-500">PostgreSQL Audit Data</span>
+                <span className="text-neutral-500">PostgreSQL Audit Data</span>
               </div>
               
               <div className="space-y-1.5 text-[11px]">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-300 font-medium">Accessories</span>
+                  <span className="text-neutral-300 font-medium font-mono">Accessories</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                    <div className="w-24 bg-neutral-900 rounded-full h-1.5 overflow-hidden">
                       <div className="bg-emerald-400 h-full rounded-full" style={{ width: '88%' }}></div>
                     </div>
                     <span className="font-mono text-emerald-400 font-bold w-10 text-right">44.2%</span>
@@ -114,9 +115,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-300 font-medium">Apparel</span>
+                  <span className="text-neutral-300 font-medium font-mono">Apparel</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                    <div className="w-24 bg-neutral-900 rounded-full h-1.5 overflow-hidden">
                       <div className="bg-cyan-400 h-full rounded-full" style={{ width: '83%' }}></div>
                     </div>
                     <span className="font-mono text-cyan-400 font-bold w-10 text-right">41.5%</span>
@@ -124,9 +125,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-300 font-medium">Electronics</span>
+                  <span className="text-neutral-300 font-medium font-mono">Electronics</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                    <div className="w-24 bg-neutral-900 rounded-full h-1.5 overflow-hidden">
                       <div className="bg-amber-400 h-full rounded-full" style={{ width: '74%' }}></div>
                     </div>
                     <span className="font-mono text-amber-400 font-bold w-10 text-right">37.4%</span>
@@ -134,9 +135,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400 font-medium">Unassigned Drag</span>
+                  <span className="text-neutral-400 font-medium font-mono">Unassigned Drag</span>
                   <div className="flex items-center gap-2">
-                    <div className="w-24 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                    <div className="w-24 bg-neutral-900 rounded-full h-1.5 overflow-hidden">
                       <div className="bg-rose-400 h-full rounded-full" style={{ width: '44%' }}></div>
                     </div>
                     <span className="font-mono text-rose-400 font-bold w-10 text-right">22.3%</span>
@@ -154,25 +155,25 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   <Cpu className="w-3.5 h-3.5" />
                   <span>PYSPARK MLlib K-MEANS TIERS (k=4)</span>
                 </div>
-                <span className="text-slate-500">Colab Spark Model</span>
+                <span className="text-neutral-500">Colab Spark Model</span>
               </div>
               
               <div className="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
                 <div className="p-2 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
                   <span className="font-bold block">TIER 1: ELITE STUDS</span>
-                  <span className="text-slate-400 text-[9px]">Target Share &gt;25% • 18.5 PPG</span>
+                  <span className="text-neutral-400 text-[9px]">Target Share &gt;25% • 18.5 PPG</span>
                 </div>
                 <div className="p-2 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
                   <span className="font-bold block">TIER 2: STARTERS</span>
-                  <span className="text-slate-400 text-[9px]">High Touch Volume • 13.2 PPG</span>
+                  <span className="text-neutral-400 text-[9px]">High Touch Volume • 13.2 PPG</span>
                 </div>
                 <div className="p-2 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-300">
                   <span className="font-bold block">TIER 3: FLEX PLAYS</span>
-                  <span className="text-slate-400 text-[9px]">High Efficiency • 9.8 PPG</span>
+                  <span className="text-neutral-400 text-[9px]">High Efficiency • 9.8 PPG</span>
                 </div>
-                <div className="p-2 rounded bg-slate-900 border border-slate-800 text-slate-400">
+                <div className="p-2 rounded bg-neutral-900 border border-neutral-800 text-neutral-400">
                   <span className="font-bold block">TIER 4: DEPTH</span>
-                  <span className="text-slate-400 text-[9px]">Situational Usage • 5.4 PPG</span>
+                  <span className="text-neutral-400 text-[9px]">Situational Usage • 5.4 PPG</span>
                 </div>
               </div>
             </div>
@@ -186,19 +187,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   <Database className="w-3.5 h-3.5" />
                   <span>SNOWFLAKE DATA WAREHOUSE PIPELINE</span>
                 </div>
-                <span className="text-slate-500">Star Schema ETL</span>
+                <span className="text-neutral-500">Star Schema ETL</span>
               </div>
               
-              <div className="flex items-center justify-between text-[10px] font-mono gap-1 text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">Riot JSON API</span>
+              <div className="flex items-center justify-between text-[10px] font-mono gap-1 text-neutral-300 bg-neutral-900/80 p-2 rounded border border-white/10">
+                <span className="px-1.5 py-0.5 rounded bg-black text-cyan-400 border border-white/10">Riot JSON API</span>
                 <span>➔</span>
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">Snowflake Staging</span>
+                <span className="px-1.5 py-0.5 rounded bg-black text-cyan-400 border border-white/10">Snowflake Staging</span>
                 <span>➔</span>
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">Star Schema</span>
+                <span className="px-1.5 py-0.5 rounded bg-black text-cyan-400 border border-white/10">Star Schema</span>
                 <span>➔</span>
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-emerald-400">Synergy CTEs</span>
+                <span className="px-1.5 py-0.5 rounded bg-black text-emerald-400 border border-white/10">Synergy CTEs</span>
               </div>
-              <p className="text-[10px] text-slate-400 italic">
+              <p className="text-[10px] text-neutral-400 font-mono italic">
                 Evaluates champion trait synergies and placement rates across patch shifts.
               </p>
             </div>
@@ -212,16 +213,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   <Kanban className="w-3.5 h-3.5" />
                   <span>AGILE SCRUM SPRINT DELIVERY</span>
                 </div>
-                <span className="text-slate-500">4 Sprints • 8 Weeks</span>
+                <span className="text-neutral-500">4 Sprints • 8 Weeks</span>
               </div>
 
               <div className="grid grid-cols-2 gap-1.5 text-[10px] font-mono">
-                <div className="p-1.5 rounded bg-slate-900 border border-slate-800">
-                  <span className="text-slate-400 block">Avg Velocity:</span>
+                <div className="p-1.5 rounded bg-neutral-900 border border-white/10">
+                  <span className="text-neutral-400 block">Avg Velocity:</span>
                   <span className="font-bold text-emerald-400">42 Story Pts / Sprint</span>
                 </div>
-                <div className="p-1.5 rounded bg-slate-900 border border-slate-800">
-                  <span className="text-slate-400 block">P0/P1 Scope Delivered:</span>
+                <div className="p-1.5 rounded bg-neutral-900 border border-white/10">
+                  <span className="text-neutral-400 block">P0/P1 Scope Delivered:</span>
                   <span className="font-bold text-emerald-400">100% On-Time</span>
                 </div>
               </div>
@@ -242,19 +243,19 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   <Workflow className="w-3.5 h-3.5" />
                   <span>NEXT.JS 16 APP ROUTER ARCHITECTURE</span>
                 </div>
-                <span className="text-slate-500">100% SSG</span>
+                <span className="text-neutral-500">100% SSG</span>
               </div>
 
-              <div className="flex items-center justify-between text-[10px] font-mono gap-1 text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-indigo-300">Next.js 16</span>
+              <div className="flex items-center justify-between text-[10px] font-mono gap-1 text-neutral-300 bg-neutral-900/80 p-2 rounded border border-white/10">
+                <span className="px-1.5 py-0.5 rounded bg-black text-indigo-300 border border-white/10">Next.js 16</span>
                 <span>➔</span>
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-indigo-300">Tailwind v4</span>
+                <span className="px-1.5 py-0.5 rounded bg-black text-indigo-300 border border-white/10">Tailwind v4</span>
                 <span>➔</span>
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-indigo-300">Recharts</span>
+                <span className="px-1.5 py-0.5 rounded bg-black text-indigo-300 border border-white/10">Recharts</span>
                 <span>➔</span>
-                <span className="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400">GitHub API</span>
+                <span className="px-1.5 py-0.5 rounded bg-black text-cyan-400 border border-white/10">GitHub API</span>
               </div>
-              <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+              <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400">
                 <span>⚡ Prerendered Load: &lt; 1.0s</span>
                 <span>🛡️ Type-Safe TypeScript</span>
               </div>
@@ -266,11 +267,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Key Metrics Counters Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-6">
           {project.metrics.map((metric) => (
-            <div key={metric.label} className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-              <span className="text-[10px] font-mono text-slate-400 uppercase block truncate">
+            <div key={metric.label} className="p-2.5 rounded-xl bg-black border border-white/10">
+              <span className="text-[10px] font-mono text-neutral-400 uppercase block truncate">
                 {metric.label}
               </span>
-              <span className="text-sm font-bold font-mono text-slate-100 block">
+              <span className="text-sm font-bold font-mono text-white block">
                 {metric.value}
               </span>
             </div>
@@ -282,13 +283,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           {project.technologies.slice(0, 5).map((tech) => (
             <span
               key={tech}
-              className="px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-300"
+              className="px-2.5 py-1 rounded-md bg-black border border-white/15 text-[11px] font-mono font-medium text-neutral-300"
             >
               {tech}
             </span>
           ))}
           {project.technologies.length > 5 && (
-            <span className="px-2 py-1 rounded-md bg-slate-900 text-[11px] font-mono text-slate-500">
+            <span className="px-2 py-1 rounded-md bg-neutral-900 border border-white/10 text-[11px] font-mono text-neutral-400">
               +{project.technologies.length - 5}
             </span>
           )}
@@ -296,10 +297,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Card Footer Actions */}
-      <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+      <div className="pt-4 border-t border-white/10 flex items-center justify-between">
         <Link
           href={`/projects/${project.slug}`}
-          className="inline-flex items-center gap-2 text-xs font-bold text-slate-950 bg-cyan-400 hover:bg-cyan-300 px-4 py-2 rounded-xl transition-all shadow-md"
+          className="inline-flex items-center gap-2 text-xs font-mono font-bold text-black bg-white hover:bg-neutral-200 px-4 py-2 rounded-xl transition-all shadow-md active:scale-95"
         >
           <span>Explore Case Study</span>
           <ChevronRight className="w-4 h-4" />
@@ -310,7 +311,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-emerald-400 hover:text-emerald-300 transition-colors"
           >
             <span>Live Website</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -320,7 +321,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-slate-200 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-neutral-400 hover:text-neutral-200 transition-colors"
           >
             <span>GitHub</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
