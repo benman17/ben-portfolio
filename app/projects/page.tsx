@@ -25,9 +25,9 @@ export default function ProjectsPage() {
       {/* Editorial Header */}
       <div className="space-y-3 border-b border-[#1a1a20] pb-10">
         <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
-          01 / COMPLETE PORTFOLIO INDEX
+          COMPLETE PORTFOLIO INDEX
         </div>
-        <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight font-sans">
+        <h1 className="text-4xl sm:text-6xl font-extrabold text-[#ffffff] tracking-tight font-sans">
           All Interactive Case Studies
         </h1>
         <p className="text-sm sm:text-base text-[#8a8a8a] max-w-3xl leading-relaxed font-sans font-normal pt-1">

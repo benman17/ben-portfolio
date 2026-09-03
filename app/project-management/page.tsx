@@ -14,7 +14,7 @@ export default function ProjectManagementPage() {
       {/* Editorial Header */}
       <div className="space-y-3 border-b border-[#1a1a20] pb-10">
         <div className="text-xs text-[#34d399] font-bold tracking-widest uppercase">
-          01 / AGILE & SCRUM LEADERSHIP
+          AGILE & SCRUM LEADERSHIP
         </div>
         <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight font-sans">
           Agile Delivery & Scrum Management
@@ -27,21 +27,21 @@ export default function ProjectManagementPage() {
       {/* Agile Pillars Matrix */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="p-6 bg-[#08080c] border border-[#1a1a20]">
-          <div className="text-xs font-bold text-[#34d399] uppercase tracking-wider mb-2">01 / SPRINT CEREMONIES</div>
+          <div className="text-xs font-bold text-[#34d399] uppercase tracking-wider mb-2">SPRINT CEREMONIES</div>
           <p className="text-xs text-[#8a8a8a] leading-relaxed font-sans font-normal">
             Facilitating Daily Standups, Sprint Planning, Backlog Refinement, and Sprint Retrospectives that keep cross-functional engineering teams focused.
           </p>
         </div>
 
         <div className="p-6 bg-[#08080c] border border-[#1a1a20]">
-          <div className="text-xs font-bold text-white uppercase tracking-wider mb-2">02 / BACKLOG & USER STORIES</div>
+          <div className="text-xs font-bold text-white uppercase tracking-wider mb-2">BACKLOG & USER STORIES</div>
           <p className="text-xs text-[#8a8a8a] leading-relaxed font-sans font-normal">
             Crafting INVEST-compliant User Stories with concrete Acceptance Criteria. Estimating story points using Planning Poker to stabilize sprint velocity.
           </p>
         </div>
 
         <div className="p-6 bg-[#08080c] border border-[#1a1a20]">
-          <div className="text-xs font-bold text-[#38bdf8] uppercase tracking-wider mb-2">03 / BLOCKER REMOVAL & SHIELDING</div>
+          <div className="text-xs font-bold text-[#38bdf8] uppercase tracking-wider mb-2">BLOCKER REMOVAL & SHIELDING</div>
           <p className="text-xs text-[#8a8a8a] leading-relaxed font-sans font-normal">
             Proactively identifying technical dependencies, shielding engineering teams from scope creep, and maintaining transparent stakeholder alignment.
           </p>
@@ -50,13 +50,13 @@ export default function ProjectManagementPage() {
 
       {/* Interactive Scrum Board */}
       <div className="space-y-4 pt-4 border-t border-[#1a1a20]">
-        <div className="text-xs font-bold text-[#34d399] tracking-wider uppercase">02 / SPRINT KANBAN SIMULATOR</div>
+        <div className="text-xs font-bold text-[#34d399] tracking-wider uppercase">SPRINT KANBAN SIMULATOR</div>
         <ScrumBoardWidget />
       </div>
 
       {/* Featured Scrum Projects */}
       <div className="space-y-8 pt-6 border-t border-[#1a1a20]">
-        <div className="text-xs font-bold text-white tracking-wider uppercase">03 / SCRUM CASE STUDIES</div>
+        <div className="text-xs font-bold text-white tracking-wider uppercase">SCRUM CASE STUDIES</div>
         <div className="space-y-12">
           {pmProjects.map((project, idx) => (
             <ProjectCard key={project.slug} project={project} index={idx} />

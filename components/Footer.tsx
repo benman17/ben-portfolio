@@ -63,22 +63,22 @@ export default function Footer() {
             <ul className="space-y-2.5 text-xs text-[#8a8a8a]">
               <li>
                 <Link href="/analytics" className="hover:text-white transition-colors">
-                  01 / DATA & ANALYTICAL PIPELINES
+                  DATA & ANALYTICAL PIPELINES
                 </Link>
               </li>
               <li>
                 <Link href="/project-management" className="hover:text-white transition-colors">
-                  02 / SCRUM MASTER & AGILE DELIVERY
+                  SCRUM MASTER & AGILE DELIVERY
                 </Link>
               </li>
               <li>
                 <Link href="/projects" className="hover:text-white transition-colors">
-                  03 / ALL CASE STUDIES
+                  ALL CASE STUDIES
                 </Link>
               </li>
               <li>
                 <Link href="/github" className="hover:text-white transition-colors">
-                  04 / GITHUB REPOS & SOURCE CODE
+                  GITHUB REPOS & SOURCE CODE
                 </Link>
               </li>
             </ul>

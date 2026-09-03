@@ -2,8 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { fetchGitHubRepos, GitHubRepo } from '@/lib/github';
-import { ExternalLink } from 'lucide-react';
-import { GithubIcon } from './icons/SocialIcons';
 
 export default function GitHubShowcase() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
@@ -35,7 +33,7 @@ export default function GitHubShowcase() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3 max-w-2xl text-left">
             <div className="text-xs font-bold text-[#38bdf8] uppercase tracking-widest">
-              04 / OPEN SOURCE CODE REPOSITORIES
+              OPEN SOURCE CODE REPOSITORIES
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-sans">
               Live GitHub Synchronization

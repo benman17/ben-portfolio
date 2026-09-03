@@ -39,14 +39,14 @@ export default function ProjectShowcase({ externalFilter, onFilterChange }: Proj
         
         {/* Editorial Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 border-b border-[#1a1a20] pb-8">
-          <div className="space-y-3 max-w-2xl text-left">
-            <div className="text-xs font-mono font-bold tracking-widest text-[#38bdf8] uppercase">
-              02 / SELECTED WORK
+          <div className="space-y-3 max-w-2xl text-left font-mono">
+            <div className="text-xs font-bold tracking-widest text-[#38bdf8] uppercase">
+              SELECTED WORK
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-sans">
               Featured Case Studies
             </h2>
-            <p className="text-[#8a8a8a] text-sm sm:text-base leading-relaxed font-normal">
+            <p className="text-[#8a8a8a] text-sm sm:text-base leading-relaxed font-sans font-normal">
               In-depth systems, data models, and project delivery frameworks demonstrating end-to-end analytical problem solving.
             </p>
           </div>

@@ -11,7 +11,7 @@ export default function GitHubPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1a1a20] pb-10">
         <div className="space-y-3 max-w-2xl">
           <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
-            01 / SOURCE CODE TRANSPARENCY
+            SOURCE CODE TRANSPARENCY
           </div>
           <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight font-sans">
             GitHub Repositories

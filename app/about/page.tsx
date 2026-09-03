@@ -2,17 +2,16 @@
 
 import React from 'react';
 import { PROFILE_INFO } from '@/data/skills';
-import { Mail, ArrowRight } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons';
+import { Mail } from 'lucide-react';
 
 export default function AboutPage() {
   return (
     <div className="pt-36 pb-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 text-left font-mono">
       
-      {/* 01 / ABOUT */}
+      {/* ABOUT HEADER */}
       <section className="space-y-6">
         <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
-          01 / ABOUT
+          ABOUT
         </div>
 
         <div className="space-y-3 border-b border-[#1a1a20] pb-8">
@@ -57,10 +56,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 02 / EDUCATION */}
+      {/* EDUCATION */}
       <section className="space-y-4 border-b border-[#1a1a20] pb-10">
         <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
-          02 / EDUCATION
+          EDUCATION
         </div>
 
         <div className="space-y-2">
@@ -76,10 +75,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 03 / CAPABILITIES MATRIX */}
+      {/* CAPABILITIES MATRIX */}
       <section className="space-y-6">
         <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
-          03 / CAPABILITIES & TECHNICAL DOMAINS
+          CAPABILITIES & TECHNICAL DOMAINS
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-2">
