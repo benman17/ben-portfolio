@@ -23,7 +23,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
   const router = useRouter();
   const [isExpanding, setIsExpanding] = useState(false);
 
-  // Derive stable sequential number (01, 02, 03, 04, 05) based on project index
+  // Derive stable sequential number (01, 02, 03, 04, 05) based on project position in PROJECTS
   const projectIndex = PROJECTS.findIndex((p) => p.slug === project.slug);
   const sequentialNum = index !== undefined ? index + 1 : (projectIndex >= 0 ? projectIndex + 1 : 1);
   const formattedNumber = String(sequentialNum).padStart(2, '0');
@@ -193,19 +193,19 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
   return (
     <article
-      className={`py-12 border-b border-[#1a1a20] transition-all duration-300 space-y-6 text-left font-mono ${
+      className={`py-12 border-b border-[#1a1a20] transition-all duration-300 space-y-8 text-left font-mono ${
         isExpanding ? 'scale-[1.02] opacity-90' : ''
       }`}
     >
-      {/* Top Header Index Number & Category */}
-      <div className="space-y-3">
+      {/* SECTION 1: TOP FULL-WIDTH HEADER (Index Number, Category & Project Title) */}
+      <div className="space-y-3 w-full">
         <div className="flex items-center justify-between text-xs text-[#8a8a8a]">
           <span className="text-white font-extrabold text-base tracking-widest">{formattedNumber}</span>
           <span className="uppercase tracking-widest text-[#38bdf8] font-bold">{project.categoryLabel}</span>
         </div>
 
-        {/* FULL-WIDTH HORIZONTAL PROJECT TITLE & SUBTITLE */}
-        <div className="space-y-1 pt-1">
+        {/* FULL-WIDTH HORIZONTAL TITLE & SUBTITLE */}
+        <div className="space-y-1 pt-1 w-full">
           <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight font-sans">
             {project.title}
           </h3>
@@ -213,74 +213,24 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* 2-Column Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-2">
+      {/* SECTION 2: MIDDLE 2-COLUMN GRID (Summary & Tech Stack on Left / Visual Preview on Right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start w-full">
         
-        {/* Left Column: Summary, Tech Stack, Metrics, Actions */}
+        {/* Left Column: Short Summary & Technology Stack */}
         <div className="lg:col-span-5 space-y-6">
-          
-          {/* Short Summary */}
           <p className="text-sm text-[#8a8a8a] leading-relaxed font-sans font-normal">
             {project.summary}
           </p>
 
-          {/* Technologies Line */}
-          <div className="pt-1">
-            <div className="text-[10px] font-mono text-[#8a8a8a] uppercase tracking-wider mb-1">TECHNOLOGY STACK</div>
+          <div className="pt-2 border-t border-[#1a1a20]/60">
+            <div className="text-[10px] font-mono text-[#8a8a8a] uppercase tracking-wider mb-1.5">TECHNOLOGY STACK</div>
             <div className="text-xs font-mono text-white tracking-wide leading-relaxed">
               {project.technologies.join(' · ')}
             </div>
           </div>
-
-          {/* Metrics Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-[#1a1a20]">
-            {project.metrics.map((m) => (
-              <div key={m.label} className="space-y-0.5">
-                <span className="text-[10px] font-mono text-[#8a8a8a] uppercase tracking-wider block truncate">
-                  {m.label}
-                </span>
-                <span className="text-sm font-bold font-mono text-white block">
-                  {m.value}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          {/* Action Buttons */}
-          <div className="pt-4 flex flex-wrap items-center gap-6 text-xs font-mono">
-            <button
-              onClick={handleExplore}
-              className="px-5 py-2.5 text-black bg-white font-bold hover:bg-neutral-200 transition-all flex items-center gap-2"
-            >
-              <span>EXPLORE CASE STUDY</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-
-            {project.liveUrl ? (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#34d399] hover:underline flex items-center gap-1 font-semibold"
-              >
-                <span>LIVE SITE</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            ) : project.githubUrl ? (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#8a8a8a] hover:text-white transition-colors"
-              >
-                GITHUB REPO ↗
-              </a>
-            ) : null}
-          </div>
-
         </div>
 
-        {/* Right Column: Visual Preview Graphics */}
+        {/* Right Column: Visual Preview Graphic */}
         <div 
           onClick={handleExplore}
           className="lg:col-span-7 cursor-pointer group transition-all duration-300"
@@ -288,7 +238,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="p-2 bg-[#08080c] border border-[#1a1a20] group-hover:border-[#38bdf8] transition-colors relative">
             <div className="text-[10px] font-mono text-[#8a8a8a] p-2 border-b border-[#1a1a20] flex items-center justify-between mb-2">
               <span>VISUAL ANALYSIS PREVIEW</span>
-              <span className="text-[#38bdf8] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+              <span className="text-[#38bdf8] group-hover:translate-x-1 transition-transform flex items-center gap-1 font-bold">
                 <span>ZOOM IN</span>
                 <Maximize2 className="w-3 h-3" />
               </span>
@@ -298,6 +248,61 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
 
       </div>
+
+      {/* SECTION 3: BOTTOM FULL-WIDTH HORIZONTAL METRICS & ACTIONS BAR */}
+      <div className="w-full pt-6 border-t border-[#1a1a20] space-y-6">
+        
+        {/* Horizontal Metrics Grid across full width */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 w-full">
+          {project.metrics.map((m) => (
+            <div key={m.label} className="space-y-1">
+              <span className="text-[10px] font-mono text-[#8a8a8a] uppercase tracking-wider block">
+                {m.label}
+              </span>
+              <span className="text-base sm:text-lg font-bold font-mono text-white block">
+                {m.value}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Full-Width Action Buttons Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#1a1a20]/60 w-full text-xs font-mono">
+          <button
+            onClick={handleExplore}
+            className="px-6 py-3 text-black bg-white font-bold hover:bg-neutral-200 transition-all flex items-center gap-2"
+          >
+            <span>EXPLORE CASE STUDY</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+
+          <div className="flex items-center gap-6">
+            {project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#34d399] hover:underline flex items-center gap-1 font-bold"
+              >
+                <span>LIVE WEBSITE ↗</span>
+              </a>
+            ) : null}
+
+            {project.githubUrl ? (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#8a8a8a] hover:text-white transition-colors font-bold"
+              >
+                GITHUB REPOSITORY ↗
+              </a>
+            ) : null}
+          </div>
+        </div>
+
+      </div>
+
     </article>
   );
 }
