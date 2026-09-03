@@ -4,13 +4,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Project } from '@/data/projects';
+import { PROJECTS, Project } from '@/data/projects';
 import { 
   ArrowRight, 
   ExternalLink, 
-  BarChart3, 
   Cpu, 
-  Database, 
   Kanban, 
   Workflow, 
   Maximize2 
@@ -21,11 +19,14 @@ interface ProjectCardProps {
   index?: number;
 }
 
-export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+export default function ProjectCard({ project, index }: ProjectCardProps) {
   const router = useRouter();
   const [isExpanding, setIsExpanding] = useState(false);
-  const isEven = index % 2 === 0;
-  const formattedNumber = String((index || 0) + 1).padStart(2, '0');
+
+  // Derive stable sequential number (01, 02, 03, 04, 05) based on project index
+  const projectIndex = PROJECTS.findIndex((p) => p.slug === project.slug);
+  const sequentialNum = index !== undefined ? index + 1 : (projectIndex >= 0 ? projectIndex + 1 : 1);
+  const formattedNumber = String(sequentialNum).padStart(2, '0');
 
   const handleExplore = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -192,30 +193,32 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
   return (
     <article
-      className={`py-12 border-b border-[#1a1a20] transition-all duration-300 ${
+      className={`py-12 border-b border-[#1a1a20] transition-all duration-300 space-y-6 text-left font-mono ${
         isExpanding ? 'scale-[1.02] opacity-90' : ''
       }`}
     >
       {/* Top Header Index Number & Category */}
-      <div className="flex items-center justify-between pb-6 text-xs font-mono text-[#8a8a8a]">
-        <span className="text-white font-bold text-sm tracking-widest">{formattedNumber}</span>
-        <span className="uppercase tracking-widest text-[#38bdf8]">{project.categoryLabel}</span>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between text-xs text-[#8a8a8a]">
+          <span className="text-white font-extrabold text-base tracking-widest">{formattedNumber}</span>
+          <span className="uppercase tracking-widest text-[#38bdf8] font-bold">{project.categoryLabel}</span>
+        </div>
+
+        {/* FULL-WIDTH HORIZONTAL PROJECT TITLE & SUBTITLE */}
+        <div className="space-y-1 pt-1">
+          <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight font-sans">
+            {project.title}
+          </h3>
+          <p className="text-xs sm:text-sm font-mono text-[#8a8a8a]">{project.subtitle}</p>
+        </div>
       </div>
 
-      {/* Asymmetric Spatial Layout Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      {/* 2-Column Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pt-2">
         
-        {/* Text Content Column */}
-        <div className={`lg:col-span-5 space-y-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+        {/* Left Column: Summary, Tech Stack, Metrics, Actions */}
+        <div className="lg:col-span-5 space-y-6">
           
-          {/* Title & Subtitle */}
-          <div className="space-y-2">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight font-sans">
-              {project.title}
-            </h3>
-            <p className="text-xs font-mono text-[#8a8a8a]">{project.subtitle}</p>
-          </div>
-
           {/* Short Summary */}
           <p className="text-sm text-[#8a8a8a] leading-relaxed font-sans font-normal">
             {project.summary}
@@ -224,7 +227,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           {/* Technologies Line */}
           <div className="pt-1">
             <div className="text-[10px] font-mono text-[#8a8a8a] uppercase tracking-wider mb-1">TECHNOLOGY STACK</div>
-            <div className="text-xs font-mono text-white tracking-wide">
+            <div className="text-xs font-mono text-white tracking-wide leading-relaxed">
               {project.technologies.join(' · ')}
             </div>
           </div>
@@ -244,7 +247,7 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-4 flex items-center gap-6 text-xs font-mono">
+          <div className="pt-4 flex flex-wrap items-center gap-6 text-xs font-mono">
             <button
               onClick={handleExplore}
               className="px-5 py-2.5 text-black bg-white font-bold hover:bg-neutral-200 transition-all flex items-center gap-2"
@@ -277,12 +280,10 @@ export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
         </div>
 
-        {/* Visual Preview Column */}
+        {/* Right Column: Visual Preview Graphics */}
         <div 
           onClick={handleExplore}
-          className={`lg:col-span-7 cursor-pointer group transition-all duration-300 ${
-            isEven ? 'lg:order-2' : 'lg:order-1'
-          }`}
+          className="lg:col-span-7 cursor-pointer group transition-all duration-300"
         >
           <div className="p-2 bg-[#08080c] border border-[#1a1a20] group-hover:border-[#38bdf8] transition-colors relative">
             <div className="text-[10px] font-mono text-[#8a8a8a] p-2 border-b border-[#1a1a20] flex items-center justify-between mb-2">
