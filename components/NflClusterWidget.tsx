@@ -12,7 +12,7 @@ import {
   Cell,
   Legend
 } from 'recharts';
-import { BarChart3, Cpu, Sparkles, Filter, Info, ShieldAlert } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 interface PlayerData {
   name: string;
@@ -74,26 +74,26 @@ export default function NflClusterWidget() {
   ];
 
   return (
-    <div className="glass-panel rounded-2xl p-6 sm:p-8 border border-slate-800 shadow-2xl space-y-6">
+    <div className="bg-[#08080c] border border-[#1a1a20] p-6 sm:p-8 space-y-6 font-mono">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800/80 pb-6 gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#1a1a20] pb-6 gap-4">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-1">
+          <div className="flex items-center gap-2 font-mono text-xs text-[#38bdf8] mb-1">
             <Cpu className="w-4 h-4" />
             <span>UNSUPERVISED MACHINE LEARNING (K-MEANS & PCA)</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
             NFL Player Archetype Cluster Explorer
           </h3>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-[#8a8a8a] mt-1">
             Interactive visualization of PCA Principal Components (Usage/Production vs Speed/Efficiency) mapping NFL player archetypes.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-slate-950 p-2 rounded-xl border border-slate-800 text-xs font-mono">
-          <span className="text-slate-400">Silhouette Score:</span>
-          <span className="text-emerald-400 font-bold">0.72 (k=4)</span>
+        <div className="flex items-center gap-2 bg-black p-2 border border-[#1a1a20] text-xs font-mono">
+          <span className="text-[#8a8a8a]">Silhouette Score:</span>
+          <span className="text-[#34d399] font-bold">0.72 (k=4)</span>
         </div>
       </div>
 
@@ -101,10 +101,10 @@ export default function NflClusterWidget() {
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setSelectedCluster('all')}
-          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+          className={`px-3.5 py-1.5 text-xs font-bold transition-all border ${
             selectedCluster === 'all'
-              ? 'bg-slate-800 text-cyan-400 border border-cyan-500/40 shadow-sm'
-              : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white'
+              ? 'border-white text-white bg-white/10'
+              : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
           }`}
         >
           All 4 Archetype Clusters
@@ -114,26 +114,26 @@ export default function NflClusterWidget() {
           <button
             key={c.id}
             onClick={() => setSelectedCluster(c.id)}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 ${
+            className={`px-3.5 py-1.5 text-xs font-semibold transition-all border flex items-center gap-2 ${
               selectedCluster === c.id
-                ? 'bg-slate-800 text-white border shadow-md'
-                : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white'
+                ? 'text-white bg-white/10 font-bold'
+                : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
             }`}
             style={{
-              borderColor: selectedCluster === c.id ? c.color : 'transparent'
+              borderColor: selectedCluster === c.id ? c.color : undefined
             }}
           >
-            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: c.color }} />
+            <span className="w-2 h-2" style={{ backgroundColor: c.color }} />
             <span>{c.name}</span>
           </button>
         ))}
       </div>
 
       {/* Scatter Plot Chart */}
-      <div className="bg-slate-950/80 rounded-xl p-4 border border-slate-800 relative">
-        <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
-          <span>Y-AXIS: <strong className="text-cyan-400">SPEED & EFFICIENCY SCORE</strong></span>
-          <span>X-AXIS: <strong className="text-cyan-400">USAGE & PRODUCTION SCORE</strong></span>
+      <div className="bg-black p-4 border border-[#1a1a20] relative">
+        <div className="flex items-center justify-between text-xs font-mono text-[#8a8a8a] mb-2">
+          <span>Y-AXIS: <strong className="text-[#38bdf8]">SPEED & EFFICIENCY SCORE</strong></span>
+          <span>X-AXIS: <strong className="text-[#38bdf8]">USAGE & PRODUCTION SCORE</strong></span>
         </div>
 
         <div className="h-80 w-full">
@@ -159,20 +159,20 @@ export default function NflClusterWidget() {
               />
               <ZAxis range={[120, 120]} />
               <Tooltip 
-                cursor={{ strokeDasharray: '3 3', stroke: '#475569' }}
+                cursor={{ strokeDasharray: '3 3', stroke: '#1a1a20' }}
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     const data = payload[0].payload as PlayerData;
                     return (
-                      <div className="bg-slate-900 border border-slate-700 p-3 rounded-xl shadow-2xl text-xs space-y-1">
+                      <div className="bg-[#08080c] border border-[#2a2a35] p-3 text-xs space-y-1">
                         <div className="flex items-center justify-between gap-4 font-bold text-white">
                           <span>{data.name} ({data.position})</span>
-                          <span className="text-cyan-400 font-mono">{data.team}</span>
+                          <span className="text-[#38bdf8] font-mono">{data.team}</span>
                         </div>
-                        <div className="text-[11px] text-slate-400 font-mono">
+                        <div className="text-[11px] text-[#8a8a8a] font-mono">
                           Cluster: <strong style={{ color: CLUSTER_COLORS[data.clusterId] }}>{data.clusterName}</strong>
                         </div>
-                        <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-[10px] font-mono text-slate-300">
+                        <div className="grid grid-cols-3 gap-2 pt-2 border-t border-[#1a1a20] text-[10px] font-mono text-neutral-300">
                           <div>YAC: <strong className="text-white">{data.yac} yds</strong></div>
                           <div>ADOT: <strong className="text-white">{data.adot} yds</strong></div>
                           <div>Top Speed: <strong className="text-white">{data.speed} mph</strong></div>
@@ -188,7 +188,7 @@ export default function NflClusterWidget() {
                   <Cell 
                     key={`cell-${index}`} 
                     fill={CLUSTER_COLORS[entry.clusterId]} 
-                    stroke="#0f172a" 
+                    stroke="#050505" 
                     strokeWidth={2} 
                   />
                 ))}
@@ -204,17 +204,19 @@ export default function NflClusterWidget() {
           <div
             key={c.id}
             onClick={() => setSelectedCluster(c.id)}
-            className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
-              selectedCluster === c.id || selectedCluster === 'all'
-                ? 'bg-slate-900/90 border-slate-800 hover:border-slate-700'
-                : 'bg-slate-950/40 border-slate-900 opacity-50'
+            className={`p-3.5 border transition-all cursor-pointer ${
+              selectedCluster === c.id
+                ? 'bg-[#08080c] border-white'
+                : selectedCluster === 'all'
+                ? 'bg-[#08080c] border-[#1a1a20] hover:border-white'
+                : 'bg-black border-[#1a1a20] opacity-40 hover:opacity-70'
             }`}
           >
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: c.color }} />
-              <h4 className="text-xs font-bold text-slate-100">{c.name}</h4>
+              <span className="w-2 h-2" style={{ backgroundColor: c.color }} />
+              <h4 className="text-xs font-bold text-white">{c.name}</h4>
             </div>
-            <p className="text-[11px] text-slate-400 leading-snug">{c.desc}</p>
+            <p className="text-[11px] text-[#8a8a8a] leading-snug">{c.desc}</p>
           </div>
         ))}
       </div>

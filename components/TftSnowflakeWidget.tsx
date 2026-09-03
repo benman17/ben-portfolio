@@ -5,9 +5,6 @@ import {
   Database, 
   Code, 
   Layers, 
-  Sparkles, 
-  CheckCircle2, 
-  Search, 
   Terminal,
   Zap
 } from 'lucide-react';
@@ -23,28 +20,28 @@ export default function TftSnowflakeWidget() {
   ];
 
   return (
-    <div className="glass-panel rounded-2xl border border-slate-800 p-6 space-y-6 overflow-hidden">
+    <div className="bg-[#08080c] border border-[#1a1a20] p-6 space-y-6 overflow-hidden font-mono">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1a1a20] pb-5">
         <div className="space-y-1">
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-400">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#38bdf8]">
             <Database className="w-4 h-4" />
             <span>CLOUD DATA WAREHOUSE & ANALYTICS PREVIEW</span>
           </div>
-          <h3 className="text-xl font-extrabold text-white tracking-tight">
+          <h3 className="text-xl font-extrabold text-white tracking-tight font-sans">
             Snowflake TFT Synergy Data Pipeline
           </h3>
         </div>
 
         {/* Tab Buttons */}
-        <div className="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800 self-start sm:self-auto">
+        <div className="flex items-center gap-1.5 bg-black p-1.5 border border-[#1a1a20] self-start sm:self-auto">
           <button
             onClick={() => setActiveTab('architecture')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-mono transition-all flex items-center gap-1.5 border ${
               activeTab === 'architecture'
-                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'border-white text-white bg-white/10 font-bold'
+                : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
             }`}
           >
             <Layers className="w-3.5 h-3.5" />
@@ -53,10 +50,10 @@ export default function TftSnowflakeWidget() {
 
           <button
             onClick={() => setActiveTab('sql')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-mono transition-all flex items-center gap-1.5 border ${
               activeTab === 'sql'
-                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'border-white text-white bg-white/10 font-bold'
+                : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
             }`}
           >
             <Code className="w-3.5 h-3.5" />
@@ -65,10 +62,10 @@ export default function TftSnowflakeWidget() {
 
           <button
             onClick={() => setActiveTab('synergies')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-mono transition-all flex items-center gap-1.5 border ${
               activeTab === 'synergies'
-                ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 shadow-sm'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'border-white text-white bg-white/10 font-bold'
+                : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
             }`}
           >
             <Zap className="w-3.5 h-3.5" />
@@ -81,8 +78,8 @@ export default function TftSnowflakeWidget() {
       {activeTab === 'architecture' && (
         <div className="space-y-4 animate-fadeIn">
           
-          <div className="bg-slate-950/90 p-5 rounded-xl border border-slate-800 space-y-4">
-            <h4 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
+          <div className="bg-black p-5 border border-[#1a1a20] space-y-4">
+            <h4 className="text-xs font-mono font-bold text-[#38bdf8] uppercase tracking-wider flex items-center gap-2">
               <Layers className="w-4 h-4" />
               <span>SNOWFLAKE STAR SCHEMA MODEL</span>
             </h4>
@@ -90,44 +87,44 @@ export default function TftSnowflakeWidget() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-mono">
               
               {/* Fact Table */}
-              <div className="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/30 space-y-2 md:col-span-1">
-                <span className="px-2 py-0.5 rounded bg-cyan-400 text-slate-950 font-bold text-[10px] inline-block">
+              <div className="p-4 bg-[#08080c] border border-[#1a1a20] space-y-2 md:col-span-1">
+                <span className="px-2 py-0.5 bg-white text-black font-mono font-bold text-[10px] inline-block">
                   FACT TABLE
                 </span>
                 <div className="text-white font-bold">fact_tft_match</div>
-                <div className="space-y-1 text-slate-300 text-[11px]">
-                  <div>• match_id <span className="text-slate-500">(FK)</span></div>
-                  <div>• player_id <span className="text-slate-500">(FK)</span></div>
-                  <div>• trait_id <span className="text-slate-500">(FK)</span></div>
-                  <div>• placement <span className="text-emerald-400">(Metric)</span></div>
+                <div className="space-y-1 text-neutral-300 text-[11px]">
+                  <div>• match_id <span className="text-[#8a8a8a]">(FK)</span></div>
+                  <div>• player_id <span className="text-[#8a8a8a]">(FK)</span></div>
+                  <div>• trait_id <span className="text-[#8a8a8a]">(FK)</span></div>
+                  <div>• placement <span className="text-[#34d399]">(Metric)</span></div>
                   <div>• game_version</div>
                 </div>
               </div>
 
               {/* Dim Tables */}
               <div className="space-y-2 md:col-span-2">
-                <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-                  <div className="flex items-center justify-between text-cyan-300 font-bold">
+                <div className="p-3 bg-[#08080c] border border-[#1a1a20] space-y-1">
+                  <div className="flex items-center justify-between text-[#38bdf8] font-bold">
                     <span>dim_tft_traits</span>
-                    <span className="text-[10px] text-slate-500">1:* Relationship</span>
+                    <span className="text-[10px] text-[#8a8a8a]">1:* Relationship</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">Stores champion trait names, tier thresholds (2/4/6/8), and synergy bonuses.</p>
+                  <p className="text-[11px] text-[#8a8a8a]">Stores champion trait names, tier thresholds (2/4/6/8), and synergy bonuses.</p>
                 </div>
 
-                <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-                  <div className="flex items-center justify-between text-cyan-300 font-bold">
+                <div className="p-3 bg-[#08080c] border border-[#1a1a20] space-y-1">
+                  <div className="flex items-center justify-between text-[#38bdf8] font-bold">
                     <span>dim_tft_champions</span>
-                    <span className="text-[10px] text-slate-500">1:* Relationship</span>
+                    <span className="text-[10px] text-[#8a8a8a]">1:* Relationship</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">Stores champion gold costs, origins, classes, and base stats.</p>
+                  <p className="text-[11px] text-[#8a8a8a]">Stores champion gold costs, origins, classes, and base stats.</p>
                 </div>
 
-                <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
-                  <div className="flex items-center justify-between text-cyan-300 font-bold">
+                <div className="p-3 bg-[#08080c] border border-[#1a1a20] space-y-1">
+                  <div className="flex items-center justify-between text-[#38bdf8] font-bold">
                     <span>dim_tft_items</span>
-                    <span className="text-[10px] text-slate-500">1:* Relationship</span>
+                    <span className="text-[10px] text-[#8a8a8a]">1:* Relationship</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">Stores component item combinations, artifact modifiers, and radiant tier variants.</p>
+                  <p className="text-[11px] text-[#8a8a8a]">Stores component item combinations, artifact modifiers, and radiant tier variants.</p>
                 </div>
               </div>
 
@@ -140,15 +137,15 @@ export default function TftSnowflakeWidget() {
       {/* Tab 2: SQL CTE Query */}
       {activeTab === 'sql' && (
         <div className="space-y-3 animate-fadeIn">
-          <div className="flex items-center justify-between text-xs font-mono text-cyan-400">
+          <div className="flex items-center justify-between text-xs font-mono text-[#38bdf8]">
             <div className="flex items-center gap-2">
               <Terminal className="w-4 h-4" />
               <span>SNOWFLAKE SQL ANALYTICAL CTE QUERY</span>
             </div>
-            <span className="text-slate-500">Window Functions & Aggregations</span>
+            <span className="text-[#8a8a8a]">Window Functions & Aggregations</span>
           </div>
 
-          <pre className="font-mono text-xs text-slate-200 bg-slate-950 p-4 rounded-xl border border-slate-800 overflow-x-auto whitespace-pre leading-relaxed">
+          <pre className="font-mono text-xs text-white bg-black p-4 border border-[#1a1a20] overflow-x-auto whitespace-pre leading-relaxed">
 {`-- Snowflake Analytical Query: Trait Synergy Win Rates
 WITH TraitSynergies AS (
   SELECT 
@@ -178,28 +175,28 @@ ORDER BY top_4_rate_pct DESC;`}
       {/* Tab 3: Meta Win Rates */}
       {activeTab === 'synergies' && (
         <div className="space-y-4 animate-fadeIn">
-          <div className="bg-slate-950/90 p-5 rounded-xl border border-slate-800 space-y-4">
-            <h4 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider">
+          <div className="bg-black p-5 border border-[#1a1a20] space-y-4">
+            <h4 className="text-xs font-mono font-bold text-[#38bdf8] uppercase tracking-wider">
               REAL META SYNERGY WIN RATES (PATCH 14.1 - 14.4)
             </h4>
 
             <div className="space-y-2.5">
               {metaSynergies.map((s) => (
-                <div key={s.trait} className="p-3 rounded-lg bg-slate-900/60 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                <div key={s.trait} className="p-3 bg-[#08080c] border border-[#1a1a20] flex items-center justify-between text-xs font-mono">
                   <div className="space-y-0.5">
-                    <span className="font-bold text-slate-100 block">{s.trait}</span>
-                    <span className="text-[10px] text-emerald-400">{s.tier}</span>
+                    <span className="font-bold text-white block">{s.trait}</span>
+                    <span className="text-[10px] text-[#34d399]">{s.tier}</span>
                   </div>
 
                   <div className="flex items-center gap-6">
                     <div>
-                      <span className="text-slate-500 text-[10px] block">Avg Place</span>
-                      <span className="text-cyan-300 font-bold">{s.avgPlacement}</span>
+                      <span className="text-[#8a8a8a] text-[10px] block">Avg Place</span>
+                      <span className="text-[#38bdf8] font-bold">{s.avgPlacement}</span>
                     </div>
 
                     <div>
-                      <span className="text-slate-500 text-[10px] block">Top-4 Rate</span>
-                      <span className="text-emerald-400 font-bold">{s.patch14_4}</span>
+                      <span className="text-[#8a8a8a] text-[10px] block">Top-4 Rate</span>
+                      <span className="text-[#34d399] font-bold">{s.patch14_4}</span>
                     </div>
                   </div>
                 </div>

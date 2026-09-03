@@ -11,7 +11,7 @@ import {
   Tooltip, 
   CartesianGrid 
 } from 'recharts';
-import { BarChart3, Database, Filter, Code, Sparkles, RefreshCw } from 'lucide-react';
+import { BarChart3, Database, Code } from 'lucide-react';
 
 const SANDBOX_DATA: Record<string, { month: string; revenue: number; orders: number; churnRate: number }[]> = {
   All: [
@@ -63,33 +63,33 @@ GROUP BY 1
 ORDER BY 1 ASC;`;
 
   return (
-    <div className="glass-panel rounded-2xl p-6 sm:p-8 border border-slate-800 shadow-2xl space-y-6">
+    <div className="bg-[#08080c] border border-[#1a1a20] p-6 sm:p-8 space-y-6">
       
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800/80 pb-6 gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#1a1a20] pb-6 gap-4">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-cyan-400 mb-1">
+          <div className="flex items-center gap-2 font-mono text-xs text-[#38bdf8] mb-1">
             <BarChart3 className="w-4 h-4" />
             <span>INTERACTIVE EXECUTIVE DATA SANDBOX</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
             Revenue & Churn Intelligence Engine
           </h3>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-[#8a8a8a] mt-1">
             Test custom filters to view dynamic metrics visualization and auto-generated SQL analytics queries.
           </p>
         </div>
 
         {/* Segment Filter Pills */}
-        <div className="flex items-center gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 self-start sm:self-auto">
+        <div className="flex items-center gap-2 bg-black p-1.5 border border-[#1a1a20] self-start sm:self-auto">
           {(['All', 'Enterprise', 'MidMarket'] as const).map((seg) => (
             <button
               key={seg}
               onClick={() => setSegment(seg)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all ${
+              className={`px-3 py-1.5 text-xs font-mono font-semibold transition-all ${
                 segment === seg
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'border border-white text-white bg-white/10 font-bold'
+                  : 'border border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
               }`}
             >
               {seg}
@@ -102,30 +102,30 @@ ORDER BY 1 ASC;`;
       <div className="flex flex-wrap gap-2">
         <button
           onClick={() => setMetricView('revenue')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 text-xs font-mono font-bold transition-all ${
             metricView === 'revenue'
-              ? 'bg-slate-800 text-cyan-400 border border-cyan-500/40'
-              : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white'
+              ? 'bg-[#1a1a20] text-[#38bdf8] border border-[#38bdf8]/40'
+              : 'bg-[#08080c] text-[#8a8a8a] border border-[#1a1a20] hover:text-white hover:border-white'
           }`}
         >
           Revenue Trend ($)
         </button>
         <button
           onClick={() => setMetricView('orders')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 text-xs font-mono font-bold transition-all ${
             metricView === 'orders'
-              ? 'bg-slate-800 text-emerald-400 border border-emerald-500/40'
-              : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white'
+              ? 'bg-[#1a1a20] text-[#34d399] border border-[#34d399]/40'
+              : 'bg-[#08080c] text-[#8a8a8a] border border-[#1a1a20] hover:text-white hover:border-white'
           }`}
         >
           Total Orders Volume
         </button>
         <button
           onClick={() => setMetricView('churnRate')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+          className={`px-4 py-2 text-xs font-mono font-bold transition-all ${
             metricView === 'churnRate'
-              ? 'bg-slate-800 text-amber-400 border border-amber-500/40'
-              : 'bg-slate-900/60 text-slate-400 border border-slate-800 hover:text-white'
+              ? 'bg-[#1a1a20] text-amber-400 border border-amber-500/40'
+              : 'bg-[#08080c] text-[#8a8a8a] border border-[#1a1a20] hover:text-white hover:border-white'
           }`}
         >
           Customer Churn Rate (%)
@@ -136,25 +136,25 @@ ORDER BY 1 ASC;`;
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
         
         {/* Recharts Live Chart */}
-        <div className="lg:col-span-2 bg-slate-950/80 rounded-xl p-4 border border-slate-800 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-2">
+        <div className="lg:col-span-2 bg-black p-4 border border-[#1a1a20] flex flex-col justify-between">
+          <div className="flex items-center justify-between text-xs font-mono text-[#8a8a8a] mb-2">
             <span>METRIC: <strong className="text-white uppercase">{metricView}</strong></span>
-            <span>SEGMENT: <strong className="text-cyan-400 uppercase">{segment}</strong></span>
+            <span>SEGMENT: <strong className="text-[#38bdf8] uppercase">{segment}</strong></span>
           </div>
 
           <div className="h-64 w-full pt-2">
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="month" stroke="#64748b" tick={{ fontSize: 12 }} />
-                <YAxis stroke="#64748b" tick={{ fontSize: 12 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#1a1a20" />
+                <XAxis dataKey="month" stroke="#8a8a8a" tick={{ fontSize: 12 }} />
+                <YAxis stroke="#8a8a8a" tick={{ fontSize: 12 }} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', color: '#fff' }} 
+                  contentStyle={{ backgroundColor: '#050505', borderColor: '#1a1a20', borderRadius: '0px', color: '#fff' }} 
                 />
                 <Bar 
                   dataKey={metricView} 
                   fill={metricView === 'revenue' ? '#38bdf8' : metricView === 'orders' ? '#34d399' : '#fbbf24'} 
-                  radius={[6, 6, 0, 0]}
+                  radius={[0, 0, 0, 0]}
                   barSize={32}
                 />
                 <Line 
@@ -170,27 +170,27 @@ ORDER BY 1 ASC;`;
         </div>
 
         {/* Live SQL Preview */}
-        <div className="lg:col-span-1 bg-slate-950 rounded-xl p-4 border border-slate-800 flex flex-col justify-between">
+        <div className="lg:col-span-1 bg-black p-4 border border-[#1a1a20] flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between text-xs font-mono text-cyan-400 border-b border-slate-800 pb-2 mb-3">
+            <div className="flex items-center justify-between text-xs font-mono text-[#38bdf8] border-b border-[#1a1a20] pb-2 mb-3">
               <div className="flex items-center gap-1.5">
                 <Code className="w-3.5 h-3.5" />
                 <span>DYNAMIC SQL QUERY</span>
               </div>
-              <span className="text-[10px] text-slate-500">PostgreSQL</span>
+              <span className="text-[10px] text-[#8a8a8a]">PostgreSQL</span>
             </div>
 
-            <pre className="font-mono text-[11px] text-slate-300 bg-slate-900/80 p-3 rounded-lg border border-slate-800 overflow-x-auto whitespace-pre-wrap leading-relaxed">
+            <pre className="font-mono text-[11px] text-neutral-300 bg-[#08080c] p-3 border border-[#1a1a20] overflow-x-auto whitespace-pre-wrap leading-relaxed">
               {generatedSql}
             </pre>
           </div>
 
-          <div className="pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
-            <span className="flex items-center gap-1 text-emerald-400">
+          <div className="pt-3 border-t border-[#1a1a20] text-[11px] text-[#8a8a8a] flex items-center justify-between">
+            <span className="flex items-center gap-1 text-[#34d399]">
               <Database className="w-3 h-3" />
               <span>Query Latency: 14ms</span>
             </span>
-            <span className="font-mono text-slate-500">250k Fact Records</span>
+            <span className="font-mono text-[#8a8a8a]">250k Fact Records</span>
           </div>
         </div>
 
