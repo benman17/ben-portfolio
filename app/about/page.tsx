@@ -1,110 +1,184 @@
+'use client';
+
 import React from 'react';
-import { PROFILE_INFO, SKILL_CATEGORIES } from '@/data/skills';
-import { User, GraduationCap, CheckCircle2, Mail } from 'lucide-react';
+import { PROFILE_INFO } from '@/data/skills';
+import { Mail, ArrowRight } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/icons/SocialIcons';
 
 export default function AboutPage() {
   return (
-    <div className="pt-32 pb-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <div className="pt-36 pb-28 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 text-left font-mono">
       
-      {/* Header */}
-      <div className="space-y-4 border-b border-slate-800 pb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-semibold">
-          <User className="w-3.5 h-3.5" />
-          <span>ABOUT BEN MANGUIAT</span>
+      {/* 01 / ABOUT */}
+      <section className="space-y-6">
+        <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
+          01 / ABOUT
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Information Systems & Agile Analytics
-        </h1>
-        <p className="text-lg text-slate-300 max-w-3xl leading-relaxed">
-          {PROFILE_INFO.bio}
-        </p>
 
-        {/* Quick Social & Contact links */}
-        <div className="flex flex-wrap gap-4 pt-4">
-          <a
-            href={PROFILE_INFO.linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-400 font-medium text-xs transition-all"
-          >
-            <LinkedinIcon className="w-4 h-4 text-cyan-400" />
-            <span>LinkedIn Profile ↗</span>
-          </a>
-          <a
-            href={`https://github.com/${PROFILE_INFO.githubUsername}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-400 font-medium text-xs transition-all"
-          >
-            <GithubIcon className="w-4 h-4 text-cyan-400" />
-            <span>GitHub Profile ↗</span>
-          </a>
-          <a
-            href={`mailto:${PROFILE_INFO.email}`}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-cyan-400 text-slate-950 font-bold text-xs hover:bg-cyan-300 transition-all shadow-md"
-          >
-            <Mail className="w-4 h-4" />
-            <span>{PROFILE_INFO.email}</span>
-          </a>
-        </div>
-      </div>
+        <div className="space-y-3 border-b border-[#1a1a20] pb-8">
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight font-sans">
+            BEN MANGUIAT
+          </h1>
+          <p className="text-[#8a8a8a] text-sm tracking-wider uppercase">
+            Information Systems & Agile Analytics
+          </p>
+          <p className="text-base text-neutral-300 max-w-3xl leading-relaxed font-sans font-normal pt-2">
+            {PROFILE_INFO.bio}
+          </p>
 
-      {/* Education Box */}
-      <div className="glass-panel p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center">
-            <GraduationCap className="w-5 h-5" />
-          </div>
-          <div>
-            <h3 className="text-lg font-bold text-white">Education & Academic Focus</h3>
-            <p className="text-xs text-slate-400">Higher Education Degree</p>
+          {/* Quick Action Links */}
+          <div className="flex flex-wrap items-center gap-6 pt-4 text-xs font-mono">
+            <a
+              href={`mailto:${PROFILE_INFO.email}`}
+              className="px-4 py-2 text-black bg-white font-bold hover:bg-neutral-200 transition-all flex items-center gap-2"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              <span>{PROFILE_INFO.email}</span>
+            </a>
+
+            <a
+              href={PROFILE_INFO.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#8a8a8a] hover:text-white transition-colors"
+            >
+              LINKEDIN ↗
+            </a>
+
+            <a
+              href={`https://github.com/${PROFILE_INFO.githubUsername}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#8a8a8a] hover:text-white transition-colors"
+            >
+              GITHUB ↗
+            </a>
           </div>
         </div>
-        <div className="pt-2 space-y-2">
-          <h4 className="text-xl font-bold text-cyan-400">{PROFILE_INFO.education}</h4>
-          <p className="text-sm text-slate-300 max-w-3xl leading-relaxed">
-            Specialized coursework and practical project application in Database Design, Relational Data Modeling, Information Systems Strategy, Agile Software Development, Systems Analysis, and Data Mining.
+      </section>
+
+      {/* 02 / EDUCATION */}
+      <section className="space-y-4 border-b border-[#1a1a20] pb-10">
+        <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
+          02 / EDUCATION
+        </div>
+
+        <div className="space-y-2">
+          <h3 className="text-xl font-bold text-white font-sans">
+            {PROFILE_INFO.education}
+          </h3>
+          <p className="text-xs text-[#8a8a8a] uppercase tracking-wider">
+            Academic Focus & Applied Coursework
+          </p>
+          <p className="text-sm text-neutral-300 max-w-3xl leading-relaxed font-sans font-normal pt-1">
+            Database Architecture, Relational Data Modeling, Information Systems Strategy, Agile Software Development, Systems Analysis & Design, and Business Analytics Data Mining.
           </p>
         </div>
-      </div>
+      </section>
 
-      {/* Complete Skills Matrix */}
-      <div className="space-y-8">
-        <h2 className="text-2xl font-bold text-white tracking-tight">
-          Comprehensive Technical & Management Skills Matrix
-        </h2>
+      {/* 03 / CAPABILITIES MATRIX */}
+      <section className="space-y-6">
+        <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
+          03 / CAPABILITIES & TECHNICAL DOMAINS
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {SKILL_CATEGORIES.map((cat) => (
-            <div key={cat.title} className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
-              <h3 className="text-lg font-bold text-white">{cat.title}</h3>
-              <p className="text-xs text-slate-400">{cat.subtitle}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pt-2">
+          
+          {/* Column 1: DATA & ANALYTICS */}
+          <div className="space-y-6 p-6 bg-[#08080c] border border-[#1a1a20]">
+            <div className="border-b border-[#1a1a20] pb-3">
+              <span className="text-xs font-bold text-white uppercase tracking-wider block">
+                DATA & ANALYTICS
+              </span>
+            </div>
 
-              <div className="space-y-3 pt-2">
-                {cat.skills.map((skill) => (
-                  <div key={skill.name} className="space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className={skill.highlight ? 'font-semibold text-cyan-300' : 'text-slate-300'}>
-                        {skill.name}
-                      </span>
-                      <span className="font-mono text-[11px] text-slate-500">{skill.level}%</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
-                      <div
-                        className={`h-full rounded-full ${
-                          skill.highlight ? 'bg-gradient-to-r from-cyan-400 to-emerald-400' : 'bg-slate-700'
-                        }`}
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
+            <div className="space-y-4 text-xs">
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">SQL DATA PIPELINES</span>
+                <span className="text-white font-bold">PostgreSQL · MySQL · Snowflake</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">PYTHON DATA SCIENCE</span>
+                <span className="text-white font-bold">Pandas · NumPy · PySpark MLlib</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">BUSINESS INTELLIGENCE</span>
+                <span className="text-white font-bold">Power BI · Tableau · DAX Modeling</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">DATA ENGINEERING</span>
+                <span className="text-white font-bold">ETL · Star Schema · Data Quality Audit</span>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Column 2: SCRUM & MANAGEMENT */}
+          <div className="space-y-6 p-6 bg-[#08080c] border border-[#1a1a20]">
+            <div className="border-b border-[#1a1a20] pb-3">
+              <span className="text-xs font-bold text-[#34d399] uppercase tracking-wider block">
+                AGILE & SCRUM MANAGEMENT
+              </span>
+            </div>
+
+            <div className="space-y-4 text-xs">
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">AGILE FRAMEWORK</span>
+                <span className="text-white font-bold">Scrum Master · Sprint Ceremonies</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">BACKLOG & USER STORIES</span>
+                <span className="text-white font-bold">Product Backlog · User Story Mapping · DoD</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">STAKEHOLDER ALIGNMENT</span>
+                <span className="text-white font-bold">Requirement Grooming · Sprint Velocity</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">TOOLING</span>
+                <span className="text-white font-bold">Jira · Confluence · Planning Poker</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: BUSINESS SYSTEMS */}
+          <div className="space-y-6 p-6 bg-[#08080c] border border-[#1a1a20]">
+            <div className="border-b border-[#1a1a20] pb-3">
+              <span className="text-xs font-bold text-[#818cf8] uppercase tracking-wider block">
+                BUSINESS SYSTEMS & TECH
+              </span>
+            </div>
+
+            <div className="space-y-4 text-xs">
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">SYSTEMS ANALYSIS</span>
+                <span className="text-white font-bold">Requirements Gathering · Process Modeling</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">WEB APPLICATIONS</span>
+                <span className="text-white font-bold">Next.js 16 · React 19 · TypeScript</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">ARCHITECTURE</span>
+                <span className="text-white font-bold">REST APIs · Cloud Warehousing · Git</span>
+              </div>
+
+              <div>
+                <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">STYLING & COMPOSITION</span>
+                <span className="text-white font-bold">Tailwind CSS v4 · Responsive Design</span>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
+      </section>
 
     </div>
   );

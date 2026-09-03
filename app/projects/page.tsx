@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { PROJECTS } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
-import { Search, Briefcase, Filter } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,52 +20,51 @@ export default function ProjectsPage() {
   });
 
   return (
-    <div className="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <div className="pt-36 pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left font-mono">
       
-      {/* Header */}
-      <div className="max-w-3xl space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-semibold">
-          <Briefcase className="w-3.5 h-3.5" />
-          <span>PROJECT PORTFOLIO</span>
+      {/* Editorial Header */}
+      <div className="space-y-3 border-b border-[#1a1a20] pb-10">
+        <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
+          01 / COMPLETE PORTFOLIO INDEX
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-          All Case Studies & Systems Projects
+        <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight font-sans">
+          All Interactive Case Studies
         </h1>
-        <p className="text-slate-400 text-base">
-          Browse complete interactive project case studies spanning Data Analytics, SQL/Python ETL, Agile/Scrum project management, and Business Systems Analysis.
+        <p className="text-sm sm:text-base text-[#8a8a8a] max-w-3xl leading-relaxed font-sans font-normal pt-1">
+          Browse complete interactive project case studies spanning Data Analytics Pipelines, SQL/Python ETL, Agile/Scrum project delivery, and Business Systems Architecture.
         </p>
       </div>
 
-      {/* Controls Bar: Search + Category Filters */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 glass-panel p-4 rounded-2xl border border-slate-800">
+      {/* Minimalist Controls Bar */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-[#08080c] border border-[#1a1a20]">
         
         {/* Search Input */}
         <div className="relative w-full md:w-80">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#8a8a8a] absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Search tools, SQL, Python, Scrum..."
+            placeholder="SEARCH TOOLS, SQL, PYTHON..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+            className="w-full pl-9 pr-4 py-2 bg-black border border-[#1a1a20] text-xs text-white placeholder-[#8a8a8a] focus:outline-none focus:border-white transition-colors"
           />
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-2 w-full md:w-auto">
+        {/* Category Filters */}
+        <div className="flex flex-wrap gap-2 w-full md:w-auto text-xs">
           {[
-            { id: 'all', label: 'All Projects' },
-            { id: 'analytics', label: 'Data & Analytics' },
-            { id: 'project-management', label: 'Project Management & Scrum' },
-            { id: 'systems', label: 'Business Systems' }
+            { id: 'all', label: 'ALL PROJECTS' },
+            { id: 'analytics', label: 'DATA & ANALYTICS' },
+            { id: 'project-management', label: 'SCRUM / PM' },
+            { id: 'systems', label: 'BUSINESS SYSTEMS' }
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setSelectedCategory(tab.id as any)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-medium transition-all ${
+              className={`px-3 py-1.5 transition-all border ${
                 selectedCategory === tab.id
-                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                  ? 'border-white text-white bg-white/10 font-bold'
+                  : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
               }`}
             >
               {tab.label}
@@ -75,15 +74,15 @@ export default function ProjectsPage() {
 
       </div>
 
-      {/* Projects Grid */}
+      {/* Projects Single Column Editorial Layout */}
       {filteredProjects.length === 0 ? (
-        <div className="py-20 text-center glass-panel rounded-2xl border border-slate-800">
-          <p className="text-slate-400 text-sm">No projects matching your search criteria.</p>
+        <div className="py-20 text-center bg-[#08080c] border border-[#1a1a20]">
+          <p className="text-[#8a8a8a] text-xs">NO PROJECTS MATCHING YOUR SEARCH CRITERIA.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+        <div className="space-y-12">
+          {filteredProjects.map((project, idx) => (
+            <ProjectCard key={project.slug} project={project} index={idx} />
           ))}
         </div>
       )}

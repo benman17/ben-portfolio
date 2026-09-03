@@ -2,10 +2,10 @@
 
 @layer base {
   :root {
-    --background: #000000;
+    --background: #050505;
     --foreground: #ffffff;
-    --card-bg: rgba(8, 8, 10, 0.85);
-    --card-border: rgba(255, 255, 255, 0.1);
+    --muted-foreground: #8a8a8a;
+    --border-color: #1a1a1e;
     --accent-cyan: #38bdf8;
     --accent-emerald: #34d399;
     --accent-indigo: #818cf8;
@@ -13,7 +13,7 @@
   }
 
   body {
-    background-color: #000000;
+    background-color: #050505;
     color: #ffffff;
     font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -21,88 +21,49 @@
   }
 }
 
-/* Geometrically Intricate Grid Overlay */
-.bg-geometric-grid {
-  background-color: #000000;
+/* Architectural Coordinate Grid Overlay (Subtle, Non-decorative) */
+.bg-arch-grid {
+  background-color: #050505;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
-    radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 15% 70%, rgba(52, 211, 153, 0.06) 0%, transparent 50%),
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-/* Glassmorphism & Geometric Panel Classes */
-.glass-panel {
-  background: rgba(10, 10, 14, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+/* Architectural Spatial Panels (Minimalist Monochrome Shell) */
+.arch-panel {
+  background: #08080c;
+  border: 1px solid #1a1a20;
 }
 
-/* Interactive Hover & Click Scale/Pan Physics */
-.glass-panel-hover {
+/* Architectural Thin Rule Divider */
+.arch-rule {
+  border-color: #1a1a20;
+}
+
+/* Restrained Hover Physics (2-4px Subtle Translation & Border Illumination) */
+.arch-interactive {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
               background-color 0.3s ease, 
-              border-color 0.3s ease, 
-              box-shadow 0.3s ease;
+              border-color 0.3s ease;
   will-change: transform;
 }
 
-.glass-panel-hover:hover {
-  background: rgba(15, 15, 22, 0.95);
-  border-color: rgba(56, 189, 248, 0.45);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.9), 
-              0 0 30px -5px rgba(56, 189, 248, 0.2);
-  transform: scale(1.02) translateY(-2px);
+.arch-interactive:hover {
+  background-color: #0c0c12;
+  border-color: #38bdf8;
+  transform: translateY(-2px);
 }
 
-.glass-panel-hover:active {
-  transform: scale(0.98) translateY(0);
+.arch-interactive:active {
+  transform: translateY(0) scale(0.99);
 }
 
-.glass-pill {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-/* Glow Utilities */
-.glow-cyan {
-  box-shadow: 0 0 30px -5px rgba(56, 189, 248, 0.35);
-}
-
-.glow-emerald {
-  box-shadow: 0 0 30px -5px rgba(52, 211, 153, 0.35);
-}
-
-.glow-indigo {
-  box-shadow: 0 0 30px -5px rgba(129, 140, 248, 0.35);
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #000000;
-}
-::-webkit-scrollbar-thumb {
-  background: #1a1a24;
-  border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #38bdf8;
-}
-
-/* Animated Scale & Pan Zoom Modal Keyframes */
-@keyframes scaleUpPan {
+/* Spatial Expansion Modal Keyframes */
+@keyframes spatialExpand {
   0% {
     opacity: 0;
-    transform: scale(0.92) translateY(12px);
+    transform: scale(0.96) translateY(8px);
   }
   100% {
     opacity: 1;
@@ -110,18 +71,32 @@
   }
 }
 
-.animate-scaleUpPan {
-  animation: scaleUpPan 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.animate-spatialExpand {
+  animation: spatialExpand 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Shimmer Animation */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #1c1c24;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #38bdf8;
 }
 
-.animate-shimmer {
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
+/* Reduced Motion Accessibility Override */
+@media (prefers-reduced-motion: reduce) {
+  .arch-interactive,
+  .animate-spatialExpand {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
 }

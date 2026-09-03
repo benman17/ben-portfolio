@@ -1,143 +1,241 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  BarChart3, 
-  Kanban, 
-  ArrowRight, 
-  Terminal, 
-  TrendingUp,
-  Database,
-  Crosshair
-} from 'lucide-react';
-import { GithubIcon } from './icons/SocialIcons';
+import { ArrowRight, Database, BarChart3, Workflow, Kanban } from 'lucide-react';
 
-export default function Hero() {
+interface HeroProps {
+  onSelectCategory?: (category: 'analytics' | 'systems' | 'project-management' | 'all') => void;
+}
+
+export default function Hero({ onSelectCategory }: HeroProps) {
+  const [activeNode, setActiveNode] = useState<'DATA' | 'ANALYTICS' | 'SYSTEMS' | 'SCRUM' | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / 20;
+    const y = (e.clientY - rect.top - rect.height / 2) / 20;
+    setMousePos({ x, y });
+  };
+
+  const handleNodeClick = (node: 'DATA' | 'ANALYTICS' | 'SYSTEMS' | 'SCRUM', categoryKey?: 'analytics' | 'systems' | 'project-management') => {
+    setActiveNode(node);
+    if (categoryKey && onSelectCategory) {
+      onSelectCategory(categoryKey);
+    }
+  };
+
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[350px] h-[350px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col items-center text-center space-y-8">
-
-          {/* Top Status & Role Pill */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black border border-white/15 backdrop-blur-md shadow-xl">
-            <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest font-bold">
-              BEN MANGUIAT
-            </span>
-            <span className="text-neutral-600">•</span>
-            <span className="text-xs font-mono text-neutral-300">
-              Information Systems & Agile Analytics
-            </span>
-          </div>
-
-          {/* Headline */}
-          <div className="max-w-4xl space-y-5">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.08]">
-              Turning Raw Data & Ideas into{' '}
-              <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-emerald-400 bg-clip-text text-transparent">
-                Organized, Measurable Outcomes.
-              </span>
-            </h1>
-            <p className="text-base sm:text-xl text-neutral-300 font-normal max-w-2xl mx-auto leading-relaxed">
-              Information Systems specialist focused on <strong className="text-white">Data Analytics Pipelines</strong>,{' '}
-              <strong className="text-white">Executive Power BI / Tableau Dashboards</strong>, and{' '}
-              <strong className="text-white">Agile / Scrum Delivery</strong>.
-            </p>
-          </div>
-
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <Link
-              href="/projects"
-              className="group flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-xs font-mono text-black bg-white hover:bg-neutral-200 active:scale-95 transition-all shadow-lg"
-            >
-              <span>EXPLORE MY WORK</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-
-            <Link
-              href="/project-management"
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-xs font-mono text-white bg-black border border-white/20 hover:border-emerald-400/50 hover:bg-neutral-900 active:scale-95 transition-all shadow-md"
-            >
-              <Kanban className="w-4 h-4 text-emerald-400" />
-              <span>SCRUM SIMULATOR</span>
-            </Link>
-
-            <a
-              href="https://github.com/benman17"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-3.5 rounded-xl font-mono text-xs font-semibold text-neutral-300 hover:text-white bg-black border border-white/15 hover:border-white/30 transition-all"
-            >
-              <GithubIcon className="w-4 h-4 text-cyan-400" />
-              <span>GITHUB ↗</span>
-            </a>
-          </div>
-
-          {/* Geometric HUD Matrix Bar */}
-          <div className="w-full max-w-4xl pt-6">
-            <div className="glass-panel glass-panel-hover rounded-2xl p-5 border border-white/15 shadow-2xl relative group">
-              
-              {/* Corner reticles */}
-              <div className="absolute top-2 left-2 text-white/30 text-[10px] font-mono">+</div>
-              <div className="absolute top-2 right-2 text-white/30 text-[10px] font-mono">+</div>
-              <div className="absolute bottom-2 left-2 text-white/30 text-[10px] font-mono">+</div>
-              <div className="absolute bottom-2 right-2 text-white/30 text-[10px] font-mono">+</div>
-
-              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3.5 mb-4 text-left">
-                <div className="flex items-center gap-2 font-mono text-xs text-white">
-                  <Terminal className="w-4 h-4 text-cyan-400" />
-                  <span className="font-bold tracking-wider">SYSTEM HUD METRICS</span>
-                  <span className="text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30 text-[10px]">
-                    ● ACTIVE
-                  </span>
-                </div>
-                <div className="flex items-center gap-4 text-xs font-mono text-neutral-400">
-                  <span>FOCUS: <strong className="text-cyan-400">ANALYTICS & SCRUM</strong></span>
-                  <span className="hidden sm:inline text-neutral-700">|</span>
-                  <span className="hidden sm:inline">CASE STUDIES: <strong className="text-emerald-400">05 REPOS</strong></span>
-                </div>
+    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 bg-[#050505] overflow-hidden border-b border-[#1a1a20]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Column: High-End Editorial Typography */}
+          <div className="lg:col-span-7 space-y-8 text-left">
+            
+            {/* Editorial Name Header */}
+            <div className="space-y-2">
+              <div className="text-xs font-mono tracking-widest text-[#8a8a8a] uppercase flex items-center gap-3">
+                <span>BEN MANGUIAT</span>
+                <span className="h-[1px] w-12 bg-[#2a2a35]" />
+                <span className="text-[#38bdf8]">SYSTEM ARCHITECT & ANALYST</span>
               </div>
-
-              {/* 3 Core Stats Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-                <div className="p-4 rounded-xl bg-black border border-white/10 hover:border-cyan-400/40 transition-all">
-                  <div className="flex items-center justify-between text-xs text-neutral-400 mb-1 font-mono">
-                    <span>Data Analyzed</span>
-                    <Database className="w-3.5 h-3.5 text-cyan-400" />
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-black text-white font-mono">250,000+</div>
-                  <div className="text-[11px] text-neutral-400 mt-1 font-mono">Records via SQL & Python ETL</div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-black border border-white/10 hover:border-emerald-400/40 transition-all">
-                  <div className="flex items-center justify-between text-xs text-neutral-400 mb-1 font-mono">
-                    <span>Baseline Net Revenue</span>
-                    <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-black text-emerald-400 font-mono">$5.94M</div>
-                  <div className="text-[11px] text-neutral-400 mt-1 font-mono">Northstar Commerce BI Pipeline</div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-black border border-white/10 hover:border-indigo-400/40 transition-all">
-                  <div className="flex items-center justify-between text-xs text-neutral-400 mb-1 font-mono">
-                    <span>On-Time Story Delivery</span>
-                    <Kanban className="w-3.5 h-3.5 text-indigo-400" />
-                  </div>
-                  <div className="text-2xl sm:text-3xl font-black text-indigo-400 font-mono">96%</div>
-                  <div className="text-[11px] text-neutral-400 mt-1 font-mono">4 Sprints (DevHawks Team)</div>
-                </div>
-              </div>
-
+              <h1 className="text-4xl sm:text-6xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.08]">
+                Data Analytics.<br />
+                Business Systems.<br />
+                <span className="text-[#8a8a8a]">Agile Delivery.</span>
+              </h1>
             </div>
+
+            {/* Subtle Divider Rule */}
+            <div className="h-[1px] w-full bg-[#1a1a20]" />
+
+            {/* Editorial Statement */}
+            <p className="text-base sm:text-lg text-[#8a8a8a] max-w-xl font-normal leading-relaxed">
+              I turn complex raw data and vague business requirements into organized relational systems, executive insights, and actionable delivery.
+            </p>
+
+            {/* Category Anchor Links */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+              <button
+                onClick={() => handleNodeClick('ANALYTICS', 'analytics')}
+                className={`p-3 text-left font-mono text-xs border transition-all ${
+                  activeNode === 'ANALYTICS'
+                    ? 'border-white text-white bg-white/5'
+                    : 'border-[#1a1a20] text-[#8a8a8a] hover:border-[#38bdf8] hover:text-white'
+                }`}
+              >
+                <div className="text-[10px] text-[#8a8a8a] mb-1">01 — CATEGORY</div>
+                <div className="font-bold">ANALYTICS →</div>
+              </button>
+
+              <button
+                onClick={() => handleNodeClick('SYSTEMS', 'systems')}
+                className={`p-3 text-left font-mono text-xs border transition-all ${
+                  activeNode === 'SYSTEMS'
+                    ? 'border-white text-white bg-white/5'
+                    : 'border-[#1a1a20] text-[#8a8a8a] hover:border-[#38bdf8] hover:text-white'
+                }`}
+              >
+                <div className="text-[10px] text-[#8a8a8a] mb-1">02 — CATEGORY</div>
+                <div className="font-bold">SYSTEMS →</div>
+              </button>
+
+              <button
+                onClick={() => handleNodeClick('SCRUM', 'project-management')}
+                className={`p-3 text-left font-mono text-xs border transition-all ${
+                  activeNode === 'SCRUM'
+                    ? 'border-white text-white bg-white/5'
+                    : 'border-[#1a1a20] text-[#8a8a8a] hover:border-[#38bdf8] hover:text-white'
+                }`}
+              >
+                <div className="text-[10px] text-[#8a8a8a] mb-1">03 — CATEGORY</div>
+                <div className="font-bold">SCRUM / PM →</div>
+              </button>
+            </div>
+
+            {/* Action Links */}
+            <div className="flex flex-wrap items-center gap-6 pt-4 text-xs font-mono">
+              <Link
+                href="/projects"
+                className="px-5 py-3 text-black bg-white font-bold hover:bg-neutral-200 transition-all flex items-center gap-2"
+              >
+                <span>VIEW CASE STUDIES</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+
+              <a
+                href="https://github.com/benman17"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#8a8a8a] hover:text-white transition-colors"
+              >
+                GITHUB REPOSITORIES ↗
+              </a>
+            </div>
+
+          </div>
+
+          {/* Right Column: Architectural Geometric Coordinate System */}
+          <div 
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => setMousePos({ x: 0, y: 0 })}
+            className="lg:col-span-5 relative h-[380px] sm:h-[420px] bg-[#08080c] border border-[#1a1a20] p-6 flex flex-col justify-between overflow-hidden"
+          >
+            {/* Top Coordinate Header */}
+            <div className="flex items-center justify-between text-[10px] font-mono text-[#8a8a8a] border-b border-[#1a1a20] pb-3">
+              <span>ARCHITECTURAL SYSTEM NODE MAP</span>
+              <span className="text-[#38bdf8]">
+                X: {mousePos.x.toFixed(1)} | Y: {mousePos.y.toFixed(1)}
+              </span>
+            </div>
+
+            {/* Intersecting SVG Lines & Nodes */}
+            <div className="relative flex-1 my-4 flex items-center justify-center">
+              <svg 
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                style={{
+                  transform: `translate3d(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px, 0)`,
+                  transition: 'transform 0.2s ease-out'
+                }}
+              >
+                {/* Connecting Lines */}
+                <line x1="50%" y1="20%" x2="25%" y2="55%" stroke="#1a1a28" strokeWidth="1.5" strokeDasharray="3 3" />
+                <line x1="50%" y1="20%" x2="75%" y2="55%" stroke="#1a1a28" strokeWidth="1.5" strokeDasharray="3 3" />
+                <line x1="25%" y1="55%" x2="75%" y2="55%" stroke="#1a1a28" strokeWidth="1.5" />
+                <line x1="25%" y1="55%" x2="50%" y2="85%" stroke="#1a1a28" strokeWidth="1.5" />
+                <line x1="75%" y1="55%" x2="50%" y2="85%" stroke="#1a1a28" strokeWidth="1.5" />
+              </svg>
+
+              {/* Node 1: DATA (Top) */}
+              <button
+                onClick={() => handleNodeClick('DATA')}
+                className={`absolute top-[15%] left-1/2 -translate-x-1/2 px-3 py-1.5 font-mono text-xs border transition-all ${
+                  activeNode === 'DATA'
+                    ? 'border-[#38bdf8] text-[#38bdf8] bg-black shadow-md'
+                    : 'border-[#1a1a25] text-[#8a8a8a] bg-[#050508] hover:border-white hover:text-white'
+                }`}
+                style={{
+                  transform: `translate3d(-50%, ${mousePos.y * 0.3}px, 0)`
+                }}
+              >
+                <div className="text-[9px] text-[#8a8a8a]">SOURCE</div>
+                <div className="font-bold flex items-center gap-1">
+                  <Database className="w-3 h-3 text-[#38bdf8]" />
+                  <span>DATA</span>
+                </div>
+              </button>
+
+              {/* Node 2: ANALYTICS (Middle Left) */}
+              <button
+                onClick={() => handleNodeClick('ANALYTICS', 'analytics')}
+                className={`absolute top-[50%] left-[10%] -translate-y-1/2 px-3 py-1.5 font-mono text-xs border transition-all ${
+                  activeNode === 'ANALYTICS'
+                    ? 'border-[#38bdf8] text-[#38bdf8] bg-black shadow-md'
+                    : 'border-[#1a1a25] text-[#8a8a8a] bg-[#050508] hover:border-white hover:text-white'
+                }`}
+                style={{
+                  transform: `translate3d(${mousePos.x * 0.4}px, -50%, 0)`
+                }}
+              >
+                <div className="text-[9px] text-[#8a8a8a]">ETL / MODELS</div>
+                <div className="font-bold flex items-center gap-1">
+                  <BarChart3 className="w-3 h-3 text-[#38bdf8]" />
+                  <span>ANALYTICS</span>
+                </div>
+              </button>
+
+              {/* Node 3: SYSTEMS (Middle Right) */}
+              <button
+                onClick={() => handleNodeClick('SYSTEMS', 'systems')}
+                className={`absolute top-[50%] right-[10%] -translate-y-1/2 px-3 py-1.5 font-mono text-xs border transition-all ${
+                  activeNode === 'SYSTEMS'
+                    ? 'border-[#818cf8] text-[#818cf8] bg-black shadow-md'
+                    : 'border-[#1a1a25] text-[#8a8a8a] bg-[#050508] hover:border-white hover:text-white'
+                }`}
+                style={{
+                  transform: `translate3d(${mousePos.x * -0.4}px, -50%, 0)`
+                }}
+              >
+                <div className="text-[9px] text-[#8a8a8a]">ARCHITECTURE</div>
+                <div className="font-bold flex items-center gap-1">
+                  <Workflow className="w-3 h-3 text-[#818cf8]" />
+                  <span>SYSTEMS</span>
+                </div>
+              </button>
+
+              {/* Node 4: SCRUM (Bottom) */}
+              <button
+                onClick={() => handleNodeClick('SCRUM', 'project-management')}
+                className={`absolute bottom-[10%] left-1/2 -translate-x-1/2 px-3 py-1.5 font-mono text-xs border transition-all ${
+                  activeNode === 'SCRUM'
+                    ? 'border-[#34d399] text-[#34d399] bg-black shadow-md'
+                    : 'border-[#1a1a25] text-[#8a8a8a] bg-[#050508] hover:border-white hover:text-white'
+                }`}
+                style={{
+                  transform: `translate3d(-50%, ${mousePos.y * -0.3}px, 0)`
+                }}
+              >
+                <div className="text-[9px] text-[#8a8a8a]">DELIVERY</div>
+                <div className="font-bold flex items-center gap-1">
+                  <Kanban className="w-3 h-3 text-[#34d399]" />
+                  <span>SCRUM / PM</span>
+                </div>
+              </button>
+            </div>
+
+            {/* Bottom Status Info */}
+            <div className="flex items-center justify-between text-[10px] font-mono text-[#8a8a8a] border-t border-[#1a1a20] pt-3">
+              <span>SYSTEM STATE: {activeNode ? `FILTERED [${activeNode}]` : 'READY'}</span>
+              <span>CLICK NODE TO FILTER</span>
+            </div>
+
           </div>
 
         </div>
+
       </div>
     </section>
   );
