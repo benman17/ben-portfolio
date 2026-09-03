@@ -28,6 +28,67 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
+    slug: 'northstar-commerce',
+    title: 'Northstar Commerce Executive BI Dashboard & Data Pipeline',
+    subtitle: 'PostgreSQL Data Pipeline, Star Schema Dimensional Modeling & Power BI',
+    category: 'analytics',
+    categoryLabel: 'Data & Analytics',
+    featured: true,
+    role: 'Lead BI & Data Analyst',
+    timeline: '1 Month',
+    summary: 'Engineered an end-to-end PostgreSQL data analytics pipeline and interactive Power BI Executive Command Center to diagnose margin decay ($5.94M revenue, $2.29M profit) across 63k+ order transactions.',
+    technologies: ['PostgreSQL', 'SQL', 'Power BI', 'DAX', 'Data Modeling', 'Star Schema', 'ETL Pipelines', 'Data Quality Audit'],
+    githubUrl: 'https://github.com/benman17/ben-portfolio/tree/main/northstar_commerce',
+    metrics: [
+      { label: 'Net Revenue', value: '$5.94M' },
+      { label: 'Gross Profit Margin', value: '38.6%' },
+      { label: 'Order Items Analyzed', value: '63,635' }
+    ],
+    problem: 'Northstar Commerce scaled to $5.94M in net revenue across 63,635 order items, but leadership lacked visibility into profit margin compression in top categories, data quality anomalies (duplicates, missing categories), and high return rates.',
+    dataApproach: [
+      'Loaded 7 raw staging tables into PostgreSQL database and executed comprehensive SQL data quality diagnostics.',
+      'Engineered an automated SQL ETL pipeline (ROW_NUMBER window function deduplication, COALESCE missing metadata imputations, CASE channel standardization).',
+      'Designed a production Star Schema relational model connecting Fact tables (order_items, returns, targets) to Dimension tables (customers, products, orders).',
+      'Created production analytical views (vw_order_details, vw_monthly_performance) and built interactive DAX measures in Power BI Desktop.'
+    ],
+    solution: 'Constructed an executive-facing Power BI Command Center highlighting category profit margins, monthly target vs. actual variance, return rate leakage, and strategic pricing action items.',
+    results: [
+      'Uncovered Electronics margin compression driven by 7.62% average discounting and 7.26% return rate.',
+      'Identified $231k drag from Unassigned inventory categories performing at 22.28% margin vs 38.57% baseline.',
+      'Highlighted Accessories as the highest margin expansion opportunity at 44.21% gross margin.'
+    ],
+    sqlSnippet: `-- Executive Sales & Profit Margin View (PostgreSQL)
+CREATE VIEW analytics.vw_order_details AS
+SELECT 
+    oi.order_item_id,
+    o.order_id,
+    o.order_date,
+    c.customer_id,
+    c.customer_name,
+    c.segment AS customer_segment,
+    COALESCE(c.region, 'Unknown') AS customer_region,
+    o.channel AS sales_channel,
+    p.product_id,
+    p.product_name,
+    p.category AS product_category,
+    oi.quantity,
+    oi.net_revenue,
+    ROUND((oi.quantity * p.unit_cost), 2) AS total_cost,
+    ROUND(oi.net_revenue - (oi.quantity * p.unit_cost), 2) AS gross_profit,
+    ROUND(((oi.net_revenue - (oi.quantity * p.unit_cost)) / oi.net_revenue) * 100, 2) AS gross_margin_pct
+FROM analytics.fact_order_items oi
+JOIN analytics.dim_orders o ON oi.order_id = o.order_id
+JOIN analytics.dim_customers c ON o.customer_id = c.customer_id
+JOIN analytics.dim_products p ON oi.product_id = p.product_id;`,
+    chartData: [
+      { name: 'Accessories', value1: 44.2, value2: 5.5 },
+      { name: 'Apparel', value1: 41.5, value2: 6.1 },
+      { name: 'Home Goods', value1: 39.8, value2: 4.8 },
+      { name: 'Electronics', value1: 37.4, value2: 7.3 },
+      { name: 'Unassigned', value1: 22.3, value2: 8.9 }
+    ]
+  },
+  {
     slug: 'ben-portfolio-app',
     title: 'Interactive Portfolio & Analytics Platform',
     subtitle: 'Modern Web Application (Next.js, TypeScript, Tailwind CSS, Recharts)',

@@ -17,6 +17,7 @@ import { GithubIcon } from '@/components/icons/SocialIcons';
 import AnalyticsSandbox from '@/components/AnalyticsSandbox';
 import ScrumBoardWidget from '@/components/ScrumBoardWidget';
 import NflClusterWidget from '@/components/NflClusterWidget';
+import NorthstarDashboardWidget from '@/components/NorthstarDashboardWidget';
 
 export async function generateStaticParams() {
   return PROJECTS.map((project) => ({
@@ -107,7 +108,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       </div>
 
       {/* Interactive Feature Widget preview */}
-      {project.slug === 'nfl-clustering' ? (
+      {project.slug === 'northstar-commerce' ? (
+        <NorthstarDashboardWidget />
+      ) : project.slug === 'nfl-clustering' ? (
         <NflClusterWidget />
       ) : project.category === 'analytics' ? (
         <AnalyticsSandbox />
