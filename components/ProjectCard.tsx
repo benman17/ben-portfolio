@@ -61,36 +61,21 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
       case 'nfl-clustering':
         return (
-          <div className="relative w-full aspect-[16/10] bg-[#050508] border border-[#1a1a25] p-5 flex flex-col justify-between overflow-hidden font-mono group/img">
-            <div className="flex items-center justify-between border-b border-[#1a1a20] pb-2 text-[10px] text-[#8a8a8a]">
-              <span className="text-[#38bdf8] font-bold flex items-center gap-1">
-                <Cpu className="w-3 h-3" /> PYSPARK MLlib K-MEANS TIERS (k=4)
+          <div className="relative w-full aspect-[16/10] bg-[#050508] border border-[#1a1a25] overflow-hidden group/img">
+            <Image
+              src="/images/projects/nfl_clustering/fantasy_player_tiers_plasma.png"
+              alt="NFL Player Fantasy Tiers K-Means Clustering"
+              fill
+              className="object-cover object-center transition-transform duration-500 group-hover/img:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/20" />
+            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono">
+              <span className="text-white font-bold bg-black/80 px-2 py-1 border border-white/20">
+                K-MEANS VOR TIERS (k=4)
               </span>
-              <span>COLAB SPARK MODEL</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 text-[10px] my-auto">
-              <div className="p-2.5 bg-black border border-cyan-500/30 text-cyan-300">
-                <div className="font-bold">TIER 1: ELITE STUDS</div>
-                <div className="text-[9px] text-[#8a8a8a] mt-0.5">Target Share &gt;25% • 18.5 PPG</div>
-              </div>
-              <div className="p-2.5 bg-black border border-emerald-500/30 text-emerald-300">
-                <div className="font-bold">TIER 2: STARTERS</div>
-                <div className="text-[9px] text-[#8a8a8a] mt-0.5">High Touch Volume • 13.2 PPG</div>
-              </div>
-              <div className="p-2.5 bg-black border border-indigo-500/30 text-indigo-300">
-                <div className="font-bold">TIER 3: FLEX PLAYS</div>
-                <div className="text-[9px] text-[#8a8a8a] mt-0.5">High Efficiency • 9.8 PPG</div>
-              </div>
-              <div className="p-2.5 bg-black border border-[#1a1a20] text-[#8a8a8a]">
-                <div className="font-bold text-white">TIER 4: DEPTH</div>
-                <div className="text-[9px] text-[#8a8a8a] mt-0.5">Situational Role • 5.4 PPG</div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-[10px] text-[#8a8a8a] border-t border-[#1a1a20] pt-2">
-              <span>SILHOUETTE SCORE: <strong className="text-emerald-400">0.72</strong></span>
-              <span className="text-[#38bdf8] font-bold">INSPECT CLUSTERS →</span>
+              <span className="text-[#38bdf8] bg-black/80 px-2 py-1 border border-[#38bdf8]/40 font-bold">
+                SCIKIT-LEARN PIPELINE
+              </span>
             </div>
           </div>
         );

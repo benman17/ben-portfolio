@@ -127,54 +127,53 @@ export async function fetchGitHubRepos(username: string = 'benman17') {
   {
     slug: 'nfl-clustering',
     title: 'NFL Player Clustering & Fantasy Tier Analytics',
-    subtitle: 'K-Means Machine Learning & Apache Spark (PySpark) in Google Colab',
+    subtitle: 'K-Means Machine Learning & VOR Modeling | Python & Scikit-Learn',
     category: 'analytics',
     categoryLabel: 'Data & Analytics',
     featured: true,
     role: 'Lead Data & Machine Learning Engineer',
-    timeline: 'Google Colab Notebook',
-    summary: 'Clustering NFL players into fantasy football tiers using historical performance data, Apache Spark (PySpark), and K-Means modeling in Google Colab.',
-    technologies: ['PySpark', 'Apache Spark', 'Python', 'K-Means', 'Google Colab', 'Fantasy Football', 'Machine Learning', 'Data Pipelines'],
+    timeline: 'Python / Scikit-Learn / CLI & Notebook',
+    summary: 'Unsupervised machine learning pipeline that clusters NFL players into actionable fantasy performance tiers using custom PPR+IDP scoring, Value Over Replacement (VOR), and K-Means with triple-metric validation.',
+    technologies: ['Python', 'Scikit-Learn', 'K-Means', 'Pandas', 'Value Over Replacement (VOR)', 'Matplotlib', 'Seaborn', 'CLI Pipeline'],
     githubUrl: 'https://github.com/benman17/NFL-Clustering',
     metrics: [
-      { label: 'Modeling Framework', value: 'PySpark MLlib' },
-      { label: 'Clustering Algorithm', value: 'K-Means (k=4)' },
-      { label: 'Environment', value: 'Google Colab' }
+      { label: 'Validation Methods', value: 'Elbow, Silhouette, Gap' },
+      { label: 'Clustering Model', value: 'K-Means (k=4)' },
+      { label: 'Core Metric', value: 'VOR (Value Over Replacement)' }
     ],
-    problem: 'Evaluating NFL player fantasy draft value using raw stats leads to recency bias. Traditional position labels ignore historical performance clusters, efficiency metrics, and usage consistency.',
+    problem: 'Evaluating NFL player fantasy draft value using raw stats leads to recency bias. Traditional position labels ignore historical performance clusters, positional scarcity, and replacement baselines.',
     dataApproach: [
-      'Loaded historical NFL player performance datasets into PySpark DataFrame in Google Colab.',
-      'Preprocessed features (fantasy points per game, target/touchdown share, efficiency metrics) using PySpark VectorAssembler and StandardScaler.',
-      'Trained an Apache Spark K-Means clustering model to group players into distinct performance tiers.',
-      'Evaluated tier centroids to identify undervalued breakout candidates and regression candidates.'
+      'Ingested multi-category 2024 NFL player performance statistics via SportsData.io API and local cached datasets.',
+      'Standardized positions (mapping FB->RB, OLB/ILB->LB, secondary roles) and formulated custom PPR + IDP scoring weights.',
+      'Calculated positional Value Over Replacement (VOR) baselines based on standard 12-team roster starter demand.',
+      'Evaluated optimal tier count using the Elbow Method, Silhouette Analysis, and Gap Statistic (confirming k=4).',
+      'Trained K-Means model, sorted clusters by descending average VOR, and mapped actionable fantasy draft tiers.'
     ],
-    solution: 'Built a scalable PySpark K-Means machine learning workflow in Google Colab that partitions NFL players into actionable fantasy performance tiers.',
+    solution: 'Built a modular data science repository with an end-to-end CLI pipeline and reproducible Google Colab notebook that partitions NFL players into 4 empirical draft tiers.',
     results: [
-      'Engineered automated PySpark ML pipeline processing multi-season NFL player statistics.',
-      'Established 4 distinct player tiers separating elite RB/WR studs, high-volume flex plays, and sleeper targets.',
-      'Published reproducible Google Colab notebook & full source repository on GitHub.'
+      'Eliminated draft recency bias by isolating true positional scarcity through Value Over Replacement (VOR).',
+      'Benchmarked empirical K-Means clusters against industry consensus FantasyPros tiers to identify market inefficiencies.',
+      'Architected a modular production codebase with automated CLI runner, sample dataset, and publication-ready diagnostic charts.'
     ],
-    sqlSnippet: `# PySpark K-Means Clustering on NFL Player Data (Google Colab)
-from pyspark.sql import SparkSession
-from pyspark.ml.feature import VectorAssembler, StandardScaler
-from pyspark.ml.clustering import KMeans
+    sqlSnippet: `# K-Means Clustering on Value Over Replacement (VOR)
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
 
-spark = SparkSession.builder.appName("NFL_Fantasy_Clustering").getOrCreate()
+# 1. Isolate feature vector (Value Over Replacement)
+X = df_selected_players[['VOR']].values
 
-# 1. Feature assembly for Spark MLlib
-assembler = VectorAssembler(
-    inputCols=["fantasy_points_avg", "usage_rate", "efficiency_score", "touchdown_share"],
-    outputCol="raw_features"
-)
-df_features = assembler.transform(nfl_spark_df)
+# 2. Fit K-Means clustering model (optimal k=4)
+kmeans = KMeans(n_clusters=4, random_state=418, n_init=10)
+df_selected_players['Cluster'] = kmeans.fit_predict(X)
 
-# 2. Scale features & train K-Means model
-scaler = StandardScaler(inputCol="raw_features", outputCol="features")
-scaled_data = scaler.fit(df_features).transform(df_features)
+# 3. Sort & rank clusters by descending mean VOR into actionable tiers
+cluster_summary = df_selected_players.groupby('Cluster')['VOR'].mean().sort_values(ascending=False)
+tier_map = {old: new for new, old in enumerate(cluster_summary.index)}
+df_selected_players['Tier'] = df_selected_players['Cluster'].map(tier_map)
 
-kmeans = KMeans(k=4, seed=42)
-model = kmeans.fit(scaled_data)
-predictions = model.transform(scaled_data)`
+# 4. Map readable tier labels
+tier_labels = ["Tier 1 — Elite", "Tier 2 — High-End Starters", "Tier 3 — Average", "Tier 4 — Sub-Replacement"]
+df_selected_players['TierLabel'] = df_selected_players['Tier'].map(lambda x: tier_labels[x])`
   },
   {
     slug: 'tft-snowflake',
