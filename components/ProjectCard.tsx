@@ -99,18 +99,18 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         return (
           <div className="relative w-full aspect-[16/10] bg-[#050508] border border-[#1a1a25] overflow-hidden group/img">
             <Image
-              src="/images/projects/northstar_commerce/data_model_star_schema.png"
-              alt="Snowflake Star Schema Relational Data Model"
+              src="/images/projects/tft_snowflake/dashboard.png"
+              alt="TFT Analytics Power BI Dashboard"
               fill
               className="object-cover object-top transition-transform duration-500 group-hover/img:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
             <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs font-mono">
               <span className="text-white font-bold bg-black/80 px-2 py-1 border border-white/20">
-                SNOWFLAKE STAR SCHEMA MODEL
+                TFT POWER BI DASHBOARD
               </span>
               <span className="text-[#34d399] bg-black/80 px-2 py-1 border border-[#34d399]/40 font-bold">
-                META WIN-RATE CTEs
+                SNOWFLAKE DATA PIPELINE
               </span>
             </div>
           </div>
