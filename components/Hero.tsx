@@ -37,10 +37,10 @@ export default function Hero({ onSelectCategory }: HeroProps) {
             
             {/* Editorial Name Header */}
             <div className="space-y-2">
-              <div className="text-xs font-mono tracking-widest text-[#8a8a8a] uppercase flex items-center gap-3">
+              <div className="text-xs font-mono tracking-widest text-[#8a8a8a] uppercase flex flex-wrap items-center gap-3">
                 <span>BEN MANGUIAT</span>
-                <span className="h-[1px] w-12 bg-[#2a2a35]" />
-                <span className="text-[#38bdf8]">SYSTEM ARCHITECT & ANALYST</span>
+                <span className="h-[1px] w-12 bg-[#2a2a35] hidden sm:inline-block" />
+                <span className="text-[#38bdf8]">BUSINESS ANALYST | ANALYTICS | PROJECT MANAGEMENT</span>
               </div>
               <h1 className="text-4xl sm:text-6xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.08]">
                 Data Analytics.<br />
