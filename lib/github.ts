@@ -15,15 +15,15 @@ export interface GitHubRepo {
 export const FALLBACK_REPOS: GitHubRepo[] = [
   {
     id: 1,
-    name: 'sales-intelligence-analytics',
-    full_name: 'benman17/sales-intelligence-analytics',
-    description: 'Automated SQL & Python ETL data pipeline powering dynamic revenue analytics and Power BI dashboard.',
-    html_url: 'https://github.com/benman17/sales-intelligence-analytics',
-    stargazers_count: 8,
-    forks_count: 3,
-    language: 'Python',
-    topics: ['sql', 'python', 'power-bi', 'etl', 'data-analytics'],
-    updated_at: new Date(Date.now() - 86400000 * 2).toISOString(),
+    name: 'northstar-commerce',
+    full_name: 'benman17/northstar-commerce',
+    description: 'PostgreSQL data pipeline and executive Power BI command center diagnosing margin leakage across 63k+ order transactions.',
+    html_url: 'https://github.com/benman17/northstar-commerce',
+    stargazers_count: 14,
+    forks_count: 4,
+    language: 'T-SQL',
+    topics: ['sql', 'postgresql', 'power-bi', 'star-schema', 'data-analytics'],
+    updated_at: new Date(Date.now() - 86400000 * 1).toISOString(),
     is_featured: true
   },
   {

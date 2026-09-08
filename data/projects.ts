@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     timeline: '1 Month',
     summary: 'Engineered an end-to-end PostgreSQL data analytics pipeline and interactive Power BI Executive Command Center to diagnose margin decay ($5.94M revenue, $2.29M profit) across 63k+ order transactions.',
     technologies: ['PostgreSQL', 'SQL', 'Power BI', 'DAX', 'Data Modeling', 'Star Schema', 'ETL Pipelines', 'Data Quality Audit'],
-    githubUrl: 'https://github.com/benman17/ben-portfolio/tree/main/northstar_commerce',
+    githubUrl: 'https://github.com/benman17/northstar-commerce',
     metrics: [
       { label: 'Net Revenue', value: '$5.94M' },
       { label: 'Gross Profit Margin', value: '38.6%' },
