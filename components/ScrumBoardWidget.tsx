@@ -25,7 +25,7 @@ const INITIAL_STORIES: Story[] = [
   },
   {
     id: 'US-102',
-    title: 'Woodland Manor Online Booking API Integration',
+    title: 'Sample Story: Booking Page Redesign',
     points: 8,
     category: 'Full-Stack',
     status: 'done',

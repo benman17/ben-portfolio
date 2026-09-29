@@ -70,13 +70,13 @@ ORDER BY 1 ASC;`;
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#38bdf8] mb-1">
             <BarChart3 className="w-4 h-4" />
-            <span>INTERACTIVE EXECUTIVE DATA SANDBOX</span>
+            <span>UI DEMO · SAMPLE DATA</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Revenue & Churn Intelligence Engine
+            Filter-to-SQL Demo
           </h3>
           <p className="text-xs text-[#8a8a8a] mt-1">
-            Test custom filters to view dynamic metrics visualization and auto-generated SQL analytics queries.
+            Pick a segment and metric to see the chart and the SQL that would produce it. Numbers are made-up sample data, not from a real business.
           </p>
         </div>
 
@@ -188,9 +188,9 @@ ORDER BY 1 ASC;`;
           <div className="pt-3 border-t border-[#1a1a20] text-[11px] text-[#8a8a8a] flex items-center justify-between">
             <span className="flex items-center gap-1 text-[#34d399]">
               <Database className="w-3 h-3" />
-              <span>Query Latency: 14ms</span>
+              <span>Illustrative query</span>
             </span>
-            <span className="font-mono text-[#8a8a8a]">250k Fact Records</span>
+            <span className="font-mono text-[#8a8a8a]">Sample data</span>
           </div>
         </div>
 

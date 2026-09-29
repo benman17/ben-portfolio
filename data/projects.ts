@@ -100,7 +100,7 @@ JOIN analytics.dim_products p ON oi.product_id = p.product_id;`
     problem: 'Traditional PDF resumes and static link lists fail to communicate the interactive nature of data analytics models, SQL query pipelines, and Agile sprint velocity metrics to recruiters.',
     dataApproach: [
       'Architected a modular Next.js 16 App Router application with full TypeScript type safety.',
-      'Built custom interactive visualization components using Recharts (NFL PCA Scatter Plot, Executive Revenue & Churn Sandbox, Sprint Burndown).',
+      'Built custom interactive visualization components using Recharts (NFL Tier Scatter Plot, Executive Revenue & Churn Sandbox, Sprint Burndown).',
       'Designed an interactive Agile Scrum Kanban simulator allowing recruiters to drag/advance stories across Sprint stages.',
       'Integrated dynamic client-side fetching with GitHub REST API to display live public repositories.'
     ],
@@ -131,14 +131,14 @@ export async function fetchGitHubRepos(username: string = 'benman17') {
     category: 'analytics',
     categoryLabel: 'Data & Analytics',
     featured: true,
-    role: 'Lead Data & Machine Learning Engineer',
-    timeline: 'Python / Scikit-Learn / CLI & Notebook',
+    role: 'Data Analyst (Solo Project)',
+    timeline: 'Spring 2025',
     summary: 'Unsupervised machine learning pipeline that clusters NFL players into actionable fantasy performance tiers using custom PPR+IDP scoring, Value Over Replacement (VOR), and K-Means with triple-metric validation.',
     technologies: ['Python', 'Scikit-Learn', 'K-Means', 'Pandas', 'Value Over Replacement (VOR)', 'Matplotlib', 'Seaborn', 'CLI Pipeline'],
     githubUrl: 'https://github.com/benman17/NFL-Clustering',
     metrics: [
       { label: 'Validation Methods', value: 'Elbow, Silhouette, Gap' },
-      { label: 'Clustering Model', value: 'K-Means (k=4)' },
+      { label: 'Clustering Model', value: 'K-Means (k=4, silhouette 0.57)' },
       { label: 'Core Metric', value: 'VOR (Value Over Replacement)' }
     ],
     problem: 'Evaluating NFL player fantasy draft value using raw stats leads to recency bias. Traditional position labels ignore historical performance clusters, positional scarcity, and replacement baselines.',
@@ -151,9 +151,9 @@ export async function fetchGitHubRepos(username: string = 'benman17') {
     ],
     solution: 'Built a modular data science repository with an end-to-end CLI pipeline and reproducible Google Colab notebook that partitions NFL players into 4 empirical draft tiers.',
     results: [
-      'Eliminated draft recency bias by isolating true positional scarcity through Value Over Replacement (VOR).',
-      'Benchmarked empirical K-Means clusters against industry consensus FantasyPros tiers to identify market inefficiencies.',
-      'Architected a modular production codebase with automated CLI runner, sample dataset, and publication-ready diagnostic charts.'
+      'Ranked players across positions on one scale by comparing each to a replacement-level starter (VOR), instead of raw points.',
+      'Split players into 4 draft tiers; elbow, silhouette and gap statistic all pointed to k=4.',
+      'Packaged as a CLI pipeline + Colab notebook with a bundled sample dataset so it runs without an API key.'
     ],
     sqlSnippet: `# K-Means Clustering on Value Over Replacement (VOR)
 from sklearn.cluster import KMeans
@@ -177,56 +177,47 @@ df_selected_players['TierLabel'] = df_selected_players['Tier'].map(lambda x: tie
   },
   {
     slug: 'tft-snowflake',
-    title: 'TFT Analytics & Snowflake Data Warehouse',
-    subtitle: 'SQL Dimensional Data Modeling & Snowflake Cloud Warehousing',
+    title: 'TFT Ranked Match Analysis in Snowflake',
+    subtitle: 'Snowflake SQL Pipeline & Power BI Dashboard',
     category: 'analytics',
     categoryLabel: 'Data & Analytics',
     featured: true,
-    role: 'Data Engineer & Analytics Specialist',
-    timeline: '2 Months',
-    summary: 'Engineered a Snowflake cloud data warehouse and analytical SQL pipeline analyzing Teamfight Tactics (TFT) player performance, team composition synergies, and win-rate trends.',
-    technologies: ['Snowflake', 'SQL', 'Python', 'Data Warehousing', 'Dimensional Modeling', 'ETL Pipelines'],
+    role: 'Data Analyst (Solo Project)',
+    timeline: 'Fall 2025',
+    summary: 'Loaded ~400K ranked Teamfight Tactics player boards (49,977 matches, Platinum–Challenger) into Snowflake, unpacked nested trait data with SQL, and built a Power BI dashboard on what separates top-4 finishes.',
+    technologies: ['Snowflake', 'SQL', 'VARIANT / FLATTEN', 'Power BI', 'Data Cleaning'],
     githubUrl: 'https://github.com/benman17/tft-snowflake',
     metrics: [
-      { label: 'Data Warehouse', value: 'Snowflake Cloud' },
-      { label: 'Schema Model', value: 'Star Schema (Fact/Dim)' },
-      { label: 'Query Optimization', value: 'Custom CTEs' }
+      { label: 'Matches', value: '49,977' },
+      { label: 'Player Boards', value: '399,906' },
+      { label: 'Rank Tiers', value: 'Plat → Challenger' }
     ],
-    problem: 'Competitive gaming data contains unstructured JSON payload streams across thousands of matches, making trend analysis and meta-composition evaluation difficult without relational modeling.',
+    problem: 'Ranked TFT match exports store each board\'s traits and champions as nested text, one CSV per rank tier. That makes it hard to answer basic questions like which traits and levels actually lead to top-4 finishes.',
     dataApproach: [
-      'Ingested match history and player trajectory data into staging tables within Snowflake.',
-      'Designed a Star Schema data model with Fact tables (Match Performance) and Dimension tables (Champions, Traits, Items).',
-      'Engineered complex SQL analytical queries using Window functions and aggregations to evaluate trait synergy win rates.',
-      'Optimized query performance using clustering keys and materialized views in Snowflake.'
+      'Staged 5 rank-tier CSVs (Set 3, Korean server) in Snowflake with a custom CSV file format.',
+      'Loaded each tier with COPY INTO, tagging rows by rank and parsing nested trait/champion text into VARIANT columns.',
+      'Removed duplicate rows and rows with invalid placements before analysis.',
+      'Used LATERAL FLATTEN to unpack traits and aggregate placement and top-4 rate per trait and per player level.',
+      'Connected Power BI directly to Snowflake for KPI, rank-tier and trait-effectiveness views.'
     ],
-    solution: 'Designed an automated Snowflake analytical data warehouse translating raw match telemetry into relational insights on meta composition trends.',
+    solution: 'A reproducible Snowflake load (scripts run in order) feeding a Power BI dashboard on placement, rank tier and trait effectiveness.',
     results: [
-      'Built production-ready Snowflake database architecture with automated staging-to-fact transformation.',
-      'Identified top-performing item and champion trait combinations across meta shifts.',
-      'Published open-source repository on GitHub at benman17/tft-snowflake.'
+      'Reaching level 9 was the strongest signal found: 86.6% top-4 rate vs 51.3% at level 8.',
+      'Starship (69.0% top-4) and Mercenary (60.6%) boards placed best; Vanguard (48.1%) and Sorcerer (49.2%) placed worst among common traits.',
+      'Flagged that trait results are confounded with level — high-cost traits mostly appear on boards that were already ahead.'
     ],
-    sqlSnippet: `-- Snowflake Analytical Query: Synergy Win Rates
-WITH TraitSynergies AS (
-  SELECT 
-    f.match_id,
-    d.trait_name,
-    d.tier_level,
-    f.placement,
-    CASE WHEN f.placement <= 4 THEN 1 ELSE 0 END AS top_4_finish
-  FROM fact_tft_match f
-  JOIN dim_tft_traits d ON f.trait_id = d.trait_id
-  WHERE f.game_version >= '14.1'
-)
-SELECT 
-  trait_name,
-  tier_level,
-  COUNT(match_id) AS total_games,
-  AVG(placement) AS avg_placement,
-  ROUND(SUM(top_4_finish) * 100.0 / COUNT(match_id), 2) AS top_4_rate_pct
-FROM TraitSynergies
-GROUP BY trait_name, tier_level
-HAVING COUNT(match_id) >= 50
-ORDER BY top_4_rate_pct DESC;`
+    sqlSnippet: `-- Top-4 rate and average placement per trait
+SELECT
+  REPLACE(t.key, 'Set3_', '')                         AS trait,
+  COUNT(*)                                            AS boards,
+  ROUND(AVG(m.placement), 2)                          AS avg_placement,
+  ROUND(AVG(IFF(m.placement <= 4, 1, 0)) * 100, 1)    AS top_4_rate_pct
+FROM matches m,
+     LATERAL FLATTEN(input => m.traits) t
+WHERE m.placement BETWEEN 1 AND 8
+GROUP BY 1
+HAVING COUNT(*) >= 5000
+ORDER BY avg_placement;`
   },
   {
     slug: 'woodland-agile-redesign',
@@ -235,34 +226,34 @@ ORDER BY top_4_rate_pct DESC;`
     category: 'project-management',
     categoryLabel: 'Project Management & Scrum',
     featured: true,
-    role: 'Scrum Master & Lead Business Analyst',
-    timeline: '4 Sprints (8 Weeks)',
-    summary: 'Led a cross-functional Scrum team (DevHawks) through 4 2-week Sprints to redesign Woodland Country Manor’s digital presence, streamlining stakeholder reviews and boosting user engagement by 45%.',
-    technologies: ['Agile / Scrum', 'Jira / Confluence', 'Backlog Grooming', 'Stakeholder Management', 'User Stories', 'Process Mapping'],
+    role: 'Scrum Master & Website Development Consultant',
+    timeline: 'Jan – May 2026',
+    summary: 'Scrum Master for DevHawks, a 6-person student team that redesigned Woodland Country Manor’s website in Wix Studio — ran sprints in Jira, handled client communication, and led a usability audit of the service pages.',
+    technologies: ['Agile / Scrum', 'Jira', 'Wix Studio', 'Backlog Prioritization', 'User Stories', 'Usability Audit'],
     liveUrl: 'https://manguibo.wixstudio.com/woodlandcountrymanor',
     metrics: [
-      { label: 'Sprint Velocity Increase', value: '+35%', trend: 'up' },
-      { label: 'On-Time Story Completion', value: '96%' },
-      { label: 'Stakeholder Feedback Loop', value: '-40%' }
+      { label: 'Team Size', value: '6' },
+      { label: 'Pages Audited', value: '5+' },
+      { label: 'Stack', value: 'Jira · Wix Studio' }
     ],
     problem: 'Woodland Country Manor had an outdated web platform with fragmented information architecture, unclear booking pathways, and inconsistent stakeholder alignment during previous software updates.',
     dataApproach: [
-      'Facilitated stakeholder discovery sessions and mapped customer personas to craft 30+ structured User Stories with clear Acceptance Criteria.',
-      'Established a Jira Scrum board, defined Sprint Goals, and led daily Standups, Backlog Refinement, and Sprint Retrospectives.',
-      'Utilized Planning Poker estimation techniques to standardize team story points and stabilize Sprint Velocity.',
-      'Built a Confluence documentation hub containing sprint burndown charts, decision logs, and wireframe prototypes.'
+      'Ran sprint planning and backlog prioritization for the team in Jira.',
+      'Owned client communication and turned the client\'s feedback into prioritized user stories.',
+      'Led a usability audit across 5+ service pages, finding navigation and mobile layout gaps.',
+      'Built site components in Wix Studio and stepped in to debug when the team was stretched.'
     ],
-    solution: 'Served as Scrum Master and BA, eliminating sprint blockers, prioritizing high-value features in the Product Backlog, and delivering a modern, responsive web application on schedule.',
+    solution: 'Delivered a redesigned, mobile-friendly site for the client, with scope and timeline managed through the sprint backlog.',
     results: [
-      'Delivered 100% of P0/P1 core user stories across 4 Sprints with zero scope creep.',
-      'Increased mobile visitor session duration by 45% and online reservation inquiries by 28%.',
-      'Received 9.5/10 stakeholder satisfaction rating for project transparency and delivery speed.'
+      'Shipped the redesigned site (live link above).',
+      'Used the audit findings to steer the new navigation and mobile layout.',
+      'Kept the project on track through scope and timeline changes from the client.'
     ],
     scrumDetails: {
       sprintDuration: '2 Weeks per Sprint',
-      teamSize: '6 Members (Devs, Designers, BA)',
-      velocity: '42 Story Points / Sprint Avg',
-      keyArtifacts: ['Product Backlog', 'Sprint Burndown', 'User Story Mapping Matrix', 'Definition of Done (DoD)']
+      teamSize: '6 Members',
+      velocity: 'Tracked in Jira',
+      keyArtifacts: ['Product Backlog', 'User Stories', 'Usability Audit']
     }
   }
 ];

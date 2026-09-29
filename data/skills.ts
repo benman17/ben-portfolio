@@ -16,8 +16,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       { name: 'Power BI & DAX Modeling', level: 90, highlight: true },
       { name: 'Tableau & Data Storytelling', level: 85 },
       { name: 'ETL Pipelines & Data Cleanse', level: 86 },
-      { name: 'A/B Testing & Hypothesis Testing', level: 82 },
-      { name: 'Excel (VBA, Power Query, Pivot)', level: 95 }
+      { name: 'Excel (Pivot Tables, Lookups)', level: 85 }
     ]
   },
   {
@@ -27,7 +26,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       { name: 'Agile & Scrum Frameworks', level: 94, highlight: true },
       { name: 'Sprint Planning & Ceremonies', level: 92, highlight: true },
-      { name: 'Jira & Confluence Administration', level: 90, highlight: true },
+      { name: 'Jira', level: 90, highlight: true },
       { name: 'Backlog Refinement & User Stories', level: 94 },
       { name: 'Stakeholder Communication', level: 92 },
       { name: 'Risk & Dependency Management', level: 86 },
@@ -40,9 +39,8 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     iconName: 'Workflow',
     skills: [
       { name: 'Requirements Elicitation (BRD/FRD)', level: 90, highlight: true },
-      { name: 'BPMN Process Modeling', level: 85, highlight: true },
+      { name: 'Usability Audits', level: 85, highlight: true },
       { name: 'Relational Database Architecture', level: 86 },
-      { name: 'API Specifications & Integrations', level: 80 },
       { name: 'Information Systems Strategy', level: 88 },
       { name: 'Cost-Benefit & Feasibility Analysis', level: 84 }
     ]
@@ -52,7 +50,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
 export const PROFILE_INFO = {
   name: 'Ben Manguiat',
   tagline: 'Information Systems • Data Analytics • Scrum Master',
-  bio: 'Information Systems student and analytical problem-solver specializing in data engineering pipelines, Power BI/Tableau executive dashboards, and Agile/Scrum project delivery. I turn complex raw data and vague business requirements into organized, high-impact technical solutions.',
+  bio: 'Information Systems graduate (Miami University, 2026) and analytical problem-solver specializing in data engineering pipelines, Power BI/Tableau executive dashboards, and Agile/Scrum project delivery. I turn complex raw data and vague business requirements into organized, high-impact technical solutions.',
   location: 'United States',
   education: 'B.S. Information Systems',
   githubUsername: 'benman17',

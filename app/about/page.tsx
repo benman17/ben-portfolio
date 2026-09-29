@@ -140,7 +140,7 @@ export default function AboutPage() {
 
               <div>
                 <span className="text-[#8a8a8a] block text-[10px] uppercase tracking-wider mb-1">TOOLING</span>
-                <span className="text-white font-bold">Jira · Confluence · Planning Poker</span>
+                <span className="text-white font-bold">Jira · User Stories · Backlog</span>
               </div>
             </div>
           </div>

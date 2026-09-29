@@ -108,27 +108,27 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               <span className="text-[#34d399] font-bold flex items-center gap-1">
                 <Kanban className="w-3 h-3" /> AGILE SCRUM SPRINT DELIVERY
               </span>
-              <span>4 SPRINTS · 8 WEEKS</span>
+              <span>JAN – MAY 2026</span>
             </div>
 
             <div className="space-y-2 my-auto">
               <div className="grid grid-cols-3 gap-2 text-center text-xs">
                 <div className="p-2 bg-black border border-[#1a1a20]">
-                  <div className="text-[10px] text-[#8a8a8a]">AVG VELOCITY</div>
-                  <div className="font-bold text-white">42 Pts</div>
+                  <div className="text-[10px] text-[#8a8a8a]">TEAM</div>
+                  <div className="font-bold text-white">6</div>
                 </div>
                 <div className="p-2 bg-black border border-[#1a1a20]">
-                  <div className="text-[10px] text-[#8a8a8a]">ON-TIME</div>
-                  <div className="font-bold text-[#34d399]">96%</div>
+                  <div className="text-[10px] text-[#8a8a8a]">PAGES AUDITED</div>
+                  <div className="font-bold text-[#34d399]">5+</div>
                 </div>
                 <div className="p-2 bg-black border border-[#1a1a20]">
-                  <div className="text-[10px] text-[#8a8a8a]">FEEDBACK</div>
-                  <div className="font-bold text-[#38bdf8]">-40%</div>
+                  <div className="text-[10px] text-[#8a8a8a]">TOOLS</div>
+                  <div className="font-bold text-[#38bdf8]">Jira · Wix</div>
                 </div>
               </div>
 
               <div className="p-2 bg-black border border-[#1a1a20] text-[10px] text-[#8a8a8a] flex items-center justify-between">
-                <span>ARTIFACTS: <strong className="text-white">Backlog · Burndown · DoD</strong></span>
+                <span>ARTIFACTS: <strong className="text-white">Backlog · User Stories · Audit</strong></span>
                 <span className="text-[#34d399] font-bold">LIVE WEBSITE →</span>
               </div>
             </div>
