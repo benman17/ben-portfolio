@@ -138,7 +138,7 @@ JOIN analytics.dim_products p ON oi.product_id = p.product_id;`
     featured: true,
     role: 'Data Analyst (Solo Project)',
     timeline: 'Spring 2025',
-    summary: 'Unsupervised machine learning pipeline that clusters NFL players into actionable fantasy performance tiers using custom PPR+IDP scoring, Value Over Replacement (VOR), and K-Means with triple-metric validation.',
+    summary: 'Unsupervised machine learning pipeline that clusters NFL players into actionable fantasy performance tiers using custom PPR+IDP scoring, Value Over Replacement (VOR), and K-Means, with the tier count checked against three validation methods.',
     technologies: ['Python', 'Scikit-Learn', 'K-Means', 'Pandas', 'Value Over Replacement (VOR)', 'Matplotlib', 'Seaborn', 'CLI Pipeline'],
     githubUrl: 'https://github.com/benman17/NFL-Clustering',
     metrics: [
@@ -151,13 +151,13 @@ JOIN analytics.dim_products p ON oi.product_id = p.product_id;`
       'Ingested multi-category 2024 NFL player performance statistics via SportsData.io API and local cached datasets.',
       'Standardized positions (mapping FB->RB, OLB/ILB->LB, secondary roles) and formulated custom PPR + IDP scoring weights.',
       'Calculated positional Value Over Replacement (VOR) baselines based on standard 12-team roster starter demand.',
-      'Evaluated optimal tier count using the Elbow Method, Silhouette Analysis, and Gap Statistic (confirming k=4).',
+      'Compared tier counts from k=2 to 10 with the elbow method, silhouette analysis and the gap statistic.',
       'Trained K-Means model, sorted clusters by descending average VOR, and mapped actionable fantasy draft tiers.'
     ],
     solution: 'Built a modular data science repository with an end-to-end CLI pipeline and reproducible Google Colab notebook that partitions NFL players into 4 empirical draft tiers.',
     results: [
       'Ranked players across positions on one scale by comparing each to a replacement-level starter (VOR), instead of raw points.',
-      'Split players into 4 draft tiers; elbow, silhouette and gap statistic all pointed to k=4.',
+      'Split players into 4 draft tiers. The validation methods did not agree on one k (silhouette peaked at k=2 with 0.69); k=4 was chosen to give usable draft tiers, with a silhouette of 0.57.',
       'Packaged as a CLI pipeline + Colab notebook with a bundled sample dataset so it runs without an API key.'
     ],
     sqlSnippet: `# K-Means Clustering on Value Over Replacement (VOR)
@@ -167,7 +167,7 @@ from sklearn.metrics import silhouette_score
 # 1. Isolate feature vector (Value Over Replacement)
 X = df_selected_players[['VOR']].values
 
-# 2. Fit K-Means clustering model (optimal k=4)
+# 2. Fit K-Means clustering model (k=4)
 kmeans = KMeans(n_clusters=4, random_state=418, n_init=10)
 df_selected_players['Cluster'] = kmeans.fit_predict(X)
 
