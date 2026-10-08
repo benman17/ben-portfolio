@@ -1,8 +1,10 @@
+import { FIXTURE } from './fixtures';
+
 export interface SkillCategory {
   title: string;
   subtitle: string;
   iconName: string;
-  skills: { name: string; level: number; highlight?: boolean }[];
+  skills: { name: string; highlight?: boolean }[];
 }
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
@@ -11,12 +13,12 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     subtitle: 'Extracting actionable insight from complex datasets',
     iconName: 'BarChart3',
     skills: [
-      { name: 'SQL (PostgreSQL, MySQL, Snowflake)', level: 92, highlight: true },
-      { name: 'Python (Pandas, NumPy, SciPy)', level: 88, highlight: true },
-      { name: 'Power BI & DAX Modeling', level: 90, highlight: true },
-      { name: 'Tableau & Data Storytelling', level: 85 },
-      { name: 'ETL Pipelines & Data Cleanse', level: 86 },
-      { name: 'Excel (Pivot Tables, Lookups)', level: 85 }
+      { name: 'SQL (PostgreSQL, MySQL, Snowflake)', highlight: true },
+      { name: 'Python (Pandas, NumPy, SciPy)', highlight: true },
+      { name: 'Power BI & DAX Modeling', highlight: true },
+      { name: 'Tableau & Data Storytelling' },
+      { name: 'ETL Pipelines & Data Cleanse' },
+      { name: 'Excel (Pivot Tables, Lookups)' }
     ]
   },
   {
@@ -24,13 +26,13 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     subtitle: 'Driving agile delivery and stakeholder alignment',
     iconName: 'Kanban',
     skills: [
-      { name: 'Agile & Scrum Frameworks', level: 94, highlight: true },
-      { name: 'Sprint Planning & Ceremonies', level: 92, highlight: true },
-      { name: 'Jira', level: 90, highlight: true },
-      { name: 'Backlog Refinement & User Stories', level: 94 },
-      { name: 'Stakeholder Communication', level: 92 },
-      { name: 'Risk & Dependency Management', level: 86 },
-      { name: 'Velocity & Capacity Planning', level: 88 }
+      { name: 'Agile & Scrum Frameworks', highlight: true },
+      { name: 'Sprint Planning & Ceremonies', highlight: true },
+      { name: 'Jira', highlight: true },
+      { name: 'Backlog Refinement & User Stories' },
+      { name: 'Stakeholder Communication' },
+      { name: 'Risk & Dependency Management' },
+      { name: 'Velocity & Capacity Planning' }
     ]
   },
   {
@@ -38,11 +40,11 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     subtitle: 'Bridging business objectives with technical solutions',
     iconName: 'Workflow',
     skills: [
-      { name: 'Requirements Elicitation (BRD/FRD)', level: 90, highlight: true },
-      { name: 'Usability Audits', level: 85, highlight: true },
-      { name: 'Relational Database Architecture', level: 86 },
-      { name: 'Information Systems Strategy', level: 88 },
-      { name: 'Cost-Benefit & Feasibility Analysis', level: 84 }
+      { name: 'Requirements Elicitation (BRD/FRD)', highlight: true },
+      { name: 'Usability Audits', highlight: true },
+      { name: 'Relational Database Architecture' },
+      { name: 'Information Systems Strategy' },
+      { name: 'Cost-Benefit & Feasibility Analysis' }
     ]
   }
 ];
@@ -55,5 +57,5 @@ export const PROFILE_INFO = {
   education: 'B.S. Information Systems',
   githubUsername: 'benman17',
   linkedinUrl: 'https://www.linkedin.com/in/benjamin-manguiat-84340b251/',
-  email: 'bmanguiat03@gmail.com'
+  email: FIXTURE === 'worst' ? 'benjamin.manguiat.dataanalytics@outlook.com' : 'bmanguiat03@gmail.com'
 };

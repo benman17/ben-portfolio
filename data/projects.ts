@@ -1,3 +1,6 @@
+import { FIXTURE } from './fixtures';
+import { WORST_PROJECTS } from './fixtures/worst';
+
 export interface Project {
   slug: string;
   title: string;
@@ -5,6 +8,8 @@ export interface Project {
   category: 'analytics' | 'project-management' | 'systems';
   categoryLabel: string;
   featured: boolean;
+  /** Shown as a footer link ('About this site'), not in the project list. */
+  colophon?: boolean;
   role: string;
   timeline: string;
   summary: string;
@@ -25,7 +30,51 @@ export interface Project {
   };
 }
 
-export const PROJECTS: Project[] = [
+const REAL_PROJECTS: Project[] = [
+  {
+    slug: 'tft-snowflake',
+    title: 'TFT Ranked Match Analysis in Snowflake',
+    subtitle: 'Snowflake SQL Pipeline & Power BI Dashboard',
+    category: 'analytics',
+    categoryLabel: 'Data & Analytics',
+    featured: true,
+    role: 'Data Analyst (Solo Project)',
+    timeline: 'Fall 2025',
+    summary: 'Loaded ~400K ranked Teamfight Tactics player boards (49,977 matches, Platinum to Challenger) into Snowflake, unpacked nested trait data with SQL, and built a Power BI dashboard on what separates top-4 finishes.',
+    technologies: ['Snowflake', 'SQL', 'VARIANT / FLATTEN', 'Power BI', 'Data Cleaning'],
+    githubUrl: 'https://github.com/benman17/tft-snowflake',
+    metrics: [
+      { label: 'Matches', value: '49,977' },
+      { label: 'Player Boards', value: '399,906' },
+      { label: 'Rank Tiers', value: 'Platinum to Challenger' }
+    ],
+    problem: 'Ranked TFT match exports store each board\'s traits and champions as nested text, one CSV per rank tier. That makes it hard to answer basic questions like which traits and levels actually lead to top-4 finishes.',
+    dataApproach: [
+      'Staged 5 rank-tier CSVs (Set 3, Korean server) in Snowflake with a custom CSV file format.',
+      'Loaded each tier with COPY INTO, tagging rows by rank and parsing nested trait/champion text into VARIANT columns.',
+      'Removed duplicate rows and rows with invalid placements before analysis.',
+      'Used LATERAL FLATTEN to unpack traits and aggregate placement and top-4 rate per trait and per player level.',
+      'Connected Power BI directly to Snowflake for KPI, rank-tier and trait-effectiveness views.'
+    ],
+    solution: 'A reproducible Snowflake load (scripts run in order) feeding a Power BI dashboard on placement, rank tier and trait effectiveness.',
+    results: [
+      'Reaching level 9 was the strongest signal found: 86.6% top-4 rate vs 51.3% at level 8.',
+      'Starship (69.0% top-4) and Mercenary (60.6%) boards placed best; Vanguard (48.1%) and Sorcerer (49.2%) placed worst among common traits.',
+      'Flagged that trait results are confounded with level: high-cost traits mostly appear on boards that were already ahead.'
+    ],
+    sqlSnippet: `-- Top-4 rate and average placement per trait
+SELECT
+  REPLACE(t.key, 'Set3_', '')                         AS trait,
+  COUNT(*)                                            AS boards,
+  ROUND(AVG(m.placement), 2)                          AS avg_placement,
+  ROUND(AVG(IFF(m.placement <= 4, 1, 0)) * 100, 1)    AS top_4_rate_pct
+FROM matches m,
+     LATERAL FLATTEN(input => m.traits) t
+WHERE m.placement BETWEEN 1 AND 8
+GROUP BY 1
+HAVING COUNT(*) >= 5000
+ORDER BY avg_placement;`
+  },
   {
     slug: 'northstar-commerce',
     title: 'Northstar Commerce Executive BI Dashboard & Data Pipeline',
@@ -81,50 +130,6 @@ JOIN analytics.dim_customers c ON o.customer_id = c.customer_id
 JOIN analytics.dim_products p ON oi.product_id = p.product_id;`
   },
   {
-    slug: 'ben-portfolio-app',
-    title: 'Interactive Portfolio & Analytics Platform',
-    subtitle: 'Modern Web Application (Next.js, TypeScript, Tailwind CSS, Recharts)',
-    category: 'systems',
-    categoryLabel: 'Business & Systems',
-    featured: true,
-    role: 'Full-Stack & Systems Engineer',
-    timeline: '1 Month',
-    summary: 'Engineered a modern, responsive web application showcase for data analytics pipelines, interactive Machine Learning scatter plots, and Agile Scrum Master project workflows.',
-    technologies: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Recharts', 'GitHub REST API', 'Glassmorphism'],
-    githubUrl: 'https://github.com/benman17/ben-portfolio',
-    metrics: [
-      { label: 'Page Load Speed', value: '< 1.0s (Prerendered)' },
-      { label: 'Static Routes', value: '15 SSG Pages' },
-      { label: 'API Integration', value: 'GitHub REST' }
-    ],
-    problem: 'Traditional PDF resumes and static link lists fail to communicate the interactive nature of data analytics models, SQL query pipelines, and Agile sprint velocity metrics to recruiters.',
-    dataApproach: [
-      'Architected a modular Next.js 16 App Router application with full TypeScript type safety.',
-      'Built custom interactive visualization components using Recharts (NFL Tier Scatter Plot, Executive Revenue & Churn Sandbox, Sprint Burndown).',
-      'Designed an interactive Agile Scrum Kanban simulator allowing recruiters to drag/advance stories across Sprint stages.',
-      'Integrated dynamic client-side fetching with GitHub REST API to display live public repositories.'
-    ],
-    solution: 'Built a high-performance, glassmorphic portfolio web app that transforms static project summaries into interactive product showcases.',
-    results: [
-      'Delivered 100% static route pre-rendering for instant page loads and optimal SEO.',
-      'Automated dynamic GitHub repository sync with intelligent offline fallback state.',
-      'Deployed clean source repository to GitHub at benman17/ben-portfolio.'
-    ],
-    sqlSnippet: `// Next.js App Router API & Static Generation
-export async function generateStaticParams() {
-  return PROJECTS.map((project) => ({
-    slug: project.slug,
-  }));
-}
-
-export async function fetchGitHubRepos(username: string = 'benman17') {
-  const res = await fetch(\`https://api.github.com/users/\${username}/repos?sort=updated\`, {
-    next: { revalidate: 3600 }
-  });
-  return res.json();
-}`
-  },
-  {
     slug: 'nfl-clustering',
     title: 'NFL Player Clustering & Fantasy Tier Analytics',
     subtitle: 'K-Means Machine Learning & VOR Modeling | Python & Scikit-Learn',
@@ -133,7 +138,7 @@ export async function fetchGitHubRepos(username: string = 'benman17') {
     featured: true,
     role: 'Data Analyst (Solo Project)',
     timeline: 'Spring 2025',
-    summary: 'Unsupervised machine learning pipeline that clusters NFL players into actionable fantasy performance tiers using custom PPR+IDP scoring, Value Over Replacement (VOR), and K-Means with triple-metric validation.',
+    summary: 'Unsupervised machine learning pipeline that clusters NFL players into actionable fantasy performance tiers using custom PPR+IDP scoring, Value Over Replacement (VOR), and K-Means, with the tier count checked against three validation methods.',
     technologies: ['Python', 'Scikit-Learn', 'K-Means', 'Pandas', 'Value Over Replacement (VOR)', 'Matplotlib', 'Seaborn', 'CLI Pipeline'],
     githubUrl: 'https://github.com/benman17/NFL-Clustering',
     metrics: [
@@ -146,13 +151,13 @@ export async function fetchGitHubRepos(username: string = 'benman17') {
       'Ingested multi-category 2024 NFL player performance statistics via SportsData.io API and local cached datasets.',
       'Standardized positions (mapping FB->RB, OLB/ILB->LB, secondary roles) and formulated custom PPR + IDP scoring weights.',
       'Calculated positional Value Over Replacement (VOR) baselines based on standard 12-team roster starter demand.',
-      'Evaluated optimal tier count using the Elbow Method, Silhouette Analysis, and Gap Statistic (confirming k=4).',
+      'Compared tier counts from k=2 to 10 with the elbow method, silhouette analysis and the gap statistic.',
       'Trained K-Means model, sorted clusters by descending average VOR, and mapped actionable fantasy draft tiers.'
     ],
     solution: 'Built a modular data science repository with an end-to-end CLI pipeline and reproducible Google Colab notebook that partitions NFL players into 4 empirical draft tiers.',
     results: [
       'Ranked players across positions on one scale by comparing each to a replacement-level starter (VOR), instead of raw points.',
-      'Split players into 4 draft tiers; elbow, silhouette and gap statistic all pointed to k=4.',
+      'Split players into 4 draft tiers. The validation methods did not agree on one k (silhouette peaked at k=2 with 0.69); k=4 was chosen to give usable draft tiers, with a silhouette of 0.57.',
       'Packaged as a CLI pipeline + Colab notebook with a bundled sample dataset so it runs without an API key.'
     ],
     sqlSnippet: `# K-Means Clustering on Value Over Replacement (VOR)
@@ -162,7 +167,7 @@ from sklearn.metrics import silhouette_score
 # 1. Isolate feature vector (Value Over Replacement)
 X = df_selected_players[['VOR']].values
 
-# 2. Fit K-Means clustering model (optimal k=4)
+# 2. Fit K-Means clustering model (k=4)
 kmeans = KMeans(n_clusters=4, random_state=418, n_init=10)
 df_selected_players['Cluster'] = kmeans.fit_predict(X)
 
@@ -176,50 +181,6 @@ tier_labels = ["Tier 1 — Elite", "Tier 2 — High-End Starters", "Tier 3 — A
 df_selected_players['TierLabel'] = df_selected_players['Tier'].map(lambda x: tier_labels[x])`
   },
   {
-    slug: 'tft-snowflake',
-    title: 'TFT Ranked Match Analysis in Snowflake',
-    subtitle: 'Snowflake SQL Pipeline & Power BI Dashboard',
-    category: 'analytics',
-    categoryLabel: 'Data & Analytics',
-    featured: true,
-    role: 'Data Analyst (Solo Project)',
-    timeline: 'Fall 2025',
-    summary: 'Loaded ~400K ranked Teamfight Tactics player boards (49,977 matches, Platinum–Challenger) into Snowflake, unpacked nested trait data with SQL, and built a Power BI dashboard on what separates top-4 finishes.',
-    technologies: ['Snowflake', 'SQL', 'VARIANT / FLATTEN', 'Power BI', 'Data Cleaning'],
-    githubUrl: 'https://github.com/benman17/tft-snowflake',
-    metrics: [
-      { label: 'Matches', value: '49,977' },
-      { label: 'Player Boards', value: '399,906' },
-      { label: 'Rank Tiers', value: 'Plat → Challenger' }
-    ],
-    problem: 'Ranked TFT match exports store each board\'s traits and champions as nested text, one CSV per rank tier. That makes it hard to answer basic questions like which traits and levels actually lead to top-4 finishes.',
-    dataApproach: [
-      'Staged 5 rank-tier CSVs (Set 3, Korean server) in Snowflake with a custom CSV file format.',
-      'Loaded each tier with COPY INTO, tagging rows by rank and parsing nested trait/champion text into VARIANT columns.',
-      'Removed duplicate rows and rows with invalid placements before analysis.',
-      'Used LATERAL FLATTEN to unpack traits and aggregate placement and top-4 rate per trait and per player level.',
-      'Connected Power BI directly to Snowflake for KPI, rank-tier and trait-effectiveness views.'
-    ],
-    solution: 'A reproducible Snowflake load (scripts run in order) feeding a Power BI dashboard on placement, rank tier and trait effectiveness.',
-    results: [
-      'Reaching level 9 was the strongest signal found: 86.6% top-4 rate vs 51.3% at level 8.',
-      'Starship (69.0% top-4) and Mercenary (60.6%) boards placed best; Vanguard (48.1%) and Sorcerer (49.2%) placed worst among common traits.',
-      'Flagged that trait results are confounded with level — high-cost traits mostly appear on boards that were already ahead.'
-    ],
-    sqlSnippet: `-- Top-4 rate and average placement per trait
-SELECT
-  REPLACE(t.key, 'Set3_', '')                         AS trait,
-  COUNT(*)                                            AS boards,
-  ROUND(AVG(m.placement), 2)                          AS avg_placement,
-  ROUND(AVG(IFF(m.placement <= 4, 1, 0)) * 100, 1)    AS top_4_rate_pct
-FROM matches m,
-     LATERAL FLATTEN(input => m.traits) t
-WHERE m.placement BETWEEN 1 AND 8
-GROUP BY 1
-HAVING COUNT(*) >= 5000
-ORDER BY avg_placement;`
-  },
-  {
     slug: 'woodland-agile-redesign',
     title: 'Woodland Manor Agile Web Redesign & Systems Overhaul',
     subtitle: 'Scrum Master & Business Analyst Project Management Delivery',
@@ -227,8 +188,8 @@ ORDER BY avg_placement;`
     categoryLabel: 'Project Management & Scrum',
     featured: true,
     role: 'Scrum Master & Website Development Consultant',
-    timeline: 'Jan – May 2026',
-    summary: 'Scrum Master for DevHawks, a 6-person student team that redesigned Woodland Country Manor’s website in Wix Studio — ran sprints in Jira, handled client communication, and led a usability audit of the service pages.',
+    timeline: 'Jan to May 2026',
+    summary: 'Scrum Master for DevHawks, a 6-person student team that redesigned Woodland Country Manor’s website in Wix Studio. Ran sprints in Jira, handled client communication, and led a usability audit of the service pages.',
     technologies: ['Agile / Scrum', 'Jira', 'Wix Studio', 'Backlog Prioritization', 'User Stories', 'Usability Audit'],
     liveUrl: 'https://manguibo.wixstudio.com/woodlandcountrymanor',
     metrics: [
@@ -255,8 +216,55 @@ ORDER BY avg_placement;`
       velocity: 'Tracked in Jira',
       keyArtifacts: ['Product Backlog', 'User Stories', 'Usability Audit']
     }
+  },
+  {
+    slug: 'ben-portfolio-app',
+    colophon: true,
+    title: 'Interactive Portfolio & Analytics Platform',
+    subtitle: 'Modern Web Application (Next.js, TypeScript, Tailwind CSS, Recharts)',
+    category: 'systems',
+    categoryLabel: 'Business & Systems',
+    featured: true,
+    role: 'Full-Stack & Systems Engineer',
+    timeline: '1 Month',
+    summary: 'This site: a Next.js and TypeScript portfolio that presents each project through its findings, charts and source code.',
+    technologies: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS v4', 'Recharts', 'GitHub REST API'],
+    githubUrl: 'https://github.com/benman17/ben-portfolio',
+    metrics: [
+      { label: 'Framework', value: 'Next.js 16' },
+      { label: 'Charts', value: 'Recharts' },
+      { label: 'API Integration', value: 'GitHub REST' }
+    ],
+    problem: 'A PDF resume and a list of links do not show what the analysis found or how it was built.',
+    dataApproach: [
+      'Architected a modular Next.js 16 App Router application with full TypeScript type safety.',
+      'Built interactive chart components with Recharts (TFT level chart, NFL tier scatter plot, Northstar dashboard views, a labeled sample revenue sandbox).',
+      'Integrated dynamic client-side fetching with GitHub REST API to display live public repositories.'
+    ],
+    solution: 'A portfolio that shows each project through its own data: the findings, the queries behind them and links to the source.',
+    results: [
+      'Pages are prerendered at build time; project pages use generateStaticParams.',
+      'The GitHub page lists public repositories from the GitHub API, with a plain list of project repos if the API is unavailable.',
+      'Deployed clean source repository to GitHub at benman17/ben-portfolio.'
+    ],
+    sqlSnippet: `// Next.js App Router API & Static Generation
+export async function generateStaticParams() {
+  return PROJECTS.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+export async function fetchGitHubRepos(username: string = 'benman17') {
+  const res = await fetch(\`https://api.github.com/users/\${username}/repos?sort=updated\`, {
+    next: { revalidate: 3600 }
+  });
+  return res.json();
+}`
   }
 ];
+
+export const PROJECTS: Project[] =
+  FIXTURE === 'worst' ? [...WORST_PROJECTS, ...REAL_PROJECTS] : REAL_PROJECTS;
 
 export const METHODOLOGY_STEPS = {
   analytics: [
@@ -280,8 +288,8 @@ export const METHODOLOGY_STEPS = {
       step: '03',
       title: 'Exploratory & Modeling Analysis',
       subtitle: 'Pattern Discovery & Statistical Testing',
-      description: 'Perform exploratory data analysis (EDA), trend modeling, segmentation, and statistical validation to surface root causes, growth opportunities, and anomaly patterns.',
-      tools: ['Python SciPy/NumPy', 'Cohort Analysis', 'Regression Modeling'],
+      description: 'Explore the data, segment it, and check that a pattern holds up (for example, validating a cluster count three different ways) before calling it a finding.',
+      tools: ['Python pandas', 'scikit-learn (K-Means)', 'Validation checks'],
       deliverable: 'Statistical Findings Report'
     },
     {
@@ -296,8 +304,8 @@ export const METHODOLOGY_STEPS = {
       step: '05',
       title: 'Strategic Impact & Recommendations',
       subtitle: 'Translate Insight into Action',
-      description: 'Present data-driven strategic recommendations to cross-functional leaders, measuring ROI impact and establishing automated pipeline monitoring.',
-      tools: ['Executive Briefings', 'ROI Projection', 'Automated Alerts'],
+      description: 'Write up what the data shows, what it does not show, and what to do next, in terms the people acting on it can use.',
+      tools: ['Written findings', 'Dashboard walkthrough', 'Stated caveats'],
       deliverable: 'Business Action Plan'
     }
   ],

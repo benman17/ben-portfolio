@@ -1,76 +1,52 @@
-# Ben Manguiat — Interactive Portfolio & Analytics Platform
+# Ben Manguiat, Data Analyst: Portfolio
 
-> **Turning raw data and ideas into organized, actionable outcomes.**
+Portfolio site for Ben Manguiat (B.S. Information Systems, Miami University, 2026). Each project is presented by what it found, with the charts, queries and source behind it.
 
-An interactive web application built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4**, **Recharts**, and the **GitHub REST API**. Designed to showcase data engineering pipelines, machine learning clustering models, executive Power BI / Tableau dashboards, and Agile Scrum Master project delivery.
+Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS v4** and **Recharts**.
 
----
+## Projects
 
-## 🌟 Key Features & Interactive Showcases
+| Project | Finding | Stack | Source |
+| :--- | :--- | :--- | :--- |
+| TFT Ranked Match Analysis | Reaching level 9 meant a top-4 finish 86.6% of the time (vs 51.3% at level 8), across 399,906 boards from 49,977 ranked matches | Snowflake, SQL (VARIANT / LATERAL FLATTEN), Power BI | [tft-snowflake](https://github.com/benman17/tft-snowflake) |
+| Northstar Commerce | Electronics margin eroded by 7.62% average discounting and a 7.26% return rate; $231k in Unassigned products at 22.28% margin vs 38.57% | PostgreSQL, star schema, Power BI, DAX | [northstar-commerce](https://github.com/benman17/northstar-commerce) |
+| NFL Player Clustering | 163 players split into four draft tiers on Value Over Replacement; 22 in the elite tier | Python, pandas, scikit-learn (K-Means) | [NFL-Clustering](https://github.com/benman17/NFL-Clustering) |
+| Woodland Country Manor redesign | Scrum Master for a six-person student team that shipped a client site redesign | Jira, Wix Studio, Scrum | [Live site](https://manguibo.wixstudio.com/woodlandcountrymanor) |
 
-### 🏈 1. NFL Player Performance & Archetype Clustering
-- **Interactive PCA & K-Means Scatter Plot**: Explore player archetype distributions (Deep Threat Speedsters, YAC Specialists, Hybrid Backs, Red-Zone Anchors) derived from PySpark MLlib clustering models (`Silhouette Score: 0.72`, `92% PCA Variance`).
-- **Interactive Tooltips**: Inspect individual player metrics including Top Sprint Speed (mph), Yards After Catch (YAC), and Average Depth of Target (ADOT).
+The revenue chart on `/analytics` is a filter-to-SQL demo with sample data and is labeled as such on the page.
 
-### 📊 2. Executive BI Revenue & Churn Sandbox
-- **Dynamic Recharts Visualization**: Filter revenue trends, order volume, and customer churn rates across Enterprise and Mid-Market segments.
-- **Auto-Generated SQL Query Viewer**: Live preview of underlying PostgreSQL analytical queries using Window functions and CTEs.
+## Running locally
 
-### 🧩 3. Interactive Agile Scrum Kanban Simulator
-- **Sprint 4 Kanban Board**: Drag/advance user stories across `Backlog` → `To Do` → `In Progress` → `Done` (Definition of Done).
-- **Agile Metrics HUD**: Real-time tracking of team velocity (42 story points/sprint) and INVEST-compliant Acceptance Criteria.
+Requires Node.js 20.9+.
 
-### 🌐 4. Featured Project Case Studies
-- **Woodland Country Manor Redesign**: Agile web overhaul with live website link ([`manguibo.wixstudio.com/woodlandcountrymanor`](https://manguibo.wixstudio.com/woodlandcountrymanor)).
-- **Sales Intelligence & Revenue Analytics**: End-to-end SQL & Python ETL pipeline.
-- **Supply Chain & Inventory Optimization**: Python safety stock forecasting engine.
-
----
-
-## 🛠️ Technology Stack
-
-| Layer | Technologies Used |
-| :--- | :--- |
-| **Framework** | Next.js 16 (App Router), React 19 |
-| **Language** | TypeScript (Strict type checking) |
-| **Styling** | Tailwind CSS v4, Glassmorphism Tokens, Custom Grid Mesh |
-| **Visualizations** | Recharts (Area, Scatter, Composed Bar/Line Charts) |
-| **Icons & Social** | Lucide React, Custom SVG Brand Icons |
-| **Integration** | GitHub REST API (`@benman17`) |
-
----
-
-## 🚀 Local Setup & Development
-
-### 1. Prerequisites
-- **Node.js**: `v20.9+` or `v24.x`
-- **npm**: `v10.x` or `v11.x`
-
-### 2. Installation & Running
 ```bash
-# Navigate to project root
-cd "Website Port"
-
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
+npm run dev     # http://localhost:3000
+npm run build   # production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+### Stress-testing layouts
 
-### 3. Production Build & Static Verification
+`data/fixtures/worst.ts` holds realistic worst-case content (long titles, missing fields, long repo names, a long email). Development builds use it when started with:
+
 ```bash
-npm run build
+NEXT_PUBLIC_PORTFOLIO_FIXTURE=worst npm run dev
+NEXT_PUBLIC_PORTFOLIO_FIXTURE=github-empty npm run dev
 ```
 
----
+Production builds always use the real data.
 
-## 👤 Author & Contact
+## Where things live
 
-**Ben Manguiat** — *Information Systems • Data Analytics • Scrum Master*
+- `data/projects.ts`: projects and case-study content
+- `lib/stories.ts`: the finding-led headline for each project
+- `data/skills.ts`: profile, links and tools
+- `components/story/`: the chart, tabs and figure components shared by the case studies
+- `PRODUCT.md` and `DESIGN.md`: product context and the design system
 
-- **GitHub**: [@benman17](https://github.com/benman17)
-- **LinkedIn**: [Benjamin Manguiat](https://www.linkedin.com/in/benjamin-manguiat-84340b251/)
-- **Email**: [bmanguiat03@gmail.com](mailto:bmanguiat03@gmail.com)
+## Contact
+
+- Email: [bmanguiat03@gmail.com](mailto:bmanguiat03@gmail.com)
+- LinkedIn: [Benjamin Manguiat](https://www.linkedin.com/in/benjamin-manguiat-84340b251/)
+- GitHub: [@benman17](https://github.com/benman17)

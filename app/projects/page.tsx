@@ -1,92 +1,61 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
+import Link from 'next/link';
+import type { Metadata } from 'next';
 import { PROJECTS } from '@/data/projects';
-import ProjectCard from '@/components/ProjectCard';
-import { Search } from 'lucide-react';
+import { STORIES } from '@/lib/stories';
+import { keepTogether } from '@/lib/typography';
+import StoryFigure, { hasStoryFigure } from '@/components/story/StoryFigure';
+
+export const metadata: Metadata = {
+  title: 'Work | Ben Manguiat',
+  description: 'Case studies in SQL, Snowflake, Power BI and Python, plus Scrum delivery on a client project.',
+};
+
+const work = PROJECTS.filter((p) => !p.colophon);
 
 export default function ProjectsPage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'analytics' | 'project-management' | 'systems'>('all');
-
-  const filteredProjects = PROJECTS.filter((project) => {
-    const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
-    const matchesSearch = 
-      project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.technologies.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    return matchesCategory && matchesSearch;
-  });
-
   return (
-    <div className="pt-36 pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left font-mono">
-      
-      {/* Editorial Header */}
-      <div className="space-y-3 border-b border-[#1a1a20] pb-10">
-        <div className="text-xs text-[#38bdf8] font-bold tracking-widest uppercase">
-          COMPLETE PORTFOLIO INDEX
-        </div>
-        <h1 className="text-4xl sm:text-6xl font-extrabold text-[#ffffff] tracking-tight font-sans">
-          All Interactive Case Studies
-        </h1>
-        <p className="text-sm sm:text-base text-[#8a8a8a] max-w-3xl leading-relaxed font-sans font-normal pt-1">
-          Browse complete interactive project case studies spanning Data Analytics Pipelines, SQL/Python ETL, Agile/Scrum project delivery, and Business Systems Architecture.
-        </p>
-      </div>
+    <div className="mx-auto max-w-6xl px-4 pb-24 pt-10 sm:px-8 sm:pt-14">
+      <h1 className="text-4xl font-extrabold tracking-[-0.025em] text-ink sm:text-5xl">Work</h1>
+      <p className="prose-body mt-4 max-w-[52ch] text-xl">
+        Four projects, each led by what it found. Every case study links to the source.
+      </p>
 
-      {/* Minimalist Controls Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-[#08080c] border border-[#1a1a20]">
-        
-        {/* Search Input */}
-        <div className="relative w-full md:w-80">
-          <Search className="w-4 h-4 text-[#8a8a8a] absolute left-3 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            placeholder="SEARCH TOOLS, SQL, PYTHON..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-black border border-[#1a1a20] text-xs text-white placeholder-[#8a8a8a] focus:outline-none focus:border-white transition-colors"
-          />
-        </div>
+      <ol className="mt-12 border-t-2 border-ink">
+        {work.map((project) => {
+          const story = STORIES[project.slug] ?? { headline: project.title, dek: project.summary };
+          return (
+            <li key={project.slug} className="group relative border-b border-rule py-8 sm:py-10">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-10">
+                <div className={hasStoryFigure(project.slug) ? 'md:col-span-7' : 'md:col-span-9'}>
+                  <h2 className="text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink sm:text-[1.75rem]">
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="after:absolute after:inset-0 group-hover:underline group-hover:decoration-2 group-hover:decoration-accent group-hover:underline-offset-[0.18em]"
+                    >
+                      {story.headline}
+                    </Link>
+                  </h2>
+                  <p className="prose-body mt-3 max-w-[60ch] text-[1.0625rem]">{keepTogether(story.dek)}</p>
+                  <p className="mt-4 text-sm text-ink-3">
+                    <span className="font-semibold text-ink-2">{project.title}</span>, {project.timeline}. {project.technologies.slice(0, 5).join(', ')}
+                  </p>
+                </div>
+                {hasStoryFigure(project.slug) && (
+                  <div className="md:col-span-5 md:pt-1">
+                    <StoryFigure slug={project.slug} />
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ol>
 
-        {/* Category Filters */}
-        <div className="flex flex-wrap gap-2 w-full md:w-auto text-xs">
-          {[
-            { id: 'all', label: 'ALL PROJECTS' },
-            { id: 'analytics', label: 'DATA & ANALYTICS' },
-            { id: 'project-management', label: 'SCRUM / PM' },
-            { id: 'systems', label: 'BUSINESS SYSTEMS' }
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setSelectedCategory(tab.id as any)}
-              className={`px-3 py-1.5 transition-all border ${
-                selectedCategory === tab.id
-                  ? 'border-white text-white bg-white/10 font-bold'
-                  : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-      </div>
-
-      {/* Projects Single Column Editorial Layout */}
-      {filteredProjects.length === 0 ? (
-        <div className="py-20 text-center bg-[#08080c] border border-[#1a1a20]">
-          <p className="text-[#8a8a8a] text-xs">NO PROJECTS MATCHING YOUR SEARCH CRITERIA.</p>
-        </div>
-      ) : (
-        <div className="space-y-12">
-          {filteredProjects.map((project, idx) => (
-            <ProjectCard key={project.slug} project={project} index={idx} />
-          ))}
-        </div>
-      )}
-
+      <p className="mt-10 text-[0.9375rem] text-ink-3">
+        Also: <Link href="/projects/ben-portfolio-app" className="link font-semibold">how this site is built</Link>, and{' '}
+        <Link href="/github" className="link font-semibold">all public repositories</Link>.
+      </p>
     </div>
   );
 }

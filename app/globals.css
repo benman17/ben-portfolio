@@ -1,116 +1,214 @@
 @import "tailwindcss";
 
-@layer base {
+/*
+ * Data-story system. Paper and ink, one vermilion highlight for the value a
+ * chart is talking about, greys for everything else. Light by default (people
+ * read this on a work laptop in daylight); dark follows the OS setting.
+ */
+:root {
+  --paper: #ffffff;
+  --wash: #f3f4f6;
+  --ink: #15171c;
+  --ink-2: #41464f;
+  --ink-3: #5f6570;
+  --rule: #d8dbe0;
+  --rule-strong: #9aa0a9;
+  --chart: #b9bec6;
+  --accent: #c2361f;
+  --accent-ink: #ffffff;
+  --code-bg: #f3f4f6;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --background: #050505;
-    --foreground: #ffffff;
-    --muted-foreground: #8a8a8a;
-    --border-color: #1a1a1e;
-    --accent-cyan: #38bdf8;
-    --accent-emerald: #34d399;
-    --accent-indigo: #818cf8;
-    --accent-amber: #fbbf24;
+    --paper: #111317;
+    --wash: #1a1d22;
+    --ink: #eceef1;
+    --ink-2: #c0c5cc;
+    --ink-3: #969ca6;
+    --rule: #2b2f36;
+    --rule-strong: #575d67;
+    --chart: #4b515b;
+    --accent: #ff6f52;
+    --accent-ink: #111317;
+    --code-bg: #1a1d22;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-wash: var(--wash);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-chart: var(--chart);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-code: var(--code-bg);
+
+  --font-sans: var(--font-franklin), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Controls fire on tap without the double-tap-zoom wait. */
+  a,
+  button,
+  [role="tab"] {
+    touch-action: manipulation;
+  }
+
+  /* Control labels are not content: no long-press text selection. Links stay selectable. */
+  button,
+  [role="tab"] {
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   body {
-    background-color: #050505;
-    color: #ffffff;
-    font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-    overflow-x: hidden;
-    min-height: 100vh;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "kern", "liga";
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  input,
+  textarea {
+    caret-color: var(--accent);
   }
 }
 
-/* Architectural Coordinate Grid Overlay (Subtle, Non-decorative) */
-.bg-arch-grid {
-  background-color: #050505;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 32px 32px;
+/* Numbers in tables, charts and stat lines line up. */
+.tnum {
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
-/* Architectural Spatial Panels (Minimalist Monochrome Shell) */
-.arch-panel {
-  background: #08080c;
-  border: 1px solid #1a1a20;
+/* Body copy set for reading. */
+.prose-body {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--ink-2);
 }
 
-/* Architectural Thin Rule Divider */
-.arch-rule {
-  border-color: #1a1a20;
+/* Inline link in running text. */
+.link {
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-color: var(--rule-strong);
+  transition: text-decoration-color 160ms var(--ease-out-expo), color 160ms var(--ease-out-expo);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    text-decoration-color: var(--accent);
+  }
 }
 
-/* Restrained Hover Physics (2-4px Subtle Translation & Border Illumination) */
-.arch-interactive {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-              background-color 0.3s ease, 
-              border-color 0.3s ease;
-  will-change: transform;
+/* Horizontal scrollers (code blocks, tab rows) never trigger swipe-back or chain to the page. */
+pre,
+[role="tablist"] {
+  overscroll-behavior-x: contain;
 }
 
-.arch-interactive:hover {
-  background-color: #0c0c12;
-  border-color: #38bdf8;
-  transform: translateY(-2px);
+/* Scrollbars follow the page instead of the OS default. */
+* {
+  scrollbar-color: var(--rule-strong) transparent;
+  scrollbar-width: thin;
 }
 
-.arch-interactive:active {
-  transform: translateY(0) scale(0.99);
+/*
+ * Motion. One authored moment: chart bars draw in once, left to right, on
+ * first paint. Values and labels are never animated, so the numbers can be
+ * read at t=0; only the bar length eases in. Everything a visitor triggers
+ * repeatedly (tabs, filters, links) stays instant or under 200ms.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .level-bar,
+  .bar-fill {
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: bar-draw 620ms var(--ease-out-expo) backwards;
+    animation-delay: calc(120ms + var(--i, 0) * 70ms);
+  }
+
+  [data-touched] .level-bar,
+  [data-touched] .bar-fill {
+    animation: none;
+  }
+
+  .pop-in {
+    animation: pop-in 180ms var(--ease-out-expo);
+  }
 }
 
-/* Spatial Expansion Modal Keyframes */
-@keyframes spatialExpand {
-  0% {
+@keyframes bar-draw {
+  from {
+    transform: scaleX(0.04);
+  }
+}
+
+@keyframes pop-in {
+  from {
     opacity: 0;
-    transform: scale(0.96) translateY(8px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(0.85);
   }
 }
 
-.animate-spatialExpand {
-  animation: spatialExpand 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* Pressable controls confirm the press. */
+.press {
+  transition-property: color, background-color, border-color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: var(--ease-out-expo);
+}
+.press:active {
+  transform: scale(0.97);
 }
 
-/* Fade-In Overlay Keyframes */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.25s ease forwards;
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #050505;
-}
-::-webkit-scrollbar-thumb {
-  background: #1c1c24;
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #38bdf8;
-}
-
-/* Reduced Motion Accessibility Override */
 @media (prefers-reduced-motion: reduce) {
-  .arch-interactive,
-  .animate-spatialExpand {
-    transition: none !important;
-    animation: none !important;
-    transform: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
