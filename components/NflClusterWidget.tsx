@@ -216,7 +216,7 @@ export default function NflClusterWidget() {
           type="button"
           aria-pressed={selectedTier === 'all'}
           onClick={() => setSelectedTier('all')}
-          className={`min-h-10 border px-3 text-sm font-semibold transition-colors duration-150 ${
+          className={`min-h-10 border px-3 text-sm font-semibold press ${
             selectedTier === 'all' ? 'border-ink bg-ink text-paper' : 'border-rule text-ink-2 hover:border-ink hover:text-ink'
           }`}
         >
@@ -228,7 +228,7 @@ export default function NflClusterWidget() {
             type="button"
             aria-pressed={selectedTier === t.id}
             onClick={() => setSelectedTier(t.id)}
-            className={`inline-flex min-h-10 items-center gap-2 border px-3 text-sm font-semibold transition-colors duration-150 ${
+            className={`inline-flex min-h-10 items-center gap-2 border px-3 text-sm font-semibold press ${
               selectedTier === t.id ? 'border-ink bg-ink text-paper' : 'border-rule text-ink-2 hover:border-ink hover:text-ink'
             }`}
           >

@@ -69,7 +69,7 @@ ORDER BY 1 ASC;`;
   ] as const;
 
   const pill = (on: boolean) =>
-    `min-h-10 border px-3 text-sm font-semibold transition-colors duration-150 ${
+    `min-h-10 border px-3 text-sm font-semibold press ${
       on ? 'border-ink bg-ink text-paper' : 'border-rule text-ink-2 hover:border-ink hover:text-ink'
     }`;
 

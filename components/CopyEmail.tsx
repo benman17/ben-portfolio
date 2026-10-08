@@ -43,7 +43,7 @@ export default function CopyEmail({ size = 'md' }: { size?: 'md' | 'lg' }) {
         className="inline-flex min-h-9 items-center gap-1.5 border border-rule-strong px-2.5 text-sm font-semibold text-ink-2 transition-[color,border-color,transform] duration-150 ease-out-expo hover:border-ink hover:text-ink active:scale-[0.97]"
         aria-label={`Copy email address ${PROFILE_INFO.email}`}
       >
-        {state === 'copied' ? <Check className="h-3.5 w-3.5 text-accent" strokeWidth={2} aria-hidden /> : <Copy className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />}
+        {state === 'copied' ? <Check className="pop-in h-3.5 w-3.5 text-accent" strokeWidth={2} aria-hidden /> : <Copy className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />}
         <span>{label}</span>
       </button>
       <span className="sr-only" role="status" aria-live="polite">

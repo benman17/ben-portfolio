@@ -79,7 +79,7 @@ export default function Home() {
                     width={story.cover.width}
                     height={story.cover.height}
                     sizes="(min-width: 768px) 50vw, 100vw"
-                    className="h-auto w-full transition-transform duration-500 ease-out-expo group-hover:scale-[1.015]"
+                    className="h-auto w-full transition-transform duration-300 ease-out-expo group-hover:scale-[1.012]"
                   />
                 </div>
               )}

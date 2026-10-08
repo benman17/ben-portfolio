@@ -35,8 +35,8 @@ export default function BarList({
         </tr>
       </thead>
       <tbody>
-        {rows.map((r) => (
-          <tr key={r.label} className="border-t border-rule first:border-t-0">
+        {rows.map((r, i) => (
+          <tr key={r.label} style={{ '--i': i } as React.CSSProperties} className="border-t border-rule first:border-t-0">
             <th scope="row" className="w-[34%] py-2.5 pr-3 text-left align-middle font-semibold sm:w-[26%]">
               <span className={r.highlight ? 'text-ink' : 'text-ink-2'}>{r.label}</span>
               {r.sub && <span className="tnum block text-xs font-normal text-ink-3">{r.sub}</span>}

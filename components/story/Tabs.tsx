@@ -14,12 +14,18 @@ export interface TabDef {
  */
 export default function Tabs({ tabs, label }: { tabs: TabDef[]; label: string }) {
   const [active, setActive] = useState(tabs[0].id);
+  // After the first switch, chart draw-ins stop replaying when a panel is shown again.
+  const [touched, setTouched] = useState(false);
+  const select = (id: string) => {
+    setActive(id);
+    setTouched(true);
+  };
   const base = useId();
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const focusTab = (i: number) => {
     const n = (i + tabs.length) % tabs.length;
-    setActive(tabs[n].id);
+    select(tabs[n].id);
     refs.current[n]?.focus();
   };
 
@@ -31,7 +37,7 @@ export default function Tabs({ tabs, label }: { tabs: TabDef[]; label: string })
   };
 
   return (
-    <div>
+    <div data-touched={touched || undefined}>
       <div role="tablist" aria-label={label} className="flex gap-6 overflow-x-auto border-b border-rule">
         {tabs.map((t, i) => {
           const selected = t.id === active;
@@ -45,7 +51,7 @@ export default function Tabs({ tabs, label }: { tabs: TabDef[]; label: string })
               aria-selected={selected}
               aria-controls={`${base}-panel-${t.id}`}
               tabIndex={selected ? 0 : -1}
-              onClick={() => setActive(t.id)}
+              onClick={() => select(t.id)}
               onKeyDown={(e) => onKeyDown(e, i)}
               className={`-mb-px min-h-11 shrink-0 border-b-2 text-[0.9375rem] font-semibold transition-colors duration-150 ${
                 selected ? 'border-accent text-ink' : 'border-transparent text-ink-3 hover:text-ink'
