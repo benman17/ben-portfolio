@@ -4,90 +4,38 @@ export interface GitHubRepo {
   full_name: string;
   description: string | null;
   html_url: string;
-  stargazers_count: number;
-  forks_count: number;
+  stargazers_count: number | null;
+  forks_count: number | null;
   language: string | null;
   topics: string[];
-  updated_at: string;
-  is_featured?: boolean;
+  updated_at: string | null;
+  fromFallback?: boolean;
 }
 
+/**
+ * Shown only when the GitHub API is unavailable (rate limit, offline). These
+ * are the real project repos; stats and dates are unknown here, so they are
+ * left empty rather than guessed. `fromFallback` lets the UI say so.
+ */
+const fallback = (name: string, description: string, language: string): GitHubRepo => ({
+  id: -name.length - description.length,
+  name,
+  full_name: `benman17/${name}`,
+  description,
+  html_url: `https://github.com/benman17/${name}`,
+  stargazers_count: null,
+  forks_count: null,
+  language,
+  topics: [],
+  updated_at: null,
+  fromFallback: true
+});
+
 export const FALLBACK_REPOS: GitHubRepo[] = [
-  {
-    id: 1,
-    name: 'northstar-commerce',
-    full_name: 'benman17/northstar-commerce',
-    description: 'PostgreSQL data pipeline and executive Power BI command center diagnosing margin leakage across 63k+ order transactions.',
-    html_url: 'https://github.com/benman17/northstar-commerce',
-    stargazers_count: 14,
-    forks_count: 4,
-    language: 'T-SQL',
-    topics: ['sql', 'postgresql', 'power-bi', 'star-schema', 'data-analytics'],
-    updated_at: new Date(Date.now() - 86400000 * 1).toISOString(),
-    is_featured: true
-  },
-  {
-    id: 2,
-    name: 'woodland-manor-agile-redesign',
-    full_name: 'benman17/woodland-manor-agile-redesign',
-    description: 'Scrum project management repository featuring Jira user stories, sprint velocity metrics, and web portal source.',
-    html_url: 'https://manguibo.wixstudio.com/woodlandcountrymanor',
-    stargazers_count: 12,
-    forks_count: 5,
-    language: 'TypeScript',
-    topics: ['agile', 'scrum', 'jira', 'project-management', 'nextjs'],
-    updated_at: new Date(Date.now() - 86400000 * 5).toISOString(),
-    is_featured: true
-  },
-  {
-    id: 3,
-    name: 'supply-chain-data-engine',
-    full_name: 'benman17/supply-chain-data-engine',
-    description: 'Python statistical safety stock forecasting engine reducing warehouse stockouts.',
-    html_url: 'https://github.com/benman17/supply-chain-data-engine',
-    stargazers_count: 6,
-    forks_count: 2,
-    language: 'Jupyter Notebook',
-    topics: ['python', 'pandas', 'supply-chain', 'tableau', 'forecasting'],
-    updated_at: new Date(Date.now() - 86400000 * 10).toISOString(),
-    is_featured: true
-  },
-  {
-    id: 4,
-    name: 'sql-analytical-query-library',
-    full_name: 'benman17/sql-analytical-query-library',
-    description: 'Curated collection of advanced SQL queries (CTEs, Window functions, cohort retention matrices).',
-    html_url: 'https://github.com/benman17/sql-analytical-query-library',
-    stargazers_count: 15,
-    forks_count: 7,
-    language: 'T-SQL',
-    topics: ['sql', 'postgresql', 'data-modeling', 'window-functions'],
-    updated_at: new Date(Date.now() - 86400000 * 14).toISOString()
-  },
-  {
-    id: 5,
-    name: 'patient-flow-simulation',
-    full_name: 'benman17/patient-flow-simulation',
-    description: 'Healthcare Discrete Event Simulation evaluating emergency room intake queues.',
-    html_url: 'https://github.com/benman17/patient-flow-simulation',
-    stargazers_count: 5,
-    forks_count: 1,
-    language: 'Python',
-    topics: ['simpy', 'python', 'operations-research', 'healthcare'],
-    updated_at: new Date(Date.now() - 86400000 * 20).toISOString()
-  },
-  {
-    id: 6,
-    name: 'agile-scrum-templates-suite',
-    full_name: 'benman17/agile-scrum-templates-suite',
-    description: 'Re-usable Agile Scrum templates: Sprint Planning matrices, Retro boards, and INVEST story checklists.',
-    html_url: 'https://github.com/benman17/agile-scrum-templates-suite',
-    stargazers_count: 24,
-    forks_count: 11,
-    language: 'Markdown',
-    topics: ['scrum', 'agile', 'jira', 'confluence', 'templates'],
-    updated_at: new Date(Date.now() - 86400000 * 25).toISOString()
-  }
+  fallback('tft-snowflake', 'Ranked Teamfight Tactics match data loaded into Snowflake, analyzed with SQL, and visualized in Power BI.', 'SQL'),
+  fallback('northstar-commerce', 'PostgreSQL star-schema pipeline and Power BI executive dashboard on margin and returns across 63k+ order items.', 'SQL'),
+  fallback('NFL-Clustering', 'K-Means fantasy draft tiers built on Value Over Replacement, with elbow, silhouette and gap-statistic validation.', 'Python'),
+  fallback('ben-portfolio', 'This portfolio: Next.js, TypeScript, Tailwind CSS and Recharts.', 'TypeScript')
 ];
 
 export async function fetchGitHubRepos(username: string = 'benman17'): Promise<GitHubRepo[]> {
@@ -105,7 +53,7 @@ export async function fetchGitHubRepos(username: string = 'benman17'): Promise<G
       return FALLBACK_REPOS;
     }
 
-    const repos: any[] = await res.json();
+    const repos: Array<Omit<GitHubRepo, 'fromFallback'>> = await res.json();
     if (!Array.isArray(repos) || repos.length === 0) {
       return FALLBACK_REPOS;
     }
@@ -114,11 +62,11 @@ export async function fetchGitHubRepos(username: string = 'benman17'): Promise<G
       id: repo.id,
       name: repo.name,
       full_name: repo.full_name,
-      description: repo.description || 'Public repository showcasing analytics or project management work.',
+      description: repo.description || null,
       html_url: repo.html_url,
-      stargazers_count: repo.stargazers_count || 0,
-      forks_count: repo.forks_count || 0,
-      language: repo.language || 'Code',
+      stargazers_count: repo.stargazers_count ?? null,
+      forks_count: repo.forks_count ?? null,
+      language: repo.language || null,
       topics: repo.topics || [],
       updated_at: repo.updated_at
     }));

@@ -11,7 +11,7 @@ import {
   Tooltip,
   Cell
 } from 'recharts';
-import { Cpu } from 'lucide-react';
+import WidgetFrame from '@/components/story/WidgetFrame';
 
 interface PlayerPoint {
   name: string;
@@ -191,11 +191,12 @@ const PLAYERS: PlayerPoint[] = [
   { name: "Player_WR_120", position: 'WR', team: 'HOU', points: 150.2, vor: 58.3, tier: 2 }
 ];
 
+// Ordinal ramp: the elite tier carries the accent, lower tiers fade to grey.
 const TIERS = [
-  { id: 0, name: 'Tier 1 — Elite', color: '#38bdf8', desc: 'VOR 173 to 294 · 22 players' },
-  { id: 1, name: 'Tier 2 — High-End Starters', color: '#34d399', desc: 'VOR 85 to 166 · 36 players' },
-  { id: 2, name: 'Tier 3 — Average', color: '#818cf8', desc: 'VOR 33 to 83 · 73 players' },
-  { id: 3, name: 'Tier 4 — Below Replacement', color: '#fbbf24', desc: 'VOR -40 to 29 · 32 players' }
+  { id: 0, name: 'Tier 1: Elite', fill: 'var(--accent)', opacity: 1, desc: 'VOR 173 to 294, 22 players' },
+  { id: 1, name: 'Tier 2: High-end starters', fill: 'var(--accent)', opacity: 0.45, desc: 'VOR 85 to 166, 36 players' },
+  { id: 2, name: 'Tier 3: Average', fill: 'var(--ink-3)', opacity: 0.75, desc: 'VOR 33 to 83, 73 players' },
+  { id: 3, name: 'Tier 4: Below replacement', fill: 'var(--chart)', opacity: 1, desc: 'VOR -40 to 29, 32 players' }
 ];
 
 export default function NflClusterWidget() {
@@ -206,128 +207,85 @@ export default function NflClusterWidget() {
     : PLAYERS.filter(d => d.tier === selectedTier);
 
   return (
-    <div className="bg-[#08080c] border border-[#1a1a20] p-6 sm:p-8 space-y-6 font-mono">
-
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#1a1a20] pb-6 gap-4">
-        <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-[#38bdf8] mb-1">
-            <Cpu className="w-4 h-4" />
-            <span>K-MEANS ON VALUE OVER REPLACEMENT</span>
-          </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            NFL Fantasy Draft Tiers
-          </h3>
-          <p className="text-xs text-[#8a8a8a] mt-1">
-            Sample run on the repo&apos;s bundled 2024 dataset (163 players, includes placeholder records). k=4 chosen with elbow, silhouette and gap statistic.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2 bg-black p-2 border border-[#1a1a20] text-xs font-mono">
-          <span className="text-[#8a8a8a]">Silhouette:</span>
-          <span className="text-[#34d399] font-bold">0.57 (k=4)</span>
-        </div>
-      </div>
-
-      {/* Tier Filter Buttons */}
-      <div className="flex flex-wrap gap-2">
+    <WidgetFrame
+      title="The tiers"
+      note="Sample run on the repo's bundled 2024 dataset (163 players, includes placeholder records). k=4, silhouette 0.57."
+    >
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Filter players by tier">
         <button
+          type="button"
+          aria-pressed={selectedTier === 'all'}
           onClick={() => setSelectedTier('all')}
-          className={`px-3.5 py-1.5 text-xs font-bold transition-all border ${
-            selectedTier === 'all'
-              ? 'border-white text-white bg-white/10'
-              : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
+          className={`min-h-10 border px-3 text-sm font-semibold transition-colors duration-150 ${
+            selectedTier === 'all' ? 'border-ink bg-ink text-paper' : 'border-rule text-ink-2 hover:border-ink hover:text-ink'
           }`}
         >
-          All Tiers
+          All tiers
         </button>
-        {TIERS.map((c) => (
+        {TIERS.map((t) => (
           <button
-            key={c.id}
-            onClick={() => setSelectedTier(c.id)}
-            className={`px-3.5 py-1.5 text-xs font-semibold transition-all border flex items-center gap-2 ${
-              selectedTier === c.id
-                ? 'text-white bg-white/10 font-bold'
-                : 'border-[#1a1a20] text-[#8a8a8a] hover:border-white hover:text-white'
+            key={t.id}
+            type="button"
+            aria-pressed={selectedTier === t.id}
+            onClick={() => setSelectedTier(t.id)}
+            className={`inline-flex min-h-10 items-center gap-2 border px-3 text-sm font-semibold transition-colors duration-150 ${
+              selectedTier === t.id ? 'border-ink bg-ink text-paper' : 'border-rule text-ink-2 hover:border-ink hover:text-ink'
             }`}
-            style={{ borderColor: selectedTier === c.id ? c.color : undefined }}
           >
-            <span className="w-2 h-2" style={{ backgroundColor: c.color }} />
-            <span>{c.name}</span>
+            <svg aria-hidden width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill={t.fill} fillOpacity={t.opacity} /></svg>
+            {t.name}
           </button>
         ))}
       </div>
 
-      {/* Scatter Plot */}
-      <div className="bg-black p-4 border border-[#1a1a20] relative">
-        <div className="flex items-center justify-between text-xs font-mono text-[#8a8a8a] mb-2">
-          <span>Y-AXIS: <strong className="text-[#38bdf8]">VALUE OVER REPLACEMENT</strong></span>
-          <span>X-AXIS: <strong className="text-[#38bdf8]">FANTASY POINTS (PPR + IDP)</strong></span>
-        </div>
-
-        <div className="h-80 w-full">
+      <figure className="m-0 mt-6">
+        <figcaption className="mb-2 flex flex-wrap justify-between gap-x-6 gap-y-1 text-sm text-ink-3">
+          <span><span className="font-semibold text-ink">Vertical:</span> value over replacement (VOR)</span>
+          <span><span className="font-semibold text-ink">Horizontal:</span> fantasy points (PPR + IDP)</span>
+        </figcaption>
+        <div className="h-80 w-full border-y border-rule sm:h-96" role="img" aria-label={`Scatter plot of ${filteredData.length} players by fantasy points and value over replacement, colored by tier.`}>
           <ResponsiveContainer width="100%" height="100%">
-            <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 10 }}>
-              <XAxis type="number" dataKey="points" name="Fantasy points" stroke="#64748b" tick={{ fontSize: 11 }} />
-              <YAxis type="number" dataKey="vor" name="VOR" stroke="#64748b" tick={{ fontSize: 11 }} />
-              <ZAxis range={[60, 60]} />
+            <ScatterChart margin={{ top: 16, right: 12, bottom: 8, left: -8 }}>
+              <XAxis type="number" dataKey="points" name="Fantasy points" stroke="var(--rule-strong)" tick={{ fontSize: 12, fill: 'var(--ink-3)' }} tickLine={false} />
+              <YAxis type="number" dataKey="vor" name="VOR" stroke="var(--rule-strong)" tick={{ fontSize: 12, fill: 'var(--ink-3)' }} tickLine={false} />
+              <ZAxis range={[54, 54]} />
               <Tooltip
-                cursor={{ strokeDasharray: '3 3', stroke: '#1a1a20' }}
+                cursor={{ strokeDasharray: '3 3', stroke: 'var(--rule-strong)' }}
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
                     const p = payload[0].payload as PlayerPoint;
                     return (
-                      <div className="bg-[#08080c] border border-[#2a2a35] p-3 text-xs space-y-1">
-                        <div className="flex items-center justify-between gap-4 font-bold text-white">
-                          <span>{p.name} ({p.position})</span>
-                          <span className="text-[#38bdf8] font-mono">{p.team}</span>
-                        </div>
-                        <div className="text-[11px] text-[#8a8a8a] font-mono">
-                          <strong style={{ color: TIERS[p.tier].color }}>{TIERS[p.tier].name}</strong>
-                        </div>
-                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[#1a1a20] text-[10px] font-mono text-neutral-300">
-                          <div>Points: <strong className="text-white">{p.points}</strong></div>
-                          <div>VOR: <strong className="text-white">{p.vor}</strong></div>
-                        </div>
+                      <div className="border border-rule bg-paper px-3 py-2 text-sm shadow-[0_6px_20px_-8px_rgba(21,23,28,0.25)]">
+                        <p className="font-bold text-ink">{p.name} <span className="font-normal text-ink-3">{p.position}, {p.team}</span></p>
+                        <p className="text-ink-3">{TIERS[p.tier].name}</p>
+                        <p className="tnum mt-1 text-ink-2">{p.points} pts, VOR {p.vor}</p>
                       </div>
                     );
                   }
                   return null;
                 }}
               />
-              <Scatter name="Players" data={filteredData}>
+              <Scatter name="Players" data={filteredData} isAnimationActive={false}>
                 {filteredData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={TIERS[entry.tier].color} stroke="#050505" strokeWidth={1} />
+                  <Cell key={`cell-${index}`} fill={TIERS[entry.tier].fill} fillOpacity={TIERS[entry.tier].opacity} stroke="var(--paper)" strokeWidth={1} />
                 ))}
               </Scatter>
             </ScatterChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </figure>
 
-      {/* Tier Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {TIERS.map((c) => (
-          <div
-            key={c.id}
-            onClick={() => setSelectedTier(c.id)}
-            className={`p-3.5 border transition-all cursor-pointer ${
-              selectedTier === c.id
-                ? 'bg-[#08080c] border-white'
-                : selectedTier === 'all'
-                ? 'bg-[#08080c] border-[#1a1a20] hover:border-white'
-                : 'bg-black border-[#1a1a20] opacity-40 hover:opacity-70'
-            }`}
-          >
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="w-2 h-2" style={{ backgroundColor: c.color }} />
-              <h4 className="text-xs font-bold text-white">{c.name}</h4>
-            </div>
-            <p className="text-[11px] text-[#8a8a8a] leading-snug">{c.desc}</p>
+      <dl className="mt-6 grid grid-cols-1 gap-x-8 gap-y-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
+        {TIERS.map((t) => (
+          <div key={t.id}>
+            <dt className="flex items-center gap-2 font-semibold text-ink">
+              <svg aria-hidden width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill={t.fill} fillOpacity={t.opacity} /></svg>
+              {t.name}
+            </dt>
+            <dd className="tnum mt-0.5 pl-[18px] text-ink-3">{t.desc}</dd>
           </div>
         ))}
-      </div>
-
-    </div>
+      </dl>
+    </WidgetFrame>
   );
 }
