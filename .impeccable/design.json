@@ -1,0 +1,411 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T00:00:00Z",
+  "title": "Design System: Ben Manguiat, Data Analyst",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Annotation Vermilion",
+        "canonical": "oklch(54.3% 0.180 32.0)",
+        "dark": "#ff6f52",
+        "tonalRamp": [
+          "oklch(15% 0.060 32)",
+          "oklch(27% 0.100 32)",
+          "oklch(39% 0.140 32)",
+          "oklch(51% 0.180 32)",
+          "oklch(63% 0.170 32)",
+          "oklch(75% 0.110 32)",
+          "oklch(86% 0.060 32)",
+          "oklch(95% 0.025 32)"
+        ]
+      },
+      "accent-ink": {
+        "role": "primary",
+        "displayName": "Accent Ink",
+        "canonical": "#ffffff",
+        "dark": "#111317",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(27% 0 0)",
+          "oklch(39% 0 0)",
+          "oklch(51% 0 0)",
+          "oklch(63% 0 0)",
+          "oklch(75% 0 0)",
+          "oklch(86% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff",
+        "dark": "#111317",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(27% 0 0)",
+          "oklch(39% 0 0)",
+          "oklch(51% 0 0)",
+          "oklch(63% 0 0)",
+          "oklch(75% 0 0)",
+          "oklch(86% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "wash": {
+        "role": "neutral",
+        "displayName": "Wash",
+        "canonical": "oklch(96.7% 0.003 264.5)",
+        "dark": "#1a1d22",
+        "tonalRamp": [
+          "oklch(15% 0.003 264.5)",
+          "oklch(27% 0.003 264.5)",
+          "oklch(39% 0.003 264.5)",
+          "oklch(51% 0.003 264.5)",
+          "oklch(63% 0.003 264.5)",
+          "oklch(75% 0.003 264.5)",
+          "oklch(86% 0.003 264.5)",
+          "oklch(95% 0.003 264.5)"
+        ]
+      },
+      "code-bg": {
+        "role": "neutral",
+        "displayName": "Code Surface",
+        "canonical": "oklch(96.7% 0.003 264.5)",
+        "dark": "#1a1d22",
+        "tonalRamp": [
+          "oklch(15% 0.003 264.5)",
+          "oklch(27% 0.003 264.5)",
+          "oklch(39% 0.003 264.5)",
+          "oklch(51% 0.003 264.5)",
+          "oklch(63% 0.003 264.5)",
+          "oklch(75% 0.003 264.5)",
+          "oklch(86% 0.003 264.5)",
+          "oklch(95% 0.003 264.5)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(20.5% 0.010 268.2)",
+        "dark": "#eceef1",
+        "tonalRamp": [
+          "oklch(15% 0.01 268.2)",
+          "oklch(27% 0.01 268.2)",
+          "oklch(39% 0.01 268.2)",
+          "oklch(51% 0.01 268.2)",
+          "oklch(63% 0.01 268.2)",
+          "oklch(75% 0.01 268.2)",
+          "oklch(86% 0.01 268.2)",
+          "oklch(95% 0.01 268.2)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "oklch(39.3% 0.017 262.3)",
+        "dark": "#c0c5cc",
+        "tonalRamp": [
+          "oklch(15% 0.017 262.3)",
+          "oklch(27% 0.017 262.3)",
+          "oklch(39% 0.017 262.3)",
+          "oklch(51% 0.017 262.3)",
+          "oklch(63% 0.017 262.3)",
+          "oklch(75% 0.017 262.3)",
+          "oklch(86% 0.017 262.3)",
+          "oklch(95% 0.017 262.3)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "oklch(50.5% 0.019 262.7)",
+        "dark": "#969ca6",
+        "tonalRamp": [
+          "oklch(15% 0.019 262.7)",
+          "oklch(27% 0.019 262.7)",
+          "oklch(39% 0.019 262.7)",
+          "oklch(51% 0.019 262.7)",
+          "oklch(63% 0.019 262.7)",
+          "oklch(75% 0.019 262.7)",
+          "oklch(86% 0.019 262.7)",
+          "oklch(95% 0.019 262.7)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "oklch(89.1% 0.008 260.7)",
+        "dark": "#2b2f36",
+        "tonalRamp": [
+          "oklch(15% 0.008 260.7)",
+          "oklch(27% 0.008 260.7)",
+          "oklch(39% 0.008 260.7)",
+          "oklch(51% 0.008 260.7)",
+          "oklch(63% 0.008 260.7)",
+          "oklch(75% 0.008 260.7)",
+          "oklch(86% 0.008 260.7)",
+          "oklch(95% 0.008 260.7)"
+        ]
+      },
+      "rule-strong": {
+        "role": "neutral",
+        "displayName": "Rule Strong",
+        "canonical": "oklch(70.4% 0.015 258.4)",
+        "dark": "#575d67",
+        "tonalRamp": [
+          "oklch(15% 0.015 258.4)",
+          "oklch(27% 0.015 258.4)",
+          "oklch(39% 0.015 258.4)",
+          "oklch(51% 0.015 258.4)",
+          "oklch(63% 0.015 258.4)",
+          "oklch(75% 0.015 258.4)",
+          "oklch(86% 0.015 258.4)",
+          "oklch(95% 0.015 258.4)"
+        ]
+      },
+      "chart": {
+        "role": "neutral",
+        "displayName": "Chart Grey",
+        "canonical": "oklch(80.0% 0.013 259.8)",
+        "dark": "#4b515b",
+        "tonalRamp": [
+          "oklch(15% 0.013 259.8)",
+          "oklch(27% 0.013 259.8)",
+          "oklch(39% 0.013 259.8)",
+          "oklch(51% 0.013 259.8)",
+          "oklch(63% 0.013 259.8)",
+          "oklch(75% 0.013 259.8)",
+          "oklch(86% 0.013 259.8)",
+          "oklch(95% 0.013 259.8)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The page's finding, one per page; 2.25rem mobile, 3rem sm, 3.375rem lg on the home lead."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "A project's finding in story lists and the Next link; 1.5rem to 1.75rem."
+      },
+      "title": {
+        "displayName": "Section Title",
+        "purpose": "Section headings on a 2px ink rule."
+      },
+      "standfirst": {
+        "displayName": "Standfirst",
+        "purpose": "Serif dek under a display headline, 40 to 62ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running serif prose in ink-2, 65ch max."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Links, buttons, tabs, metadata values, chart row names; sentence case."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Figure captions and Source lines in ink-3."
+      },
+      "figure": {
+        "displayName": "Figure Value",
+        "purpose": "Chart values in tabular lining figures; 800 vermilion when highlighted, 600 ink-2 otherwise."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "SQL excerpts and table or column names only."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "The only easing: bar draw-in, press, link and icon transitions."
+      },
+      {
+        "name": "bar-draw",
+        "value": "scaleX(0.04) to 1, 620ms ease-out-expo, delay 120ms + 70ms per row",
+        "purpose": "The one authored moment: chart bars draw in once on first paint; values never animate; off for below-fold figures, after a tab switch, and under reduced motion."
+      },
+      {
+        "name": "press",
+        "value": "scale(0.97) on :active, 150ms ease-out-expo (0.98 on the large buttons)",
+        "purpose": "Press confirmation on buttons and toggles."
+      },
+      {
+        "name": "pop-in",
+        "value": "opacity 0 and scale(0.85) to rest, 180ms ease-out-expo",
+        "purpose": "Copy-success check icon."
+      },
+      {
+        "name": "hover-color",
+        "value": "150 to 160ms",
+        "purpose": "Link underline, nav and tab colour changes."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "min-375",
+        "value": "375px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ],
+    "darkMode": {
+      "strategy": "prefers-color-scheme: dark redefines every :root token; light is default.",
+      "themeColor": {
+        "light": "#ffffff",
+        "dark": "#111317"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink-filled square button for the one main path per view.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Read the analysis <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; background: var(--ink, #15171c); color: var(--paper, #fff); font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; font-size: 0.9375rem; font-weight: 700; text-decoration: none; border-radius: 0; transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-primary svg { transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-primary:hover svg { transform: translateX(2px); } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid var(--accent, #c2361f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary external action beside the primary, e.g. Live site.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">Live site <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid var(--ink, #15171c); color: var(--ink, #15171c); background: transparent; font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; font-size: 0.875rem; font-weight: 700; text-decoration: none; border-radius: 0; transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-outline:active { transform: scale(0.98); } .ds-btn-outline:focus-visible { outline: 2px solid var(--accent, #c2361f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Filter Toggle",
+      "kind": "chip",
+      "refersTo": "toggle",
+      "description": "Square aria-pressed toggles for filtering a chart.",
+      "html": "<div class=\"ds-toggles\"><button class=\"ds-toggle\" aria-pressed=\"true\">All tiers</button><button class=\"ds-toggle\" aria-pressed=\"false\">Tier 1: Elite</button><button class=\"ds-toggle\" aria-pressed=\"false\">Average</button></div>",
+      "css": ".ds-toggles { display: flex; flex-wrap: wrap; gap: 8px; } .ds-toggle { min-height: 40px; padding: 0 12px; border: 1px solid var(--rule, #d8dbe0); background: transparent; color: var(--ink-2, #41464f); font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; font-size: 0.875rem; font-weight: 600; border-radius: 0; cursor: pointer; transition: color 150ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms cubic-bezier(0.23, 1, 0.32, 1), border-color 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-toggle:hover { border-color: var(--ink, #15171c); color: var(--ink, #15171c); } .ds-toggle[aria-pressed=\"true\"] { background: var(--ink, #15171c); border-color: var(--ink, #15171c); color: var(--paper, #fff); } .ds-toggle:active { transform: scale(0.97); } .ds-toggle:focus-visible { outline: 2px solid var(--accent, #c2361f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tabs",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Newsroom tab row: underlined labels, vermilion underline on the selected tab.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Findings</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Power BI dashboard</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Load pipeline</button></div>",
+      "css": ".ds-tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--rule, #d8dbe0); overflow-x: auto; } .ds-tab { margin-bottom: -1px; min-height: 44px; border: 0; border-bottom: 2px solid transparent; background: none; padding: 0; color: var(--ink-3, #5f6570); font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: color 150ms; } .ds-tab:hover { color: var(--ink, #15171c); } .ds-tab[aria-selected=\"true\"] { color: var(--ink, #15171c); border-bottom-color: var(--accent, #c2361f); } .ds-tab:focus-visible { outline: 2px solid var(--accent, #c2361f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Site Navigation",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "Sticky translucent header: name left, links right, active link underlined in vermilion, Email me in vermilion.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-name\" href=\"#\">Ben Manguiat</a><nav class=\"ds-nav-links\"><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">About</a><a href=\"#\">Code</a><a class=\"ds-nav-email\" href=\"#\">Email me</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 32px; border-bottom: 1px solid var(--rule, #d8dbe0); background: color-mix(in srgb, var(--paper, #fff) 85%, transparent); backdrop-filter: blur(8px); font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; } .ds-nav-name { font-size: 1.0625rem; font-weight: 800; letter-spacing: -0.01em; color: var(--ink, #15171c); text-decoration: none; } .ds-nav-links { display: flex; gap: 28px; font-size: 0.9375rem; font-weight: 600; } .ds-nav-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-3, #5f6570); text-decoration: none; text-underline-offset: 0.45em; transition: color 150ms; } .ds-nav-links a:hover { color: var(--ink, #15171c); } .ds-nav-links a[aria-current=\"page\"] { color: var(--ink, #15171c); text-decoration: underline 2px var(--accent, #c2361f); } .ds-nav-links a.ds-nav-email { color: var(--accent, #c2361f); text-decoration: underline 1px; text-underline-offset: 0.3em; } .ds-nav-links a.ds-nav-email:hover { text-decoration-thickness: 2px; } .ds-nav-links a:focus-visible { outline: 2px solid var(--accent, #c2361f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Annotated Bar Chart",
+      "kind": "custom",
+      "refersTo": "bar-highlight",
+      "description": "Signature house chart: grey bars, one vermilion value, dashed reference, source line.",
+      "html": "<figure class=\"ds-chart\"><figcaption><b>Top-4 rate by player level</b><span>Share of boards that finished in the top four of eight</span></figcaption><div class=\"ds-row\"><span class=\"ds-lbl\">Level 7</span><div class=\"ds-track\"><i class=\"ds-ref\"></i><span class=\"ds-bar\" style=\"width:26.9%\"></span></div><span class=\"ds-val\">26.9%</span></div><div class=\"ds-row\"><span class=\"ds-lbl\">Level 8</span><div class=\"ds-track\"><i class=\"ds-ref\"></i><span class=\"ds-bar\" style=\"width:51.3%\"></span></div><span class=\"ds-val\">51.3%</span></div><div class=\"ds-row ds-hi\"><span class=\"ds-lbl\">Level 9</span><div class=\"ds-track\"><i class=\"ds-ref\"></i><span class=\"ds-bar\" style=\"width:86.6%\"></span></div><span class=\"ds-val\">86.6%</span></div><p class=\"ds-src\">Source: 399,906 player boards from 49,977 ranked matches, queried in Snowflake.</p></figure>",
+      "css": ".ds-chart { margin: 0; max-width: 460px; font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; } .ds-chart figcaption b { display: block; font-size: 1rem; color: var(--ink, #15171c); } .ds-chart figcaption span { display: block; margin: 4px 0 16px; font-size: 0.875rem; color: var(--ink-3, #5f6570); } .ds-row { display: grid; grid-template-columns: 4.25rem 1fr 3.5rem; align-items: center; height: 56px; } .ds-lbl { font-size: 0.9375rem; font-weight: 600; color: var(--ink-3, #5f6570); } .ds-track { position: relative; height: 30px; } .ds-ref { position: absolute; top: -13px; bottom: -13px; left: 50%; border-left: 1px dashed var(--rule-strong, #9aa0a9); } .ds-bar { position: absolute; inset: 0 auto 0 0; background: var(--chart, #b9bec6); transform-origin: left center; animation: ds-draw 620ms cubic-bezier(0.23, 1, 0.32, 1) backwards; } .ds-val { padding-left: 8px; font-size: 1.0625rem; font-weight: 600; color: var(--ink-2, #41464f); font-variant-numeric: tabular-nums lining-nums; } .ds-hi .ds-lbl { color: var(--ink, #15171c); } .ds-hi .ds-bar { background: var(--accent, #c2361f); } .ds-hi .ds-val { font-weight: 800; color: var(--accent, #c2361f); } .ds-src { margin: 16px 0 0; padding-top: 12px; border-top: 1px solid var(--rule, #d8dbe0); font-size: 0.8125rem; line-height: 1.625; color: var(--ink-3, #5f6570); } @keyframes ds-draw { from { transform: scaleX(0.04); } } @media (prefers-reduced-motion: reduce) { .ds-bar { animation: none; } }"
+    },
+    {
+      "name": "Section Heading",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Plain-noun section title on a 2px ink rule; the system's only section divider.",
+      "html": "<h2 class=\"ds-section\">What I found</h2>",
+      "css": ".ds-section { margin: 0; border-top: 2px solid var(--ink, #15171c); padding-top: 12px; font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; color: var(--ink, #15171c); }"
+    },
+    {
+      "name": "Copy Email",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Email as a link plus a square outlined copy button that confirms with a vermilion check.",
+      "html": "<span class=\"ds-copy\"><a href=\"#\">name@example.com</a><button type=\"button\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"8\" y=\"8\" width=\"14\" height=\"14\" rx=\"2\"/><path d=\"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2\"/></svg>Copy</button></span>",
+      "css": ".ds-copy { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 12px; font-family: var(--font-franklin, 'Libre Franklin'), system-ui, sans-serif; } .ds-copy a { font-size: 1.5rem; font-weight: 600; color: var(--ink, #15171c); text-decoration: underline 1px var(--rule-strong, #9aa0a9); text-underline-offset: 0.2em; transition: text-decoration-color 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-copy a:hover { text-decoration-color: var(--accent, #c2361f); } .ds-copy button { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 10px; border: 1px solid var(--rule-strong, #9aa0a9); background: transparent; color: var(--ink-2, #41464f); font: inherit; font-size: 0.875rem; font-weight: 600; border-radius: 0; cursor: pointer; transition: color 150ms cubic-bezier(0.23, 1, 0.32, 1), border-color 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-copy button:hover { border-color: var(--ink, #15171c); color: var(--ink, #15171c); } .ds-copy button:active { transform: scale(0.97); } .ds-copy :focus-visible { outline: 2px solid var(--accent, #c2361f); outline-offset: 3px; }"
+    },
+    {
+      "name": "Code Block",
+      "kind": "card",
+      "refersTo": "code-block",
+      "description": "SQL excerpt on the wash surface, square, hairline border.",
+      "html": "<pre class=\"ds-code\"><code>SELECT t.value:name::string AS trait,\n       AVG(placement) AS avg_placement\nFROM matches, LATERAL FLATTEN(input =&gt; traits) t\nGROUP BY 1;</code></pre>",
+      "css": ".ds-code { margin: 0; padding: 16px; overflow-x: auto; border: 1px solid var(--rule, #d8dbe0); background: var(--code-bg, #f3f4f6); color: var(--ink, #15171c); font-family: var(--font-geist-mono, 'Geist Mono'), ui-monospace, Menlo, monospace; font-size: 0.8125rem; line-height: 1.625; border-radius: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Data Desk",
+    "overview": "The site is set like a newsroom data explainer: a white page, near-black ink, a heavy grotesk for headlines and a book serif for reading. Every page leads with a finding rather than a label, and the evidence sits right beside it as a house-drawn chart with a real caption and a source line. Nothing is boxed; structure comes from hairline rules, a two-pixel ink rule that opens each section, and a 12-column grid that splits text and figure roughly 7 to 5.\n\nColour is almost entirely greyscale. One vermilion carries the value the annotation is talking about, the \"Email me\" link, the active nav underline, the selected tab, focus rings and text selection. Everything else in a chart is grey. Density is comfortable rather than airy: generous section spacing, measured line lengths, and no decorative surfaces competing with the numbers.\n\nLight is the default because the reader is a recruiter on a work laptop in daylight; a complete dark token set follows the OS through `prefers-color-scheme`. Motion is a single authored moment (chart bars draw in once on first paint) plus press feedback on controls. The site refuses the dark-terminal developer portfolio: no mono HUD, no node maps, no skill pillars, no cards.",
+    "keyCharacteristics": [
+      "Headline is a finding; standfirst in serif beneath it.",
+      "Grey charts, one vermilion highlight on the discussed value.",
+      "Hairline rules and square corners; no cards, no radius.",
+      "Tabular lining figures wherever numbers sit in rows or charts.",
+      "Every figure carries a caption and a \"Source:\" line.",
+      "Light by default, full dark set via the OS."
+    ],
+    "rules": [
+      {
+        "name": "The One Highlight Rule",
+        "body": "A chart highlights exactly one value in vermilion: the one the caption or headline discusses. All other marks are Chart Grey. If nothing is being discussed, nothing is red.",
+        "section": "colors"
+      },
+      {
+        "name": "The Ordinal Fade Rule",
+        "body": "When a chart genuinely needs more than two classes (the NFL tiers), it ramps from vermilion through a 45% vermilion to ink-3 to chart grey. It never introduces a second hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Finding-First Rule",
+        "body": "A display or headline states what the data showed, in a sentence. Section titles are plain nouns (\"What I found\", \"The question\"). No kicker, eyebrow or category label sits above a headline.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Any number in a chart, table, stat line or step counter uses tabular lining figures; highlighted values go to 800 weight in vermilion, others stay 600 in ink-2.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sentence Case Rule",
+        "body": "No uppercase, no letter-spaced labels anywhere. Headlines balance (`text-wrap: balance`), paragraphs wrap pretty.",
+        "section": "typography"
+      },
+      {
+        "name": "The Rule-Not-Box Rule",
+        "body": "Group with rules, never with cards. A 2px ink rule opens a section; 1px hairlines separate rows; a 1px left rule sets off a finding in a list. No container gets a fill, radius or shadow to make it a \"card\".",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do lead every page and every list item with the finding as a sentence, in Libre Franklin 800 or 700.",
+      "Do colour exactly one chart value vermilion and keep every other mark Chart Grey.",
+      "Do end every chart with a caption-size \"Source:\" line that names the real dataset.",
+      "Do separate sections with a 2px ink rule and rows with 1px hairlines.",
+      "Do set every number in rows or charts with tabular lining figures.",
+      "Do keep motion to the one bar draw-in and sub-200ms press and hover feedback, and drop both under reduced motion.",
+      "Do define every new colour in both the light and dark token sets."
+    ],
+    "donts": [
+      "Don't add kickers, eyebrows, or uppercase letter-spaced labels above headlines.",
+      "Don't round corners or put content in cards with fills or shadows.",
+      "Don't introduce a second accent hue; extend a scale with vermilion opacity or greys.",
+      "Don't set prose in the grotesk or headlines in the serif.",
+      "Don't use mono outside code, SQL and schema names.",
+      "Don't animate values, labels or page entrances."
+    ]
+  }
+}

@@ -14,7 +14,6 @@
   --rule: #d8dbe0;
   --rule-strong: #9aa0a9;
   --chart: #b9bec6;
-  --chart-soft: #e3e6ea;
   --accent: #c2361f;
   --accent-ink: #ffffff;
   --code-bg: #f3f4f6;
@@ -31,7 +30,6 @@
     --rule: #2b2f36;
     --rule-strong: #575d67;
     --chart: #4b515b;
-    --chart-soft: #262a30;
     --accent: #ff6f52;
     --accent-ink: #111317;
     --code-bg: #1a1d22;
@@ -48,7 +46,6 @@
   --color-rule: var(--rule);
   --color-rule-strong: var(--rule-strong);
   --color-chart: var(--chart);
-  --color-chart-soft: var(--chart-soft);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-code: var(--code-bg);
