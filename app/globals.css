@@ -63,7 +63,22 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Controls fire on tap without the double-tap-zoom wait. */
+  a,
+  button,
+  [role="tab"] {
+    touch-action: manipulation;
+  }
+
+  /* Control labels are not content: no long-press text selection. Links stay selectable. */
+  button,
+  [role="tab"] {
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   body {
@@ -71,7 +86,6 @@
     color: var(--ink);
     font-family: var(--font-sans);
     font-feature-settings: "kern", "liga";
-    -webkit-tap-highlight-color: transparent;
   }
 
   h1,
@@ -125,8 +139,16 @@
   text-decoration-color: var(--rule-strong);
   transition: text-decoration-color 160ms var(--ease-out-expo), color 160ms var(--ease-out-expo);
 }
-.link:hover {
-  text-decoration-color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    text-decoration-color: var(--accent);
+  }
+}
+
+/* Horizontal scrollers (code blocks, tab rows) never trigger swipe-back or chain to the page. */
+pre,
+[role="tablist"] {
+  overscroll-behavior-x: contain;
 }
 
 /* Scrollbars follow the page instead of the OS default. */

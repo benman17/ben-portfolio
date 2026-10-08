@@ -1,3 +1,6 @@
+import { FIXTURE } from './fixtures';
+import { WORST_PROJECTS } from './fixtures/worst';
+
 export interface Project {
   slug: string;
   title: string;
@@ -27,7 +30,7 @@ export interface Project {
   };
 }
 
-export const PROJECTS: Project[] = [
+const REAL_PROJECTS: Project[] = [
   {
     slug: 'tft-snowflake',
     title: 'TFT Ranked Match Analysis in Snowflake',
@@ -259,6 +262,9 @@ export async function fetchGitHubRepos(username: string = 'benman17') {
 }`
   }
 ];
+
+export const PROJECTS: Project[] =
+  FIXTURE === 'worst' ? [...WORST_PROJECTS, ...REAL_PROJECTS] : REAL_PROJECTS;
 
 export const METHODOLOGY_STEPS = {
   analytics: [

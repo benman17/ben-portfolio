@@ -1,3 +1,5 @@
+import { FIXTURE } from './fixtures';
+
 export interface SkillCategory {
   title: string;
   subtitle: string;
@@ -55,5 +57,5 @@ export const PROFILE_INFO = {
   education: 'B.S. Information Systems',
   githubUsername: 'benman17',
   linkedinUrl: 'https://www.linkedin.com/in/benjamin-manguiat-84340b251/',
-  email: 'bmanguiat03@gmail.com'
+  email: FIXTURE === 'worst' ? 'benjamin.manguiat.dataanalytics@outlook.com' : 'bmanguiat03@gmail.com'
 };

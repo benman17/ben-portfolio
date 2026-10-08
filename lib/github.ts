@@ -1,3 +1,6 @@
+import { FIXTURE } from '../data/fixtures';
+import { WORST_REPOS } from '../data/fixtures/worst';
+
 export interface GitHubRepo {
   id: number;
   name: string;
@@ -39,6 +42,8 @@ export const FALLBACK_REPOS: GitHubRepo[] = [
 ];
 
 export async function fetchGitHubRepos(username: string = 'benman17'): Promise<GitHubRepo[]> {
+  if (FIXTURE === 'worst') return WORST_REPOS;
+  if (FIXTURE === 'github-empty') return [];
   try {
     const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=12`, {
       next: { revalidate: 3600 },
@@ -54,7 +59,7 @@ export async function fetchGitHubRepos(username: string = 'benman17'): Promise<G
     }
 
     const repos: Array<Omit<GitHubRepo, 'fromFallback'>> = await res.json();
-    if (!Array.isArray(repos) || repos.length === 0) {
+    if (!Array.isArray(repos)) {
       return FALLBACK_REPOS;
     }
 

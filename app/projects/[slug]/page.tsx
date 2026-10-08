@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { PROJECTS } from '@/data/projects';
 import { STORIES } from '@/lib/stories';
+import { keepTogether } from '@/lib/typography';
 import { GithubIcon } from '@/components/icons/SocialIcons';
 import AnalyticsSandbox from '@/components/AnalyticsSandbox';
 import NflClusterWidget from '@/components/NflClusterWidget';
@@ -64,7 +65,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <h1 className="mt-3 text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-5xl">
           {story?.headline ?? project.title}
         </h1>
-        <p className="prose-body mt-5 max-w-[62ch] text-xl">{project.summary}</p>
+        <p className="prose-body mt-5 max-w-[62ch] text-xl">{keepTogether(project.summary)}</p>
 
         <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-rule pt-4 text-sm sm:grid-cols-4">
           <div>
@@ -112,16 +113,18 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       </header>
 
       {/* Findings first */}
+      {project.results.length > 0 && (
       <section aria-labelledby="findings" className="mt-14">
         <SectionHeading id="findings">{project.category === 'project-management' ? 'What I did' : 'What I found'}</SectionHeading>
         <ul className="mt-6 grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-3">
           {project.results.map((res) => (
             <li key={res} className="prose-body border-l border-rule pl-4 text-[1.0625rem] text-ink">
-              {res}
+              {keepTogether(res)}
             </li>
           ))}
         </ul>
       </section>
+      )}
 
       {Widget && (
         <section aria-label="Interactive view of the data" className="mt-14">
@@ -133,14 +136,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <div className="space-y-14 lg:col-span-8">
           <section aria-labelledby="question">
             <SectionHeading id="question">The question</SectionHeading>
-            <p className="prose-body mt-4 max-w-[65ch]">{project.problem}</p>
+            <p className="prose-body mt-4 max-w-[65ch]">{keepTogether(project.problem)}</p>
           </section>
 
           <section aria-labelledby="approach">
             <SectionHeading id="approach">How I built it</SectionHeading>
             <ol className="prose-body mt-4 max-w-[65ch] list-decimal space-y-3 pl-6 marker:font-sans marker:text-sm marker:font-bold marker:text-ink-3">
               {project.dataApproach.map((step) => (
-                <li key={step} className="pl-1">{step}</li>
+                <li key={step} className="pl-1">{keepTogether(step)}</li>
               ))}
             </ol>
           </section>
@@ -157,7 +160,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
           <section aria-labelledby="delivered">
             <SectionHeading id="delivered">What I delivered</SectionHeading>
-            <p className="prose-body mt-4 max-w-[65ch]">{project.solution}</p>
+            <p className="prose-body mt-4 max-w-[65ch]">{keepTogether(project.solution)}</p>
           </section>
         </div>
 
@@ -193,11 +196,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <nav aria-label="Next case study" className="mt-20 border-t-2 border-ink pt-4">
           <Link href={`/projects/${next.slug}`} className="group block">
             <span className="text-sm font-semibold text-ink-3">Next case study</span>
-            <span className="mt-1 flex items-start gap-3 text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink sm:text-[1.75rem]">
+            <span className="mt-1 block max-w-4xl text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink sm:text-[1.75rem]">
               <span className="group-hover:underline group-hover:decoration-2 group-hover:decoration-accent group-hover:underline-offset-[0.18em]">
                 {STORIES[next.slug]?.headline ?? next.title}
               </span>
-              <ArrowRight className="mt-1.5 h-6 w-6 shrink-0 transition-transform duration-200 ease-out-expo group-hover:translate-x-1" strokeWidth={2} aria-hidden />
+              <ArrowRight className="ml-2 inline h-6 w-6 -translate-y-px align-middle transition-transform duration-200 ease-out-expo group-hover:translate-x-1" strokeWidth={2} aria-hidden />
             </span>
           </Link>
         </nav>

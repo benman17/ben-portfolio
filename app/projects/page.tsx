@@ -4,6 +4,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { PROJECTS } from '@/data/projects';
 import { STORIES } from '@/lib/stories';
+import { keepTogether } from '@/lib/typography';
 
 export const metadata: Metadata = {
   title: 'Work | Ben Manguiat',
@@ -22,7 +23,7 @@ export default function ProjectsPage() {
 
       <ol className="mt-12 border-t-2 border-ink">
         {work.map((project) => {
-          const story = STORIES[project.slug];
+          const story = STORIES[project.slug] ?? { headline: project.title, dek: project.summary };
           return (
             <li key={project.slug} className="group relative border-b border-rule py-8 sm:py-10">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-10">
@@ -39,7 +40,7 @@ export default function ProjectsPage() {
                       {story.headline}
                     </Link>
                   </h2>
-                  <p className="prose-body mt-3 max-w-[60ch] text-[1.0625rem]">{story.dek}</p>
+                  <p className="prose-body mt-3 max-w-[60ch] text-[1.0625rem]">{keepTogether(story.dek)}</p>
                   <p className="mt-4 text-sm text-ink-3">{project.technologies.slice(0, 5).join(', ')}</p>
                 </div>
                 {story.cover && (

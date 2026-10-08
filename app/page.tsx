@@ -9,10 +9,10 @@ import { PROFILE_INFO } from '@/data/skills';
 import { STORIES } from '@/lib/stories';
 
 const lead = STORIES['tft-snowflake'];
-const more = ['northstar-commerce', 'nfl-clustering'].map((slug) => ({
-  project: PROJECTS.find((p) => p.slug === slug)!,
-  story: STORIES[slug],
-}));
+const more = ['northstar-commerce', 'nfl-clustering'].flatMap((slug) => {
+  const project = PROJECTS.find((p) => p.slug === slug);
+  return project ? [{ project, story: STORIES[slug] ?? { headline: project.title, dek: project.summary } }] : [];
+});
 const woodland = PROJECTS.find((p) => p.slug === 'woodland-agile-redesign')!;
 
 export default function Home() {

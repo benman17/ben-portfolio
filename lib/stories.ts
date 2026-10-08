@@ -3,6 +3,9 @@
  * finding first, then what it was built with. Every number here is copied
  * from data/projects.ts or the project's widget data; do not add new ones.
  */
+import { FIXTURE } from '../data/fixtures';
+import { WORST_STORIES } from '../data/fixtures/worst';
+
 export interface Story {
   headline: string;
   dek: string;
@@ -11,7 +14,7 @@ export interface Story {
   codeLabel?: string;
 }
 
-export const STORIES: Record<string, Story> = {
+const REAL_STORIES: Record<string, Story> = {
   'tft-snowflake': {
     headline: 'Reaching level\u00a09 in ranked TFT meant a top\u20114 finish 87% of the time.',
     dek: 'I loaded 399,906 ranked boards into Snowflake to see what separates top\u20114 finishes.',
@@ -55,3 +58,6 @@ export const STORIES: Record<string, Story> = {
     codeLabel: 'TypeScript (Next.js)',
   },
 };
+
+export const STORIES: Record<string, Story> =
+  FIXTURE === 'worst' ? { ...REAL_STORIES, ...WORST_STORIES } : REAL_STORIES;

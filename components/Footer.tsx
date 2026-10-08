@@ -10,7 +10,7 @@ export default function Footer() {
           <p className="font-bold text-ink">Ben Manguiat</p>
           <p>Data analyst. B.S. Information Systems, Miami University.</p>
         </div>
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 font-semibold">
+        <ul className="-my-3 flex flex-wrap gap-x-6 font-semibold [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center">
           <li>
             <a className="hover:text-ink" href={`mailto:${PROFILE_INFO.email}`}>Email me</a>
           </li>

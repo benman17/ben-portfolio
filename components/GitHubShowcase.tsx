@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { fetchGitHubRepos, GitHubRepo } from '@/lib/github';
 
+const count = new Intl.NumberFormat();
+
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 
@@ -35,6 +37,14 @@ export default function GitHubShowcase() {
 
   const offline = repos.some((r) => r.fromFallback);
 
+  if (repos.length === 0) {
+    return (
+      <p className="border-t-2 border-ink pt-4 prose-body">
+        No public repositories to show right now. The case studies each link to their code.
+      </p>
+    );
+  }
+
   return (
     <div>
       {offline && (
@@ -46,7 +56,7 @@ export default function GitHubShowcase() {
         {repos.map((repo) => {
           const meta = [
             repo.language,
-            repo.stargazers_count ? `${repo.stargazers_count} ${repo.stargazers_count === 1 ? 'star' : 'stars'}` : null,
+            repo.stargazers_count ? `${count.format(repo.stargazers_count)} ${repo.stargazers_count === 1 ? 'star' : 'stars'}` : null,
             repo.updated_at ? `Updated ${formatDate(repo.updated_at)}` : null,
           ].filter(Boolean);
           return (
@@ -56,10 +66,10 @@ export default function GitHubShowcase() {
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 after:absolute after:inset-0 group-hover:underline group-hover:decoration-2 group-hover:decoration-accent group-hover:underline-offset-[0.18em]"
+                  className="break-words after:absolute after:inset-0 group-hover:underline group-hover:decoration-2 group-hover:decoration-accent group-hover:underline-offset-[0.18em]"
                 >
                   {repo.name}
-                  <ArrowUpRight className="h-4 w-4 text-ink-3" strokeWidth={2} aria-hidden />
+                  <ArrowUpRight className="ml-1 inline h-4 w-4 -translate-y-px align-middle text-ink-3" strokeWidth={2} aria-hidden />
                 </a>
               </h2>
               {repo.description && <p className="prose-body mt-1 max-w-[70ch] text-base">{repo.description}</p>}

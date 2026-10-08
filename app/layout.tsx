@@ -52,7 +52,7 @@ export default function RootLayout({
       lang="en"
       className={`${franklin.variable} ${sourceSerif.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="min-h-dvh flex flex-col bg-paper text-ink font-sans">
+      <body className="min-h-svh flex flex-col bg-paper text-ink font-sans">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-50 focus:bg-paper focus:px-3 focus:py-2 focus:text-sm focus:font-semibold"
