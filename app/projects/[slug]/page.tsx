@@ -61,13 +61,16 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
       {/* Headline block */}
       <header className="mt-6 max-w-4xl">
-        <p className="text-sm font-semibold text-ink-3">{project.title}</p>
-        <h1 className="mt-3 text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-5xl">
+        <h1 className="text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-5xl">
           {story?.headline ?? project.title}
         </h1>
         <p className="prose-body mt-5 max-w-[62ch] text-xl">{keepTogether(project.summary)}</p>
 
         <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-rule pt-4 text-sm sm:grid-cols-4">
+          <div className="col-span-2">
+            <dt className="text-ink-3">Project</dt>
+            <dd className="mt-0.5 font-semibold text-ink">{project.title}</dd>
+          </div>
           <div>
             <dt className="text-ink-3">Role</dt>
             <dd className="mt-0.5 font-semibold text-ink">{project.role}</dd>
@@ -195,8 +198,8 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       {next && next.slug !== project.slug && (
         <nav aria-label="Next case study" className="mt-20 border-t-2 border-ink pt-4">
           <Link href={`/projects/${next.slug}`} className="group block">
-            <span className="text-sm font-semibold text-ink-3">Next case study</span>
-            <span className="mt-1 block max-w-4xl text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink sm:text-[1.75rem]">
+            <span className="block max-w-4xl text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink sm:text-[1.75rem]">
+              <span className="text-ink-3">Next: </span>
               <span className="group-hover:underline group-hover:decoration-2 group-hover:decoration-accent group-hover:underline-offset-[0.18em]">
                 {STORIES[next.slug]?.headline ?? next.title}
               </span>

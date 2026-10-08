@@ -18,12 +18,15 @@ export default function BarList({
   caption,
   valueHeader,
   reference,
+  still = false,
 }: {
   rows: BarRow[];
   max: number;
   caption: string;
   valueHeader: string;
   reference?: { value: number; label: string };
+  /** Skip the draw-in, for figures that sit below the first viewport. */
+  still?: boolean;
 }) {
   return (
     <table className="w-full border-collapse text-[0.9375rem]">
@@ -37,9 +40,9 @@ export default function BarList({
       <tbody>
         {rows.map((r, i) => (
           <tr key={r.label} style={{ '--i': i } as React.CSSProperties} className="border-t border-rule first:border-t-0">
-            <th scope="row" className="w-[34%] py-2.5 pr-3 text-left align-middle font-semibold sm:w-[26%]">
+            <th scope="row" className="w-[42%] py-2.5 pr-3 text-left align-middle font-semibold sm:w-[34%]">
               <span className={r.highlight ? 'text-ink' : 'text-ink-2'}>{r.label}</span>
-              {r.sub && <span className="tnum block text-xs font-normal text-ink-3">{r.sub}</span>}
+              {r.sub && <span className="tnum block whitespace-nowrap text-xs font-normal text-ink-3">{r.sub}</span>}
             </th>
             <td className="py-2.5 align-middle">
               <div className="relative flex items-center gap-2.5">
@@ -53,7 +56,7 @@ export default function BarList({
                   )}
                   <span
                     aria-hidden
-                    className={`bar-fill absolute inset-y-0 left-0 ${r.highlight ? 'bg-accent' : 'bg-chart'}`}
+                    className={`${still ? '' : 'bar-fill '}absolute inset-y-0 left-0 ${r.highlight ? 'bg-accent' : 'bg-chart'}`}
                     style={{ width: `${(r.value / max) * 100}%` }}
                   />
                 </div>
