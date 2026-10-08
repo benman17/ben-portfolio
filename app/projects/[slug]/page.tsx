@@ -67,7 +67,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         <p className="prose-body mt-5 max-w-[62ch] text-xl">{keepTogether(project.summary)}</p>
 
         <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-rule pt-4 text-sm sm:grid-cols-4">
-          <div className="col-span-2">
+          <div className="col-span-2 sm:col-span-4">
             <dt className="text-ink-3">Project</dt>
             <dd className="mt-0.5 font-semibold text-ink">{project.title}</dd>
           </div>

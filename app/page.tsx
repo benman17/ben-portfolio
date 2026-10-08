@@ -71,10 +71,7 @@ export default function Home() {
         <div className="mt-8 grid grid-cols-1 gap-14 md:grid-cols-2 md:gap-10 lg:gap-14">
           {more.map(({ project, story }) => (
             <article key={project.slug} className="group relative flex flex-col">
-              <div className="border-t border-rule pt-4">
-                <StoryFigure slug={project.slug} />
-              </div>
-              <h3 className="mt-5 text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink">
+              <h3 className="text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink">
                 <Link href={`/projects/${project.slug}`} className="after:absolute after:inset-0 group-hover:underline group-hover:decoration-2 group-hover:decoration-accent group-hover:underline-offset-[0.18em]">
                   {story.headline}
                 </Link>
@@ -83,6 +80,9 @@ export default function Home() {
               <p className="mt-4 text-sm text-ink-3">
                 {project.technologies.slice(0, 4).join(', ')}
               </p>
+              <div className="mt-6 border-t border-rule pt-4">
+                <StoryFigure slug={project.slug} />
+              </div>
             </article>
           ))}
         </div>
