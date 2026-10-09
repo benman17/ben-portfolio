@@ -1,8 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { Libre_Franklin, Source_Serif_4, Geist_Mono } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/motion/SmoothScroll";
+import BarDraw from "@/components/motion/BarDraw";
+
+// Runs before first paint: marks the page as animated only when the visitor
+// has not asked for reduced motion, so headline and bar start states never
+// apply without the JS that finishes them.
+const MOTION_FLAG = `if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion')`;
 
 const franklin = Libre_Franklin({
   variable: "--font-franklin",
@@ -51,7 +59,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${franklin.variable} ${sourceSerif.variable} ${geistMono.variable} antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: MOTION_FLAG }} />
+      </head>
       <body className="min-h-svh flex flex-col bg-paper text-ink font-sans">
         <a
           href="#main"
@@ -64,6 +76,8 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <SmoothScroll />
+        <BarDraw />
       </body>
     </html>
   );

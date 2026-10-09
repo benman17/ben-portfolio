@@ -30,7 +30,7 @@ Not a resume restated: the site shows working analysis from real datasets (Snowf
 
 ## Capabilities and Constraints
 
-- Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4, Recharts, framer-motion, lucide-react. Deployed as a standard Next.js app. Read `node_modules/next/dist/docs/` before writing Next code (see AGENTS.md).
+- Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4, Recharts, GSAP (ScrollTrigger, SplitText), Lenis smooth scroll, components adapted from React Bits, lucide-react. Deployed as a standard Next.js app. Read `node_modules/next/dist/docs/` before writing Next code (see AGENTS.md).
 - Routes: `/` (home), `/projects`, `/projects/[slug]`, `/analytics`, `/project-management`, `/github`, `/about`.
 - Content source of truth: `data/projects.ts` (projects, case studies, methodology) and `data/skills.ts` (skills, profile, links). GitHub data via `lib/github.ts`.
 - Interactive widgets exist per project (TFT Snowflake, Northstar dashboard, NFL clusters, Scrum board, analytics sandbox, methodology).

@@ -10,7 +10,6 @@ const FIGURES: Record<string, { node: React.ReactNode; source: string }> = {
   'tft-snowflake': {
     node: (
       <BarList
-        still
         caption="Top-4 rate by player level"
         valueHeader="Top-4 rate"
         max={100}
@@ -27,7 +26,6 @@ const FIGURES: Record<string, { node: React.ReactNode; source: string }> = {
   'northstar-commerce': {
     node: (
       <BarList
-        still
         caption="Return rate by product group"
         valueHeader="Return rate"
         max={10}
@@ -42,7 +40,6 @@ const FIGURES: Record<string, { node: React.ReactNode; source: string }> = {
   'nfl-clustering': {
     node: (
       <BarList
-        still
         caption="Players per fantasy draft tier"
         valueHeader="Players"
         max={80}

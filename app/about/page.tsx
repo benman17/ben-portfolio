@@ -3,6 +3,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import CopyEmail from '@/components/CopyEmail';
 import { PROFILE_INFO, SKILL_CATEGORIES } from '@/data/skills';
+import SplitText from '@/components/reactbits/SplitText';
+import AnimatedContent from '@/components/reactbits/AnimatedContent';
 
 export const metadata: Metadata = {
   title: 'About | Ben Manguiat',
@@ -17,7 +19,7 @@ export default function AboutPage() {
     <div className="mx-auto max-w-6xl px-4 pb-24 pt-10 sm:px-8 sm:pt-14">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-7">
-          <h1 className="text-4xl font-extrabold tracking-[-0.025em] text-ink sm:text-5xl">About</h1>
+          <SplitText tag="h1" immediate text="About" className="text-5xl font-extrabold tracking-[-0.035em] text-ink sm:text-7xl" />
           <p className="prose-body mt-5 text-xl">{PROFILE_INFO.bio}</p>
           <p className="prose-body mt-4 text-xl">
             I&apos;m looking for product, BI and data analyst roles. Games are where I&apos;d most like to apply it: my{' '}
@@ -43,7 +45,7 @@ export default function AboutPage() {
 
       <section aria-labelledby="tools" className="mt-20">
         <h2 id="tools" className="border-t-2 border-ink pt-3 text-xl font-extrabold tracking-[-0.01em] text-ink">Tools and methods</h2>
-        <div className="mt-6 grid grid-cols-1 gap-x-14 gap-y-10 md:grid-cols-3">
+        <AnimatedContent stagger={0.1} className="mt-6 grid grid-cols-1 gap-x-14 gap-y-10 md:grid-cols-3">
           {SKILL_CATEGORIES.map((cat) => (
             <div key={cat.title}>
               <h3 className="text-lg font-bold text-ink">{cat.title}</h3>
@@ -54,7 +56,7 @@ export default function AboutPage() {
               </ul>
             </div>
           ))}
-        </div>
+        </AnimatedContent>
         <p className="mt-10 text-[0.9375rem] text-ink-3">
           More on how I use them: <Link href="/analytics" className="link font-semibold">how I work with data</Link> and{' '}
           <Link href="/project-management" className="link font-semibold">how I run a sprint</Link>.

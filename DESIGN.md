@@ -127,7 +127,7 @@ The site is set like a newsroom data explainer: a white page, near-black ink, a 
 
 Colour is almost entirely greyscale. One vermilion carries the value the annotation is talking about, the "Email me" link, the active nav underline, the selected tab, focus rings and text selection. Everything else in a chart is grey. Density is comfortable rather than airy: generous section spacing, measured line lengths, and no decorative surfaces competing with the numbers.
 
-Light is the default because the reader is a recruiter on a work laptop in daylight; a complete dark token set follows the OS through `prefers-color-scheme`. Motion is a single authored moment (chart bars draw in once on first paint) plus press feedback on controls. The site refuses the dark-terminal developer portfolio: no mono HUD, no node maps, no skill pillars, no cards.
+Light is the default because the reader is a recruiter on a work laptop in daylight; a complete dark token set follows the OS through `prefers-color-scheme`. Motion is authored with GSAP and Lenis (see Motion below): headlines rise in by line, charts draw in, key figures count up, sections settle in as they scroll into view, and one inverted ink band carries a scroll-reactive tool marquee. Every motion is short, plays once, never hides content a visitor is already looking at, and disappears under reduced motion. The site refuses the dark-terminal developer portfolio: no mono HUD, no node maps, no skill pillars, no cards.
 
 **Key Characteristics:**
 - Headline is a finding; standfirst in serif beneath it.
@@ -230,7 +230,7 @@ The house chart, built from HTML rather than a scaled SVG so labels keep their s
 - Bold 1rem title and ink-3 subtitle above; row label left (highlighted row in ink, others ink-2/ink-3); flat bar; value right in tabular figures.
 - One vermilion bar, the rest Chart Grey; a dashed rule-strong reference line labeled in ink-3 ("Half of all boards").
 - Closes with a hairline and a 0.8125rem ink-3 "Source:" line that names the dataset and, where relevant, says the result is an association.
-- On first paint the bars draw in from 4% width, 620ms expo ease-out, staggered 70ms per row after 120ms; values and labels never animate. Below-the-fold copies render still, and tab switches never replay the draw.
+- Bars draw in from 4% width (800ms expo ease-out, 70ms stagger) the first time they scroll into view (`components/motion/BarDraw.tsx`); values and labels never animate. Tab switches never replay the draw.
 
 ### Figure (exported image)
 - The real screenshot inside a 1px rule frame on white, caption in ink-3 at 0.8125rem with a "Full size" link at the right.
@@ -241,6 +241,19 @@ The house chart, built from HTML rather than a scaled SVG so labels keep their s
 ### Contact Band
 - Full-bleed Wash band under a hairline: an 800-weight question as the headline (max 20ch), one serif line, the email address large with its copy button, then plain links.
 
+## Motion
+
+Built on GSAP (ScrollTrigger, SplitText), Lenis and components adapted from React Bits (`components/reactbits/`, license in that folder). One shared GSAP setup lives in `lib/gsap.ts`.
+
+- **Smooth scroll:** Lenis on the page's own scroll (no wrapper), lerp 0.11, driven by GSAP's ticker so ScrollTrigger reads the same frame. Off under reduced motion; touch keeps native momentum.
+- **Headlines:** `SplitText` masks each line and lifts it 105% (900ms expo out, 80ms stagger). Page h1s play on load; others when scrolled to. GSAP labels the split for screen readers.
+- **Reveals:** `AnimatedContent` lifts 24px and fades in (900ms expo out), optionally staggering children; fires at 97% of the viewport so nothing visible waits for a scroll.
+- **Figures:** `CountUp` counts real values up once on scroll; the server HTML and screen readers always get the final number.
+- **Marquee:** `ScrollVelocity` drifts the tool list in the ink band and speeds up with Lenis scroll velocity; the items are also a plain list for screen readers.
+- **Magnet:** the primary CTA (and "Source code") drifts toward a fine pointer, at most a fifth of the distance; inert on touch.
+- **Header:** tucks away while reading down past 160px, returns on scroll up or focus; a 2px vermilion rule along its bottom tracks reading progress.
+- **No-JS and reduced motion:** an inline script adds `html.motion` before paint only when motion is allowed; start states (hidden headlines, collapsed hero bars) are scoped to that class, so without it everything renders final and still.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -249,7 +262,7 @@ The house chart, built from HTML rather than a scaled SVG so labels keep their s
 - **Do** end every chart with a caption-size "Source:" line that names the real dataset.
 - **Do** separate sections with a 2px ink rule and rows with 1px hairlines.
 - **Do** set every number in rows or charts with tabular lining figures.
-- **Do** keep motion to the one bar draw-in and sub-200ms press and hover feedback, and drop both under reduced motion.
+- **Do** keep motion within the Motion section's vocabulary, play it once, and drop all of it under reduced motion.
 - **Do** define every new colour in both the light and dark token sets.
 
 ### Don't:
@@ -258,4 +271,4 @@ The house chart, built from HTML rather than a scaled SVG so labels keep their s
 - **Don't** introduce a second accent hue; extend a scale with vermilion opacity or greys.
 - **Don't** set prose in the grotesk or headlines in the serif.
 - **Don't** use mono outside code, SQL and schema names.
-- **Don't** animate values, labels or page entrances.
+- **Don't** animate chart values or labels, loop anything except the marquee, or hold content hidden that is already in view.
