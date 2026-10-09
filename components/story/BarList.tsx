@@ -18,15 +18,12 @@ export default function BarList({
   caption,
   valueHeader,
   reference,
-  still = false,
 }: {
   rows: BarRow[];
   max: number;
   caption: string;
   valueHeader: string;
   reference?: { value: number; label: string };
-  /** Skip the draw-in, for figures that sit below the first viewport. */
-  still?: boolean;
 }) {
   return (
     <table className="w-full border-collapse text-[0.9375rem]">
@@ -56,7 +53,7 @@ export default function BarList({
                   )}
                   <span
                     aria-hidden
-                    className={`${still ? '' : 'bar-fill '}absolute inset-y-0 left-0 ${r.highlight ? 'bg-accent' : 'bg-chart'}`}
+                    className={`bar-fill absolute inset-y-0 left-0 ${r.highlight ? 'bg-accent' : 'bg-chart'}`}
                     style={{ width: `${(r.value / max) * 100}%` }}
                   />
                 </div>

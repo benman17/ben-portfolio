@@ -11,6 +11,9 @@ import AnalyticsSandbox from '@/components/AnalyticsSandbox';
 import NflClusterWidget from '@/components/NflClusterWidget';
 import NorthstarDashboardWidget from '@/components/NorthstarDashboardWidget';
 import TftSnowflakeWidget from '@/components/TftSnowflakeWidget';
+import SplitText from '@/components/reactbits/SplitText';
+import AnimatedContent from '@/components/reactbits/AnimatedContent';
+import Magnet from '@/components/reactbits/Magnet';
 
 export async function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.slug }));
@@ -61,9 +64,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
       {/* Headline block */}
       <header className="mt-6 max-w-4xl">
-        <h1 className="text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.025em] text-ink sm:text-5xl">
-          {story?.headline ?? project.title}
-        </h1>
+        <SplitText
+          tag="h1"
+          immediate
+          text={story?.headline ?? project.title}
+          className="text-[2.25rem] font-extrabold leading-[1.03] tracking-[-0.03em] text-ink sm:text-[3.5rem]"
+        />
         <p className="prose-body mt-5 max-w-[62ch] text-xl">{keepTogether(project.summary)}</p>
 
         <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-rule pt-4 text-sm sm:grid-cols-4">
@@ -90,15 +96,17 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         {(project.githubUrl || project.liveUrl) && (
           <p className="mt-6 flex flex-wrap gap-3">
             {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 bg-ink px-4 text-sm font-bold text-paper transition-transform duration-150 ease-out-expo active:scale-[0.98]"
-              >
-                <GithubIcon className="h-4 w-4" />
-                Source code
-              </a>
+              <Magnet>
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center gap-2 bg-ink px-4 text-sm font-bold text-paper transition-transform duration-150 ease-out-expo active:scale-[0.98]"
+                >
+                  <GithubIcon className="h-4 w-4" />
+                  Source code
+                </a>
+              </Magnet>
             )}
             {project.liveUrl && (
               <a
@@ -119,13 +127,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       {project.results.length > 0 && (
       <section aria-labelledby="findings" className="mt-14">
         <SectionHeading id="findings">{project.category === 'project-management' ? 'What I did' : 'What I found'}</SectionHeading>
-        <ul className="mt-6 grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-3">
+        <AnimatedContent as="ul" stagger={0.1} className="mt-6 grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-3">
           {project.results.map((res) => (
             <li key={res} className="prose-body border-l border-rule pl-4 text-[1.0625rem] text-ink">
               {keepTogether(res)}
             </li>
           ))}
-        </ul>
+        </AnimatedContent>
       </section>
       )}
 

@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { PROFILE_INFO } from '@/data/skills';
+import { gsap, ScrollTrigger, useGSAP, motionAllowed } from '@/lib/gsap';
+import ScrollProgress from '@/components/motion/ScrollProgress';
 
 const LINKS = [
   { name: 'Work', href: '/projects' },
@@ -14,9 +16,33 @@ const LINKS = [
 export default function Navbar() {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const ref = useRef<HTMLElement>(null);
+
+  // Tuck the header away while reading down; bring it back on any scroll up
+  // or when focus lands inside it.
+  useGSAP(
+    () => {
+      const el = ref.current;
+      if (!el || !motionAllowed()) return;
+      const show = () => gsap.to(el, { yPercent: 0, duration: 0.35, ease: 'expo.out', overwrite: true });
+      const hide = () => gsap.to(el, { yPercent: -100, duration: 0.35, ease: 'expo.out', overwrite: true });
+      ScrollTrigger.create({
+        start: 0,
+        end: 'max',
+        onUpdate: (self) => {
+          if (el.contains(document.activeElement)) return show();
+          if (self.direction === 1 && self.scroll() > 160) hide();
+          else if (self.direction === -1) show();
+        },
+      });
+      el.addEventListener('focusin', show);
+      return () => el.removeEventListener('focusin', show);
+    },
+    { scope: ref },
+  );
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-paper/95 supports-[backdrop-filter]:bg-paper/85 supports-[backdrop-filter]:backdrop-blur">
+    <header ref={ref} className="sticky top-0 z-40 border-b border-rule bg-paper/95 supports-[backdrop-filter]:bg-paper/85 supports-[backdrop-filter]:backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:h-16 sm:px-8">
         <Link href="/" className="whitespace-nowrap text-base font-extrabold tracking-[-0.01em] text-ink sm:text-[1.0625rem]">
           Ben Manguiat
@@ -45,6 +71,7 @@ export default function Navbar() {
           </a>
         </nav>
       </div>
+      <ScrollProgress />
     </header>
   );
 }

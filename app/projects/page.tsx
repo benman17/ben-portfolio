@@ -5,6 +5,8 @@ import { PROJECTS } from '@/data/projects';
 import { STORIES } from '@/lib/stories';
 import { keepTogether } from '@/lib/typography';
 import StoryFigure, { hasStoryFigure } from '@/components/story/StoryFigure';
+import SplitText from '@/components/reactbits/SplitText';
+import AnimatedContent from '@/components/reactbits/AnimatedContent';
 
 export const metadata: Metadata = {
   title: 'Work | Ben Manguiat',
@@ -16,7 +18,7 @@ const work = PROJECTS.filter((p) => !p.colophon);
 export default function ProjectsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 pb-24 pt-10 sm:px-8 sm:pt-14">
-      <h1 className="text-4xl font-extrabold tracking-[-0.025em] text-ink sm:text-5xl">Work</h1>
+      <SplitText tag="h1" immediate text="Work" className="text-5xl font-extrabold tracking-[-0.035em] text-ink sm:text-7xl" />
       <p className="prose-body mt-4 max-w-[52ch] text-xl">
         Four projects, each led by what it found. Every case study links to the source.
       </p>
@@ -25,7 +27,7 @@ export default function ProjectsPage() {
         {work.map((project) => {
           const story = STORIES[project.slug] ?? { headline: project.title, dek: project.summary };
           return (
-            <li key={project.slug} className="group relative border-b border-rule py-8 sm:py-10">
+            <AnimatedContent as="li" key={project.slug} className="group relative border-b border-rule py-8 sm:py-10">
               <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-10">
                 <div className={hasStoryFigure(project.slug) ? 'md:col-span-7' : 'md:col-span-9'}>
                   <h2 className="text-2xl font-bold leading-[1.15] tracking-[-0.015em] text-ink sm:text-[1.75rem]">
@@ -47,7 +49,7 @@ export default function ProjectsPage() {
                   </div>
                 )}
               </div>
-            </li>
+            </AnimatedContent>
           );
         })}
       </ol>
