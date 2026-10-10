@@ -246,7 +246,7 @@ The house chart, built from HTML rather than a scaled SVG so labels keep their s
 Built on GSAP (ScrollTrigger, SplitText), Lenis and components adapted from React Bits (`components/reactbits/`, license in that folder). One shared GSAP setup lives in `lib/gsap.ts`.
 
 - **Smooth scroll:** Lenis on the page's own scroll (no wrapper), lerp 0.11, driven by GSAP's ticker so ScrollTrigger reads the same frame. Off under reduced motion; touch keeps native momentum.
-- **Headlines:** `SplitText` masks each line and lifts it 105% (900ms expo out, 80ms stagger). Page h1s play on load; others when scrolled to. GSAP labels the split for screen readers.
+- **Headlines:** `SplitText` masks each word and lifts it 110% (900ms expo out, 35ms stagger); splitting by words keeps the browser's own wrapping, which line-splitting broke on iOS Safari. Page h1s play on load; others when scrolled to. GSAP labels the split for screen readers.
 - **Reveals:** `AnimatedContent` lifts 24px and fades in (900ms expo out), optionally staggering children; fires at 97% of the viewport so nothing visible waits for a scroll.
 - **Figures:** `CountUp` counts real values up once on scroll; the server HTML and screen readers always get the final number.
 - **Marquee:** `ScrollVelocity` drifts the tool list in the ink band and speeds up with Lenis scroll velocity; the items are also a plain list for screen readers.

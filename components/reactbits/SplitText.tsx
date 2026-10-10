@@ -3,7 +3,7 @@
 /*
  * Adapted from React Bits <SplitText> (github.com/DavidHDev/react-bits,
  * MIT + Commons Clause). Changes for this site: left-aligned block text,
- * a line-mask reveal instead of per-character fades so a headline is
+ * a word-mask reveal instead of per-character fades so a headline is
  * readable within ~0.7s, GSAP SplitText's built-in aria labelling, an
  * immediate (not scroll-gated) mode for above-the-fold headlines, and no
  * motion at all under prefers-reduced-motion.
@@ -18,7 +18,7 @@ export interface SplitTextProps {
   tag?: Tag;
   id?: string;
   className?: string;
-  /** Seconds between lines. */
+  /** Seconds between words. */
   stagger?: number;
   duration?: number;
   /** Seconds before the first line moves. */
@@ -32,7 +32,7 @@ export default function SplitText({
   tag: Tag = 'p',
   id,
   className = '',
-  stagger = 0.08,
+  stagger = 0.035,
   duration = 0.9,
   delay = 0,
   immediate = false,
@@ -49,30 +49,33 @@ export default function SplitText({
       }
 
       let split: GSAPSplitText | undefined;
+      let tween: gsap.core.Tween | undefined;
       let cancelled = false;
       document.fonts.ready.then(() => {
         if (cancelled) return;
+        // Words, not lines: each word is its own inline mask, so the browser
+        // still does the wrapping. Splitting by lines bakes in breaks measured
+        // mid-layout, which iOS Safari got wrong (one word per line).
         split = GSAPSplitText.create(el, {
-          type: 'lines',
-          mask: 'lines',
-          linesClass: 'split-line',
-          autoSplit: true,
-          onSplit: (self) => {
-            gsap.set(el, { visibility: 'visible' });
-            return gsap.from(self.lines, {
-              yPercent: 105,
-              duration,
-              delay,
-              stagger,
-              ease: 'expo.out',
-              scrollTrigger: immediate ? undefined : { trigger: el, start: 'top 88%', once: true },
-            });
-          },
+          type: 'words',
+          mask: 'words',
+          wordsClass: 'split-word',
+        });
+        gsap.set(el, { visibility: 'visible' });
+        tween = gsap.from(split.words, {
+          yPercent: 110,
+          duration,
+          delay,
+          stagger,
+          ease: 'expo.out',
+          scrollTrigger: immediate ? undefined : { trigger: el, start: 'top 88%', once: true },
         });
       });
 
       return () => {
         cancelled = true;
+        tween?.scrollTrigger?.kill();
+        tween?.kill();
         split?.revert();
       };
     },
