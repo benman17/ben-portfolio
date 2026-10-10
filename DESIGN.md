@@ -220,7 +220,7 @@ Few, heavy and square; most actions are links.
 - Underlined labels in a row on a hairline baseline, 24px apart, 44px tall, scrolling horizontally on narrow screens. Selected: ink text with a 2px vermilion underline. Unselected: ink-3, ink on hover. Full arrow/Home/End keyboard support.
 
 ### Navigation
-- Sticky header: name in 800 weight on the left; Work, About, Code and a vermilion "Email me" on the right, 600 weight, 44px targets. Active page: ink text with a 2px vermilion underline at 0.45em offset; inactive: ink-3. "Code" hides below 640px.
+- Sticky header: name in 800 weight on the left; Work, About, Code and a vermilion "Email me" on the right, 600 weight, 44px targets. Active page: ink text with a 2px vermilion underline at 0.45em offset; inactive: ink-3. All four links show at every width; below 400px the gaps and type tighten, and below 360px "Email me" shortens to "Email".
 
 ### Links
 - In running text: ink with a 1px rule-strong underline that turns vermilion on hover (160ms). The contact link is vermilion itself. Whole-row story links use a stretched hit area and underline the headline in vermilion on hover.
