@@ -169,9 +169,13 @@ pre,
   transform-origin: left center;
 }
 
-.split-line {
-  padding-bottom: 0.06em;
-  margin-bottom: -0.06em;
+/* Split headlines wrap like plain text; masks leave room for descenders. */
+[data-split] {
+  text-wrap: pretty;
+}
+.split-word {
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
